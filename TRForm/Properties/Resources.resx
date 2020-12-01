@@ -474,6 +474,9 @@
     <value>内装</value>
     <comment>TabPage5</comment>
   </data>
+  <data name="DevIL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevIL.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="Header_Name" xml:space="preserve">
     <value>装备名称</value>
     <comment>ListView1</comment>
@@ -481,6 +484,9 @@
   <data name="Header_Num" xml:space="preserve">
     <value>编号</value>
     <comment>ListView1</comment>
+  </data>
+  <data name="ILU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ILU.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="IniOperation_IniGetAllItemKeys_必须指定节点名称" xml:space="preserve">
     <value>必须指定节点名称</value>
@@ -496,6 +502,9 @@
   </data>
   <data name="IniOperation_IniWriteValue_必须指定键名称" xml:space="preserve">
     <value>必须指定键名称</value>
+  </data>
+  <data name="itemattr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemattr.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="noImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bg_section03.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

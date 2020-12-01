@@ -984,6 +984,16 @@ namespace TalesRunnerForm.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] DevIL {
+            get {
+                object obj = ResourceManager.GetObject("DevIL", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 装备名称 的本地化字符串。
         /// </summary>
         internal static string Header_Name {
@@ -998,6 +1008,16 @@ namespace TalesRunnerForm.Properties {
         internal static string Header_Num {
             get {
                 return ResourceManager.GetString("Header_Num", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] ILU {
+            get {
+                object obj = ResourceManager.GetObject("ILU", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -1043,6 +1063,43 @@ namespace TalesRunnerForm.Properties {
         internal static string IniOperation_IniWriteValue_必须指定键名称 {
             get {
                 return ResourceManager.GetString("IniOperation_IniWriteValue_必须指定键名称", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 1|100|TR +
+        ///2|100|EXP +
+        ///3|100|愤怒累计速度 +
+        ///4|100|防电 +
+        ///5|100|防踩 +
+        ///7|100|愤怒持续时间 +
+        ///8|100|防御攻击类道具概率 +
+        ///9|100|幸运 +
+        ///11|100|愤怒时把周围玩家变身的概率 +
+        ///12|100|个人战房间中其他人都失败时TR +
+        ///13|100|团队、接力比赛中房间其他队伍都失败时TR、EXP +
+        ///14|100|个人赛中进前三名时TR、EXP +
+        ///15|100|团队、接力赛中获胜时TR +
+        ///16|1|游戏开始后|秒内无敌
+        ///17|1|最高速度 +
+        ///18|1|加速度 +
+        ///19|1|力量 +
+        ///20|1|控制 +
+        ///21|100|被踩时发动冲刺的概率 +
+        ///22|100|铁桶持续时间 -
+        ///23|100|铁桶闪避几率 +
+        ///24|100|团队、接力比赛中胜利时的EXP +
+        ///25|1|愤怒时周围炸弹范围 +
+        ///26|100|被踩时弹开踩人者的概率 +
+        ///27|100|被踩时获得TR的概率 +
+        ///28|1|被踩时 +|TR
+        ///29|1|被踩时获得TR的次数 +|次
+        ///30|1|个人赛随机TR奖励0%~|%
+        ///31| [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string itemattr {
+            get {
+                return ResourceManager.GetString("itemattr", resourceCulture);
             }
         }
         

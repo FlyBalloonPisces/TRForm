@@ -323,5 +323,19 @@
   <ItemGroup>
     <None Include="Resources\title.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\itemattr.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DevIL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ILU.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if not exist "$(TargetDir)DevIL.dll" copy "$(SolutionDir)Resources\DevIL.dll" "$(TargetDir)"
+if not exist "$(TargetDir)ILU.dll" copy "$(SolutionDir)Resources\ILU.dll" "$(TargetDir)"
+copy "$(SolutionDir)Resources\itemattr.txt" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
