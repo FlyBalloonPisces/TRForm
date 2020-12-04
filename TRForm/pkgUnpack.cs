@@ -61,15 +61,15 @@ namespace TalesRunnerForm
             List<byte> decryptData = new List<byte>();
             byte[] aesKey =
             {
-                0xFD, 0xD7, 0x15, 0xCB, 0xBE, 0xBF, 0xA5, 0xFF, 0xEF, 0x9E,
-                0xED, 0x97, 0xCE, 0x96, 0xD3, 0x0F, 0x4C, 0xDC, 0xA0, 0x1D,
-                0xAF, 0x5F, 0xCF, 0xA2, 0xD8, 0xB1, 0x58, 0x08, 0xB9, 0xB6,
-                0xC1, 0x0A
+                0xdb, 0x27, 0xb, 0xbb, 0x82, 0x88, 0xdf, 0xf3, 0x44, 0xee,
+               0xef, 0x93, 0x67, 0xd1, 0xb5, 0xc2, 0xb6, 0xda, 0x17, 0x59,
+               0x7, 0x75, 0x6, 0x8f, 0x32, 0x4a, 0x9f, 0x29, 0x49, 0x52,
+               0x32, 0xc2
             };
             byte[] xorKey =
             {
-                0x20, 0x44, 0xB2, 0xA3, 0x63, 0xC7, 0x47, 0x88, 0x4D, 0x1E,
-                0x2F, 0x12, 0x90, 0x39, 0x3C, 0x8E
+                0x1c, 0x67, 0x5b, 0xd4, 0x5b, 0x4a, 0x46, 0x74, 0x31, 0x7,
+               0x4b, 0x82, 0xab, 0x3f, 0x55, 0xfd
             };
             // MemoryStream mStream = new MemoryStream(data);
             using (RijndaelManaged aes = new RijndaelManaged())
@@ -332,71 +332,86 @@ namespace TalesRunnerForm
             return returnList;
         }
 
-        public static SortedList<string, long> PicOffset(FileInfo fileInfo)
+        public static SortedList<string, string> PicOffset(FileInfo fileInfo)
         {
-            SortedList<string, long> listPic = new SortedList<string, long>();
-            string pkgPath = fileInfo.FullName; // 获得pkg_path
-            string pkgName = fileInfo.Name.Split('.')[0]; // 获取文件名：tr9
-            // Console.WriteLine("pkg_name = " + pkg_name);
-            FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
-            using (BinaryReader pkg = new BinaryReader(fs))
+            SortedList<string, string> listPic = new SortedList<string, string>();
+            string pkgDir = fileInfo.FullName; // 获得pkg_path
+            // string pkgName = fileInfo.Name.Split('.')[0]; // 获取文件名：tr9
+            string[] tr_pkg =
             {
-                byte[] fileHeader = pkg.ReadBytes(12); // 阅读文件前12字
-                fileHeader = Decrypt(fileHeader); // 解码
-                if (Encoding.UTF8.GetString(fileHeader) != "ACAC35E5-4B7")
+                "9",
+                "13",
+                "14",
+                "15"
+            };
+            // Console.WriteLine("pkg_name = " + pkg_name);
+            for (int pkgNum = 0; pkgNum < tr_pkg.Length; pkgNum++)
+            {
+                string pkgPath = pkgDir + "\\tr" + tr_pkg[pkgNum] + ".pkg";
+                FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
+                using (BinaryReader pkg = new BinaryReader(fs))
                 {
-                    // int message = (int) MessageBox.Show("读取装备图片失败!", "错误");
-                    // Environment.Exit(0);
-                    // Console.WriteLine("Not a valid .pkg file or decryption key has changed");
-                    return null;
-                }
-
-                fs.Seek(20, SeekOrigin.Begin); // 从头开始，偏移0x14，读取
-                int offset = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取偏移量
-                fs.Seek(offset, 0); // 从头开始，偏移offset，读取
-                fs.Seek(4, SeekOrigin.Current); // 从当前位置开始，偏移0x4，读取
-                int fileNum = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取文件数量
-                fs.Seek(4, SeekOrigin.Current); // 从当前位置开始，偏移0x4，读取
-                int num = 0; // 解压的文件数量
-                             // 解包，一个文件分成多个单元进行分解
-                while (num < fileNum)
-                {
-                    long entryOffset = pkg.BaseStream.Position;
-                    int entrySize = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取文件，反序读取4个字节
-                    byte[] entryData = pkg.ReadBytes(entrySize); // 读取文件
-                    long nextEntry = pkg.BaseStream.Position; // 返回文件当前位置
-                    byte[] decompressedEntryData = DeCompressBytes(entryData); // 解压缩文件数据
-                    int length = 0;
-                    for (int i = 0; i < decompressedEntryData.Length; i++)
+                    byte[] fileHeader = pkg.ReadBytes(12); // 阅读文件前12字
+                    fileHeader = Decrypt(fileHeader); // 解码
+                    if (Encoding.UTF8.GetString(fileHeader) != "ACAC35E5-4B7")
                     {
-                        if (decompressedEntryData[i] == 0)
+                        // int message = (int) MessageBox.Show("读取装备图片失败!", "错误");
+                        // Environment.Exit(0);
+                        // Console.WriteLine("Not a valid .pkg file or decryption key has changed");
+                        return null;
+                    }
+
+                    fs.Seek(20, SeekOrigin.Begin); // 从头开始，偏移0x14，读取
+                    int offset = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取偏移量
+                    fs.Seek(offset, 0); // 从头开始，偏移offset，读取
+                    fs.Seek(4, SeekOrigin.Current); // 从当前位置开始，偏移0x4，读取
+                    int fileNum = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取文件数量
+                    fs.Seek(4, SeekOrigin.Current); // 从当前位置开始，偏移0x4，读取
+                    int num = 0; // 解压的文件数量
+                                 // 解包，一个文件分成多个单元进行分解
+                    while (num < fileNum)
+                    {
+                        long entryOffset = pkg.BaseStream.Position;
+                        int entrySize = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取文件，反序读取4个字节
+                        byte[] entryData = pkg.ReadBytes(entrySize); // 读取文件
+                        long nextEntry = pkg.BaseStream.Position; // 返回文件当前位置
+                        byte[] decompressedEntryData = DeCompressBytes(entryData); // 解压缩文件数据
+                        int length = 0;
+                        for (int i = 0; i < decompressedEntryData.Length; i++)
                         {
-                            length = i;
-                            break;
+                            if (decompressedEntryData[i] == 0)
+                            {
+                                length = i;
+                                break;
+                            }
                         }
-                    }
 
-                    byte[] decompressedEntryTitle = new byte[length];
-                    for (int i = 0; i < decompressedEntryTitle.Length; i++)
-                    {
-                        decompressedEntryTitle[i] = decompressedEntryData[i];
+                        byte[] decompressedEntryTitle = new byte[length];
+                        for (int i = 0; i < decompressedEntryTitle.Length; i++)
+                        {
+                            decompressedEntryTitle[i] = decompressedEntryData[i];
+                        }
+                        // Console.WriteLine("file_dir = " + Encoding.UTF8.GetString(decompressed_entry_title));
+                        //string filePath =
+                        //    pkgName + "\\" +
+                        //    Encoding.UTF8.GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
+                        string[] filePaths = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\'); // 把目录和文件名合成一个路径
+                        string filePath = filePaths[filePaths.Length - 1];
+                        string entryFileAndOffset = tr_pkg[pkgNum] + "," + entryOffset.ToString();
+                        listPic.Add(filePath, entryFileAndOffset);
+                        fs.Seek(nextEntry, 0);
+                        num++;
                     }
-                    // Console.WriteLine("file_dir = " + Encoding.UTF8.GetString(decompressed_entry_title));
-                    string filePath =
-                        pkgName + "\\" +
-                        Encoding.UTF8.GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
-                    listPic.Add(filePath, entryOffset);
-                    fs.Seek(nextEntry, 0);
-                    num++;
                 }
             }
+
             //pkg.Close();
             return listPic;
         }
 
-        public static byte[] PicFind(string str, long picOffset)
+        public static byte[] PicFind(string str, long picOffset, short pkgNum)
         {
-            string pkgPath = str + "\\tr9.pkg"; // 获得pkg_path
+            string pkgPath = str + "\\tr" + pkgNum + ".pkg"; // 获得pkg_path
             FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
             using (BinaryReader pkg = new BinaryReader(fs))
             {
@@ -714,7 +729,7 @@ namespace TalesRunnerForm
             //    export_file.WriteLine();
             //}
             //export_file.Close();
-
+            // TODO 血腥维拉
             const int constMale = 6533801;  //000011000111011001010101001
             const int constFemale = 76303702; //100100011000100110101010110
             const int constAll = 82837503;  //100111011111111111111111111

@@ -81,7 +81,7 @@ namespace TalesRunnerForm
         private delegate string[] GetStringsByInt(int i);
         private GetStringsByInt _getStringsByInt;
 
-        private delegate Image ShowDds(long offset);
+        private delegate Image ShowDds(long offset, short pkgNum);
         private ShowDds _showDds;
 
         private delegate List<ListViewItem> GetListViewItems();
@@ -824,47 +824,50 @@ namespace TalesRunnerForm
         /// </summary>
         private void StatusShow()
         {
+            int para = 3; // 保存的数据数量
+            int minus = para - 2; // 方便下方计算的变量
             _getStrings = TrData.StatusShow;
             string[] strings = _getStrings();
             textBox10.Text = strings[0];
             textBox11.Text = strings[1];
-            for (int i = 2; i < strings.Length; i += 2)
+            for (int i = 2; i < strings.Length; i += para)
             {
-                long pic = Convert.ToInt64(strings[i]);
-                if (pic >= 0)
+                long picOffset = Convert.ToInt64(strings[i]);
+                short picPkg = Convert.ToInt16(strings[i + 2]);
+                if (picOffset >= 0)
                 {
-                    if (i < 2 + TrData.Positions * 2)
+                    if (i < 2 + TrData.Positions * para)
                     {
-                        GetpictureBoxdddd(i / 2).Image = _showDds(pic);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(i / 2), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para).Image = _showDds(picOffset, picPkg);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para), strings[i + 1]);
                     }
-                    else if (i < 2 + TrData.Positions * 4)
+                    else if (i < 2 + TrData.Positions * para * 2)
                     {
-                        GetpictureBoxdddd(-i / 2 + TrData.Positions).Image = _showDds(pic);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(-i / 2 + TrData.Positions), strings[i + 1]);
+                        GetpictureBoxdddd((-i - minus) / para + TrData.Positions).Image = _showDds(picOffset, picPkg);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + TrData.Positions), strings[i + 1]);
                     }
                     else
                     {
-                        GetpictureBoxdddd(i / 2 - TrData.Positions * 2 + 20).Image = _showDds(pic);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(i / 2 - TrData.Positions * 2 + 20), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para - TrData.Positions * 2 + 20).Image = _showDds(picOffset, picPkg);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - TrData.Positions * 2 + 20), strings[i + 1]);
                     }
                 }
                 else
                 {
-                    if (i < 2 + TrData.Positions * 2)
+                    if (i < 2 + TrData.Positions * para)
                     {
-                        GetpictureBoxdddd(i / 2).Image = GetpictureBoxddddDefaultPic(i / 2);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(i / 2), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para).Image = GetpictureBoxddddDefaultPic((i + minus) / para);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para), strings[i + 1]);
                     }
-                    else if (i < 2 + TrData.Positions * 4)
+                    else if (i < 2 + TrData.Positions * para * 2)
                     {
-                        GetpictureBoxdddd(-i / 2 + TrData.Positions).Image = GetpictureBoxddddDefaultPic(-i / 2 + TrData.Positions);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(-i / 2 + TrData.Positions), strings[i + 1]);
+                        GetpictureBoxdddd((-i - minus) / para + TrData.Positions).Image = GetpictureBoxddddDefaultPic((-i - minus) / para + TrData.Positions);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + TrData.Positions), strings[i + 1]);
                     }
                     else
                     {
-                        GetpictureBoxdddd(i / 2 - TrData.Positions * 2 + 20).Image = GetpictureBoxddddDefaultPic(i / 2 - TrData.Positions * 2 + 20);
-                        toolTip1.SetToolTip(GetpictureBoxdddd(i / 2 - TrData.Positions * 2 + 20), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para - TrData.Positions * para + 20).Image = GetpictureBoxddddDefaultPic((i + minus) / para - TrData.Positions * para + 20);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - TrData.Positions * para + 20), strings[i + 1]);
                     }
                 }
             }
@@ -976,6 +979,7 @@ namespace TalesRunnerForm
         /// </summary>
         private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // TODO 血腥维拉
             _setIntVoid = TrData.CharChange;
             _setIntVoid(comboBox8.SelectedIndex);
             ItemChanged(3, 0);
@@ -1133,25 +1137,27 @@ namespace TalesRunnerForm
         /// <param name="mode">模式</param>
         private void ShowBoxList(int mode)
         {
+            int para = 3; // 获取的参数数量
             _getStringsByInt = TrData.ShowBoxList;
             string[] strings = _getStringsByInt(mode);
             if (mode == 1)
             {
                 for (int i = 0; i < PerPage; i++)
                 {
-                    long offset = Convert.ToInt64(strings[i * 2 + 1]);
-                    GetpictureBoxBoxd(i).Image = _showDds(offset);
-                    toolTip1.SetToolTip(GetpictureBoxBoxd(i), strings[i * 2]);
+                    long offset = Convert.ToInt64(strings[i * para + 1]);
+                    short pkgNum = Convert.ToInt16(strings[i * para + 2]);
+                    GetpictureBoxBoxd(i).Image = _showDds(offset, pkgNum);
+                    toolTip1.SetToolTip(GetpictureBoxBoxd(i), strings[i * para]);
                 }
             }
             else
             {
                 for (int i = 0; i < PerPage; i++)
                 {
-                    toolTip1.SetToolTip(GetpictureBoxBoxd(i), strings[i * 2]);
+                    toolTip1.SetToolTip(GetpictureBoxBoxd(i), strings[i * para]);
                 }
             }
-            label21.Text = strings[2 * PerPage] + Resources.String_BetweenPages + strings[2 * PerPage + 1];
+            label21.Text = strings[para * PerPage] + Resources.String_BetweenPages + strings[para * PerPage + 1];
         }
 
         private void PictureBoxBoxd_RightClick(int boxNum)

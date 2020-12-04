@@ -25,10 +25,14 @@ namespace TalesRunnerForm
         private readonly List<float> _weightBasic = new List<float>(); // 普通奖品池 箱子可以开到的道具的权重
         private readonly List<float> _weightSilver = new List<float>(); // 银色奖品池 箱子可以开到的道具的权重
         private readonly List<float> _weightGold = new List<float>(); // 金色奖品池 箱子可以开到的道具的权重
+        private readonly List<short> _picPkgNumTotal = new List<short>(); // 全奖品池
+        private readonly List<short> _picPkgNumBasic = new List<short>(); // 普通奖品池 箱子可以开到的道具的图片所在文件
+        private readonly List<short> _picPkgNumSilver = new List<short>(); // 银色奖品池 箱子可以开到的道具的图片所在文件
+        private readonly List<short> _picPkgNumGold = new List<short>(); // 金色奖品池 箱子可以开到的道具的图片所在文件
         private readonly List<long> _picOffsetTotal = new List<long>(); // 全奖品池
-        private readonly List<long> _picOffsetBasic = new List<long>(); // 普通奖品池 箱子可以开到的道具的图片
-        private readonly List<long> _picOffsetSilver = new List<long>(); // 银色奖品池 箱子可以开到的道具的图片
-        private readonly List<long> _picOffsetGold = new List<long>(); // 金色奖品池 箱子可以开到的道具的图片
+        private readonly List<long> _picOffsetBasic = new List<long>(); // 普通奖品池 箱子可以开到的道具的图片文件偏移
+        private readonly List<long> _picOffsetSilver = new List<long>(); // 银色奖品池 箱子可以开到的道具的图片文件偏移
+        private readonly List<long> _picOffsetGold = new List<long>(); // 金色奖品池 箱子可以开到的道具的图片文件偏移
         private readonly float _weightTotalBasic; // 总权重
         private readonly float _weightTotalSilver; // 总权重
         private readonly float _weightTotalGold; // 总权重
@@ -58,13 +62,16 @@ namespace TalesRunnerForm
         private delegate List<int> GetIntList(int t);
         private delegate List<int>[] GetIntLists(int t);
 
+        private delegate List<short> GetShortList(int t);
+        private delegate List<short>[] GetShortLists(int t);
+
         private delegate List<long> GetLongList(int t);
         private delegate List<long>[] GetLongLists(int t);
 
         private delegate List<float> GetFloatList(int t);
         private delegate List<float>[] GetFloatLists(int t);
 
-        private delegate Image ShowDds(long offset);
+        private delegate Image ShowDds(long offset, short pkgNum);
         private ShowDds _showDds;
 
         private delegate float Calculation(float f1, float f2);
@@ -94,6 +101,8 @@ namespace TalesRunnerForm
                 _memberNameBasic = getStringList(tag);
                 GetFloatList getFloatList = TrData.GetBoxWeight;
                 _weightBasic = getFloatList(tag);
+                GetShortList getShortList = TrData.GetBoxPkgNum;
+                _picPkgNumBasic = getShortList(tag);
                 GetLongList getLongList = TrData.GetBoxOffset;
                 _picOffsetBasic = getLongList(tag);
                 GetFloat getFloat = TrData.GetBoxWeightTotal;
@@ -116,6 +125,12 @@ namespace TalesRunnerForm
                 _weightBasic = floatLists[0];
                 _weightSilver = floatLists[1];
                 _weightGold = floatLists[2];
+                GetShortLists getShortLists = TrData.GetBoxPkgNums;
+                List<short>[] shortLists = getShortLists(tag);
+                _picPkgNumBasic = shortLists[0];
+                _picPkgNumSilver = shortLists[1];
+                _picPkgNumGold = shortLists[2];
+
                 GetLongLists getLongLists = TrData.GetBoxOffsets;
                 List<long>[] longLists = getLongLists(tag);
                 _picOffsetBasic = longLists[0];
@@ -135,6 +150,7 @@ namespace TalesRunnerForm
                 {
                     _memberTotal.Add(memberBasic[index]);
                     _memberNameTotal.Add(_memberNameBasic[index]);
+                    _picPkgNumTotal.Add(_picPkgNumBasic[index]);
                     _picOffsetTotal.Add(_picOffsetBasic[index]);
                 }
             }
@@ -144,6 +160,7 @@ namespace TalesRunnerForm
                 {
                     _memberTotal.Add(_memberSilver[index]);
                     _memberNameTotal.Add(_memberNameSilver[index]);
+                    _picPkgNumTotal.Add(_picPkgNumSilver[index]);
                     _picOffsetTotal.Add(_picOffsetSilver[index]);
                 }
             }
@@ -153,6 +170,7 @@ namespace TalesRunnerForm
                 {
                     _memberTotal.Add(_memberGold[index]);
                     _memberNameTotal.Add(_memberNameGold[index]);
+                    _picPkgNumTotal.Add(_picPkgNumGold[index]);
                     _picOffsetTotal.Add(_picOffsetGold[index]);
                 }
             }
@@ -214,7 +232,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < PerPageShow; i++)
                 {
                     int index = i;
-                    GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index]) : Resources.noImage;
+                    GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]) : Resources.noImage;
                     toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
                 }
             }
@@ -223,7 +241,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < total; i++)
                 {
                     int index = i;
-                    GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index]) : Resources.noImage;
+                    GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]) : Resources.noImage;
                     toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
                 }
                 for (int i = total; i < PerPageShow; i++)
@@ -383,7 +401,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < PerPageShow; i++)
                 {
                     int index = _nowPageShow * PerPageShow + i;
-                    GetpictureBox(i).Image = _showDds(_picOffsetTotal[index]);
+                    GetpictureBox(i).Image = _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]);
                     toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
                 }
             }
@@ -392,7 +410,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < (total % PerPageShow); i++)
                 {
                     int index = _nowPageShow * PerPageShow + i;
-                    GetpictureBox(i).Image = _showDds(_picOffsetTotal[index]);
+                    GetpictureBox(i).Image = _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]);
                     toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
                 }
                 for (int i = total % PerPageShow; i < PerPageShow; i++)
@@ -470,7 +488,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < PerPageLuck; i++)
                 {
                     int index = _nowPageLuck * PerPageLuck + i;
-                    GetpictureBox(i + 31).Image = _showDds(_picOffsetBasic[indexes[index]]);
+                    GetpictureBox(i + 31).Image = _showDds(_picOffsetBasic[indexes[index]], _picPkgNumBasic[indexes[index]]);
                     GetLabel(i).Text = _memberNameBasic[indexes[index]];
                     GetLabel(i + 4).Text = Resources.String_X + times[index];
                     //toolTip1.SetToolTip(GetpictureBox(i), MemberName[index]);
@@ -481,7 +499,7 @@ namespace TalesRunnerForm
                 for (int i = 0; i < (total % PerPageLuck); i++)
                 {
                     int index = _nowPageLuck * PerPageLuck + i;
-                    GetpictureBox(i + 31).Image = _showDds(_picOffsetBasic[indexes[index]]);
+                    GetpictureBox(i + 31).Image = _showDds(_picOffsetBasic[indexes[index]], _picPkgNumBasic[indexes[index]]);
                     GetLabel(i).Text = _memberNameBasic[indexes[index]];
                     GetLabel(i + 4).Text = Resources.String_X + times[index];
                     //toolTip1.SetToolTip(GetpictureBox(i), MemberName[index]);
@@ -748,17 +766,17 @@ namespace TalesRunnerForm
         {
             if (_cubeKind == 0)
             {
-                GetpictureBox(tag).Image = _showDds(_picOffsetBasic[_listCubeResult[_clickTimes]]);
+                GetpictureBox(tag).Image = _showDds(_picOffsetBasic[_listCubeResult[_clickTimes]], _picPkgNumBasic[_listCubeResult[_clickTimes]]);
                 GetLabel(tag).Text = _memberNameBasic[_listCubeResult[_clickTimes]];
             }
             else if (_cubeKind == 1)
             {
-                GetpictureBox(tag).Image = _showDds(_picOffsetSilver[_listCubeResult[_clickTimes]]);
+                GetpictureBox(tag).Image = _showDds(_picOffsetSilver[_listCubeResult[_clickTimes]], _picPkgNumSilver[_listCubeResult[_clickTimes]]);
                 GetLabel(tag).Text = _memberNameSilver[_listCubeResult[_clickTimes]];
             }
             else
             {
-                GetpictureBox(tag).Image = _showDds(_picOffsetGold[_listCubeResult[_clickTimes]]);
+                GetpictureBox(tag).Image = _showDds(_picOffsetGold[_listCubeResult[_clickTimes]], _picPkgNumGold[_listCubeResult[_clickTimes]]);
                 GetLabel(tag).Text = _memberNameGold[_listCubeResult[_clickTimes]];
             }
             _clickTimes++;

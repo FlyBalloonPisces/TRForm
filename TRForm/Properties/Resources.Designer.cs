@@ -214,7 +214,7 @@ namespace TalesRunnerForm.Properties {
         ///   查找类似 Made by Yuki, FlyBalloon
         ///本工具仅用于查看TalesRunner的装备属性
         ///
-        ///工具版本：2.5.4
+        ///工具版本：2.5.5
         ///装备库版本： 的本地化字符串。
         /// </summary>
         internal static string About1 {
@@ -226,12 +226,10 @@ namespace TalesRunnerForm.Properties {
         /// <summary>
         ///   查找类似 
         ///本次更新：
-        ///更新程序使之可以直接读取，无需再放入游戏目录
-        ///搜索不到游戏目录的情况下可以手动指定文件夹
-        ///修改算法，使得修改翻译不会导致itemdata更新
-        ///修正配装的外装属性计算错误
+        ///针对游戏更新进行更新
         ///
         ///未来更新：
+        ///血腥维拉数据应对更新
         ///鱼饵数据更新
         ///优化数据存放结构
         ///联网的版本更新（也不知道还能有几个版本）
@@ -899,6 +897,15 @@ namespace TalesRunnerForm.Properties {
         internal static string Character27 {
             get {
                 return ResourceManager.GetString("Character27", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 血腥维拉 的本地化字符串。
+        /// </summary>
+        internal static string Character28 {
+            get {
+                return ResourceManager.GetString("Character28", resourceCulture);
             }
         }
         

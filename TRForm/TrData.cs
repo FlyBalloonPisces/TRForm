@@ -136,9 +136,12 @@ namespace TalesRunnerForm
         /// </summary>
         private class ItemStatus2
         {
+            // 非装备用
             public int ItemNum;
             public string Name = string.Empty;
             public string NameCh = "(noname)";
+
+            public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
             public long PicOffset = -1;
 
             /// <summary>
@@ -462,6 +465,7 @@ namespace TalesRunnerForm
             // public int Position;
             public int Position2; // 根据页签设置装备位置
             public int SetNum;
+            public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
             public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
             public byte Sex; // 装备性别 1男2女
             public short Occupation; // 装备占用位置 -1代表无占用
@@ -745,14 +749,14 @@ namespace TalesRunnerForm
         /// 返回指定图片的Bitmap
         /// </summary>
         /// <param name="offset">指定图片的文件偏移量</param>
-        internal static System.Drawing.Image ShowDds(long offset)
+        internal static System.Drawing.Image ShowDds(long offset, short pkgNum)
         {
             if (offset < 0)
             {
                 return null;
             }
 
-            byte[] input = PkgUnpack.PicFind(PathPkg, offset);
+            byte[] input = PkgUnpack.PicFind(PathPkg, offset, pkgNum);
             try
             {
                 using (MemoryStream ms = new MemoryStream(input))
@@ -806,7 +810,8 @@ namespace TalesRunnerForm
         private const int PerPage = 30; // 开箱页每页16个箱子
 
         // 数组控制用常量
-        internal const int Characters = 27; // 27个常规角色
+        // TODO 血腥维拉
+        internal const int Characters = 27; // 28个常规角色
         internal const int Positions = 14; // 14个常规部位
 
         private static readonly int[] CharNum =
@@ -838,7 +843,8 @@ namespace TalesRunnerForm
             80404, // 拉拉
             83403, // 埃利姆斯
             83404, // 凯恩
-            85507 // 缘迕
+            85507  // 缘迕
+       //  ,XXXXX  // 血腥维拉
         };
 
         private static readonly string[] Level =
@@ -907,6 +913,7 @@ namespace TalesRunnerForm
             "el_",
             "ca_",
             "gb_",
+            //"vrd_", // 预定使用
             // 合作角色
             "k1_",
             "k2_",
@@ -1008,6 +1015,7 @@ namespace TalesRunnerForm
             public int Position;
             public int Position2; // 根据页签设置装备位置
             public int SetNum;
+            public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
             public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
             public byte Sex; // 装备性别 1男2女
             public short Occupation; // 装备占用位置 -1代表无占用
@@ -1151,7 +1159,7 @@ namespace TalesRunnerForm
         }
 
         /// <summary>
-        /// 获取属性图片_itemattr.txt
+        /// 获取属性图片
         /// </summary>
         /// <returns>是否读取</returns>
         private static bool GetPicData()
@@ -1253,8 +1261,8 @@ namespace TalesRunnerForm
             };
 
             // 图片偏移
-            FileInfo fileInfo1 = new FileInfo(PathPkg + "\\tr9.pkg");
-            SortedList<string, long> listPic = PkgUnpack.PicOffset(fileInfo1);
+            FileInfo fileInfo1 = new FileInfo(PathPkg);
+            SortedList<string, string> listPic = PkgUnpack.PicOffset(fileInfo1);
             //FileStream fs5 = new FileStream(path + "itempic.txt", FileMode.Create, FileAccess.Write);
             //StreamWriter export_file5 = new StreamWriter(fs5);
             //foreach (KeyValuePair<string, long> pair in List_pic)
@@ -1321,11 +1329,13 @@ namespace TalesRunnerForm
                 if (Convert.ToInt32(str11[2]) == 1 || Convert.ToInt32(str11[2]) == 2)
                 {
                     long offset = -1;
+                    short pkgNum = -1;
                     string imageStr = GetItemImageName(Convert.ToByte(str11[3]), Convert.ToUInt16(str11[4]),
                         Convert.ToUInt16(str11[5]), Convert.ToByte(str11[26]));
                     if (listPic.ContainsKey(imageStr))
                     {
-                        offset = listPic[imageStr];
+                        pkgNum = Convert.ToInt16(listPic[imageStr].Split(',')[0]);
+                        offset = Convert.ToInt64(listPic[imageStr].Split(',')[1]);
                     }
 
                     listNames.Add(Convert.ToInt32(str11[0]),
@@ -1346,6 +1356,7 @@ namespace TalesRunnerForm
                         Char = Convert.ToByte(str11[3]),
                         Level = Convert.ToByte(str11[26]),
                         // SetNum = 0,
+                        PkgNum = pkgNum,
                         PicOffset = offset,
                         // Attr = new List<Attr>()
                         // Sex = sex
@@ -1406,6 +1417,7 @@ namespace TalesRunnerForm
                 string[] str21 = StringDivide(str2[index1]);
                 if (list.ContainsKey(Convert.ToInt32(str21[1])) && list.ContainsKey(Convert.ToInt32(str21[2])))
                 {
+                    list[Convert.ToInt32(str21[1])].PkgNum = list[Convert.ToInt32(str21[2])].PkgNum;
                     list[Convert.ToInt32(str21[1])].PicOffset = list[Convert.ToInt32(str21[2])].PicOffset;
                 }
             }
@@ -1804,11 +1816,11 @@ namespace TalesRunnerForm
                         exportFile2.Write(pair.Value.ItemNum + "," + pair.Value.Name + "," + pair.Value.NameCh + "," +
                                           pair.Value.Avatar + ","
                                           + pair.Value.Position + "," + pair.Value.Position2 + "," +
-                                          pair.Value.ItemKind + ","
-                                          + pair.Value.Point + "," + pair.Value.Id + "," + pair.Value.Char + "," +
-                                          pair.Value.Level + ","
-                                          + pair.Value.SetNum + "," + pair.Value.PicOffset + "," + pair.Value.Sex +
-                                          "," + pair.Value.Occupation + ","
+                                          pair.Value.ItemKind + "," +
+                                          pair.Value.Point + "," + pair.Value.Id + "," +
+                                          pair.Value.Char + "," + pair.Value.Level + "," + pair.Value.SetNum + "," +
+                                          pair.Value.PkgNum + "," + pair.Value.PicOffset + "," +
+                                          pair.Value.Sex + "," + pair.Value.Occupation + ","
                                           + pair.Value.Chars + "," + pair.Value.Slot + "|");
 
                         pair.Value.Attr.Sort((a, b) => a.Num.CompareTo(b.Num));
@@ -1828,7 +1840,7 @@ namespace TalesRunnerForm
                     {
                         // 资料不完全
                         exportFile2.Write(pair.Value.ItemNum + "," + pair.Value.Name + "," + pair.Value.NameCh + "," +
-                                          pair.Value.PicOffset + "|");
+                                          pair.Value.PkgNum + "," + pair.Value.PicOffset + "|");
                     }
 
                     exportFile2.WriteLine();
@@ -2063,7 +2075,7 @@ namespace TalesRunnerForm
             // {
             //     int num4 = (int) MessageBox.Show("" + Name + " " + ItemNum + " " + Char + " " + Position + " " + ItemKind, "4");
             // }
-            Imagepath.Append("tr9\\guiex\\itemimage\\");
+            // Imagepath.Append("tr9\\guiex\\itemimage\\");
             if (@char < 100)
             {
                 Imagepath.Append(Character[@char]);
@@ -2080,7 +2092,8 @@ namespace TalesRunnerForm
             else if (position == 1000)
             {
                 Imagepath.Length = 0;
-                Imagepath.Append("tr9\\guiex\\itemimage\\farm_object_");
+                //Imagepath.Append("tr9\\guiex\\itemimage\\farm_object_");
+                Imagepath.Append("farm_object_");
             }
             else if ((171 <= position && position <= 174) || position == 177)
             {
@@ -2281,9 +2294,6 @@ namespace TalesRunnerForm
         /// <summary>
         /// 读取itemdata
         /// </summary>
-        /// <summary>
-        /// 读取itemdata
-        /// </summary>
         private static void GetItemData()
         {
             // 翻译
@@ -2325,7 +2335,7 @@ namespace TalesRunnerForm
 
                 string nameCH = (itemTrans.ContainsKey(Convert.ToInt32(strArray3[0]))) ? itemTrans[Convert.ToInt32(strArray3[0])] : "(noname)";
 
-                if (strArray3.Length != 4)
+                if (strArray3.Length != 5)
                 {
                     // 资料完全
                     if (Convert.ToUInt16(strArray3[4]) != 813) // 宝石
@@ -2344,12 +2354,13 @@ namespace TalesRunnerForm
                             Char = Convert.ToByte(strArray3[9]),
                             Level = Convert.ToByte(strArray3[10]),
                             SetNum = Convert.ToInt32(strArray3[11]),
-                            PicOffset = Convert.ToInt64(strArray3[12]),
+                            PkgNum = Convert.ToInt16(strArray3[12]),
+                            PicOffset = Convert.ToInt64(strArray3[13]),
                             Attr = attrList,
-                            Sex = Convert.ToByte(strArray3[13]),
-                            Occupation = Convert.ToInt16(strArray3[14]),
-                            Chars = Convert.ToInt32(strArray3[15]),
-                            Slot = Convert.ToInt32(strArray3[16])
+                            Sex = Convert.ToByte(strArray3[14]),
+                            Occupation = Convert.ToInt16(strArray3[15]),
+                            Chars = Convert.ToInt32(strArray3[16]),
+                            Slot = Convert.ToInt32(strArray3[17])
                         });
                     }
                     else
@@ -2368,12 +2379,14 @@ namespace TalesRunnerForm
                             Char = Convert.ToByte(strArray3[9]),
                             Level = Convert.ToByte(strArray3[10]),
                             SetNum = Convert.ToInt32(strArray3[11]),
-                            PicOffset = Convert.ToInt64(strArray3[12]),
+                            PkgNum = Convert.ToInt16(strArray3[12]),
+                            PicOffset = Convert.ToInt64(strArray3[13]),
                             Attr = attrList,
-                            Sex = Convert.ToByte(strArray3[13]),
-                            Occupation = Convert.ToInt16(strArray3[14]),
-                            Chars = Convert.ToInt32(strArray3[15]),
-                            Slot = Convert.ToInt32(strArray3[16])
+                            Sex = Convert.ToByte(strArray3[14]),
+                            Occupation = Convert.ToInt16(strArray3[15]),
+                            Chars = Convert.ToInt32(strArray3[16]),
+                            Slot = Convert.ToInt32(strArray3[17])
+
                         });
                     }
                 }
@@ -2385,7 +2398,8 @@ namespace TalesRunnerForm
                         ItemNum = Convert.ToInt32(strArray3[0]),
                         Name = strArray3[1],
                         NameCh = nameCH,
-                        PicOffset = Convert.ToInt64(strArray3[3])
+                        PkgNum = Convert.ToInt16(strArray3[3]),
+                        PicOffset = Convert.ToInt64(strArray3[4])
                     });
                 }
             }
@@ -2743,7 +2757,7 @@ namespace TalesRunnerForm
         internal static System.Drawing.Image[] GetItemImage(int tagItem)
         {
             System.Drawing.Image[] images = new System.Drawing.Image[11];
-            images[0] = ShowDds(Item[tagItem].PicOffset);
+            images[0] = ShowDds(Item[tagItem].PicOffset, Item[tagItem].PkgNum);
 
             int tagSet = ItemSet.FindIndex(item => item.SetNum == Item[tagItem].SetNum);
             // 设置套装页签的图片显示
@@ -2755,7 +2769,7 @@ namespace TalesRunnerForm
                         item.ItemNum.Equals(ItemSet[tagSet].Member[i])); // 找不到时idx返回-1
                     if (tagSetItem != -1)
                     {
-                        images[i + 1] = ShowDds(Item[tagSetItem].PicOffset);
+                        images[i + 1] = ShowDds(Item[tagSetItem].PicOffset, Item[tagSetItem].PkgNum);
                     }
                 }
 
@@ -3623,10 +3637,11 @@ namespace TalesRunnerForm
         /// <summary>
         /// 返回主窗口配装需要的一切信息
         /// </summary>
-        /// <returns>0-1属性文本，2-为图片偏移与道具名</returns>
+        /// <returns>0-1属性文本，2-为图片文件名、偏移与道具名</returns>
         internal static string[] StatusShow()
         {
-            string[] strings = new string[2 + (4 + 2 * Positions) * 2];
+            int para = 3; // 保存的数据数量
+            string[] strings = new string[2 + (4 + 2 * Positions) * para];
             string[] stringsA = AttrShow();
             strings[0] = stringsA[0];
             strings[1] = stringsA[1];
@@ -3634,37 +3649,45 @@ namespace TalesRunnerForm
             {
                 if (P1[i] >= 0)
                 {
-                    strings[2 + i * 2] = Item[P1[i]].PicOffset.ToString();
-                    strings[2 + i * 2 + 1] = Item[P1[i]].GetName();
+                    strings[2 + i * para] = Item[P1[i]].PicOffset.ToString();
+                    strings[2 + i * para + 1] = Item[P1[i]].GetName();
+                    strings[2 + i * para + 2] = Item[P1[i]].PkgNum.ToString();
                 }
                 else
                 {
-                    strings[2 + i * 2] = "-1";
-                    strings[2 + i * 2 + 1] = string.Empty;
+                    strings[2 + i * para] = "-1";
+                    strings[2 + i * para + 1] = string.Empty;
+                    strings[2 + i * para + 2] = "-1";
                 }
 
                 if (P2[i] >= 0)
                 {
-                    strings[2 + i * 2 + 2 * Positions] = Item[P2[i]].PicOffset.ToString();
-                    strings[2 + i * 2 + 2 * Positions + 1] = Item[P2[i]].GetName();
+                    strings[2 + i * para + para * Positions] = Item[P2[i]].PicOffset.ToString();
+                    strings[2 + i * para + para * Positions + 1] = Item[P2[i]].GetName();
+                    strings[2 + i * para + para * Positions + 2] = Item[P2[i]].PkgNum.ToString();
                 }
                 else
                 {
-                    strings[2 + i * 2 + 2 * Positions] = "-1";
-                    strings[2 + i * 2 + 2 * Positions + 1] = string.Empty;
+                    strings[2 + i * para + para * Positions] = "-1";
+                    strings[2 + i * para + para * Positions + 1] = string.Empty;
+                    strings[2 + i * para + para * Positions + 2] = "-1";
                 }
 
                 if (i < 4)
                 {
                     if (P3[i] >= 0)
                     {
-                        strings[2 + i * 2 + 4 * Positions] = Item[P3[i]].PicOffset.ToString();
-                        strings[2 + i * 2 + 4 * Positions + 1] = Item[P3[i]].GetName();
+                        strings[2 + i * para + 2 * para * Positions] = Item[P3[i]].PicOffset.ToString();
+                        strings[2 + i * para + 2 * para * Positions + 1] = Item[P3[i]].GetName();
+                        strings[2 + i * para + 2 * para * Positions + 2] = Item[P3[i]].PkgNum.ToString();
                     }
                     else
                     {
-                        strings[2 + i * 2 + 4 * Positions] = "-1";
-                        strings[2 + i * 2 + 4 * Positions + 1] = string.Empty;
+                        strings[2 + i * para + 2 * para * Positions] = "-1";
+                        strings[2 + i * para + 2 * para * Positions + 1] = string.Empty;
+                        strings[2 + i * para + 2 * para * Positions + 2] = "-1";
+
+
                     }
                 }
             }
@@ -4475,8 +4498,9 @@ namespace TalesRunnerForm
         /// <param name="mode">模式</param>
         internal static string[] ShowBoxList(int mode)
         {
+            int para = 3; // 传送的数据数量
             int total = ItemBox.Count;
-            string[] strings = new string[2 * PerPage + 2];
+            string[] strings = new string[para * PerPage + 2];
             if (mode == 1)
             {
                 if (_boxPage != ((total - 1) / PerPage))
@@ -4484,8 +4508,9 @@ namespace TalesRunnerForm
                     for (int i = 0; i < PerPage; i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
-                        strings[i * 2] = ItemRest[index].GetName();
-                        strings[i * 2 + 1] = ItemRest[index].PicOffset.ToString();
+                        strings[i * para] = ItemRest[index].GetName();
+                        strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
+                        strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
                 }
                 else
@@ -4493,14 +4518,16 @@ namespace TalesRunnerForm
                     for (int i = 0; i < (total % PerPage); i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
-                        strings[i * 2] = ItemRest[index].GetName();
-                        strings[i * 2 + 1] = ItemRest[index].PicOffset.ToString();
+                        strings[i * para] = ItemRest[index].GetName();
+                        strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
+                        strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
 
                     for (int i = total % PerPage; i < PerPage; i++)
                     {
-                        strings[i * 2] = string.Empty;
-                        strings[i * 2 + 1] = "-1";
+                        strings[i * para] = string.Empty;
+                        strings[i * para + 1] = "-1";
+                        strings[i * para + 2] = "-1";
                     }
                 }
             }
@@ -4529,8 +4556,8 @@ namespace TalesRunnerForm
                 }
             }
 
-            strings[2 * PerPage] = (_boxPage + 1) + "";
-            strings[2 * PerPage + 1] = (((total - 1) / PerPage) + 1) + "";
+            strings[para * PerPage] = (_boxPage + 1) + "";
+            strings[para * PerPage + 1] = (((total - 1) / PerPage) + 1) + "";
             return strings;
         }
 
@@ -4601,6 +4628,89 @@ namespace TalesRunnerForm
             returnLists[1] = ItemBox[tagBox].WeightTotalSilver;
             returnLists[2] = ItemBox[tagBox].WeightTotalGold;
             return returnLists;
+        }
+
+        internal static List<short> GetBoxPkgNum(int tagBox)
+        {
+            List<short> picPkgNum = new List<short>();
+            foreach (int t in ItemBox[tagBox].MemberBasic)
+            {
+                int index;
+                if ((index = ItemRest.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum.Add(ItemRest[index].PkgNum);
+                }
+                else if ((index = Item.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum.Add(Item[index].PkgNum);
+                }
+                else
+                {
+                    picPkgNum.Add(-1);
+                }
+            }
+
+            return picPkgNum;
+        }
+
+        internal static List<short>[] GetBoxPkgNums(int tagBox)
+        {
+            List<short>[] picPkgNum = new List<short>[3];
+            picPkgNum[0] = new List<short>();
+            picPkgNum[1] = new List<short>();
+            picPkgNum[2] = new List<short>();
+            foreach (int t in ItemBox[tagBox].MemberBasic)
+            {
+                int index;
+                if ((index = ItemRest.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[0].Add(ItemRest[index].PkgNum);
+                }
+                else if ((index = Item.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[0].Add(Item[index].PkgNum);
+                }
+                else
+                {
+                    picPkgNum[0].Add(-1);
+                }
+            }
+
+            foreach (int t in ItemBox[tagBox].MemberSilver)
+            {
+                int index;
+                if ((index = ItemRest.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[1].Add(ItemRest[index].PkgNum);
+                }
+                else if ((index = Item.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[1].Add(Item[index].PkgNum);
+                }
+                else
+                {
+                    picPkgNum[1].Add(-1);
+                }
+            }
+
+            foreach (int t in ItemBox[tagBox].MemberGold)
+            {
+                int index;
+                if ((index = ItemRest.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[2].Add(ItemRest[index].PkgNum);
+                }
+                else if ((index = Item.FindIndex(item => item.ItemNum == t)) != -1)
+                {
+                    picPkgNum[2].Add(Item[index].PkgNum);
+                }
+                else
+                {
+                    picPkgNum[2].Add(-1);
+                }
+            }
+
+            return picPkgNum;
         }
 
         internal static List<long> GetBoxOffset(int tagBox)

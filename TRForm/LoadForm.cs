@@ -1,121 +1,121 @@
-﻿using ControlEx;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+using TalesRunnerForm.Properties;
 
 namespace TalesRunnerForm
 {
-    partial class LoadForm
+    /// <summary>
+    /// 加载进度条窗口
+    /// </summary>
+    public partial class LoadForm : Form
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        #region 委托
 
+        private delegate void DoSomeThing();
+
+        private delegate void DoBackGroundTask(BackgroundWorker bw);
+        private DoBackGroundTask _doBackGroundTask;
+
+        #endregion
+
+        #region 窗体初始化
         /// <summary>
-        /// Clean up any resources being used.
+        /// 窗体构造函数
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        public LoadForm()
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            InitializeComponent();
+            bw.RunWorkerAsync();
+            DoSomeThing doSomeThing = TrData.InitData;
+            doSomeThing();
         }
 
-        #region Windows Form Designer generated code
+        /// <summary>
+        /// 窗体初始化
+        /// </summary>
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            using (Graphics graphics = Graphics.FromHwnd(IntPtr.Zero))
+            {
+                float dpiX = graphics.DpiX;
+                float dpiY = graphics.DpiY;
+                if (dpiX != 100.0 || dpiY != 100.0)
+                {
+                    Width =
+                        (int)(Width * (double)dpiX / 100.0);
+                    Height =
+                        (int)(Height * (double)dpiY / 100.0);
+                    SetControl(this.PBar);
+                    SetControl(this.label1);
+                }
+
+                void SetControl(Control ctrl) // 控件加载，位置设置
+                {
+                    Point location = ctrl.Location;
+                    ctrl.Location = new Point(
+                        (int)(location.X * (double)dpiX / 100.0),
+                        (int)(location.Y * (double)dpiX / 100.0));
+                    ctrl.Width =
+                        (int)(ctrl.Width * (double)dpiX / 100.0);
+                    ctrl.Height =
+                        (int)(ctrl.Height * (double)dpiX / 100.0);
+                }
+            }
+
+            DoubleBuffered = true;
+        }
+        #endregion
+
+        #region 后台任务
+        /// <summary>
+        /// 后台任务 生成文本
+        /// </summary>
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bw.ReportProgress(0);
+            _doBackGroundTask += TrData.LoadItemData;
+            _doBackGroundTask(bw);
+        }
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// 后台任务完成时执行代码
         /// </summary>
-        private void InitializeComponent()
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadForm));
-            this.bw = new System.ComponentModel.BackgroundWorker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.PBar = new ControlEx.ProgressBarEx();
-            this.SuspendLayout();
-            // 
-            // bw
-            // 
-            this.bw.WorkerReportsProgress = true;
-            this.bw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bw_DoWork);
-            this.bw.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bw_ProgressChanged);
-            this.bw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bw_RunWorkerCompleted);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(232, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "000 %";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(0, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(293, 27);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Loading...";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form2_MouseDown);
-            this.label2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form2_MouseMove);
-            // 
-            // PBar
-            // 
-            this.PBar.ImageBorder = null;
-            this.PBar.ImageEmpty = ((System.Drawing.Image)(resources.GetObject("PBar.ImageEmpty")));
-            this.PBar.ImageFill = ((System.Drawing.Image)(resources.GetObject("PBar.ImageFill")));
-            this.PBar.ImageLeft = global::TalesRunnerForm.Properties.Resources._1024_gameu_l;
-            this.PBar.ImageRight = global::TalesRunnerForm.Properties.Resources._1024_gameu_r;
-            this.PBar.ImageTag = null;
-            this.PBar.IsDrag = true;
-            this.PBar.LoadLength = 119;
-            this.PBar.Location = new System.Drawing.Point(13, 31);
-            this.PBar.Name = "PBar";
-            this.PBar.Size = new System.Drawing.Size(268, 41);
-            this.PBar.TabIndex = 3;
-            this.PBar.Value = 50;
-            this.PBar.ZoomRate = true;
-            // 
-            // LoadForm
-            // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(293, 109);
-            this.ControlBox = false;
-            this.Controls.Add(this.PBar);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "LoadForm";
-            this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Loading...";
-            this.TopMost = true;
-            this.Load += new System.EventHandler(this.Form2_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 当BW程序出错（下标越位等），会直接执行
+            GC.Collect(); // 强制进行垃圾回收
+            //MainForm form = new MainForm();
+            //form.Show();
+            this.Dispose();
+        }
 
+        /// <summary>
+        /// 设置后台任务进度值
+        /// </summary>
+        private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.PBar.Value = e.ProgressPercentage;
+            this.label1.Text = e.ProgressPercentage + Resources.String_ProgressPercent;
         }
 
         #endregion
-        private System.ComponentModel.BackgroundWorker bw;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private ProgressBarEx PBar;
+
+        #region 窗体拖动用
+        private Point _mPoint;
+        private void Form2_MouseDown(object sender, MouseEventArgs e)
+        {
+            _mPoint = new Point(e.X, e.Y);
+        }
+
+        private void Form2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Location = new Point(this.Location.X + e.X - _mPoint.X, this.Location.Y + e.Y - _mPoint.Y);
+            }
+        }
+        #endregion
     }
 }

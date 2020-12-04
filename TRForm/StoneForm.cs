@@ -161,7 +161,7 @@ namespace TalesRunnerForm
             GetPictureBox().BorderStyle = BorderStyle.FixedSingle;
             StoneAttr sa = TrData.StoneAttrStr;
             textBox1.Text = SlotStone[_selected - 1] != 0 ? sa(SlotStone[_selected - 1].ToString()) : "";
-            // TODO 加入插槽限制语句
+            // 插槽限制在ConditionCheck实现
         }
 
         /// <summary>
