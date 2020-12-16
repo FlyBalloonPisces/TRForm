@@ -81,7 +81,7 @@
             this.comboBox1.Location = new System.Drawing.Point(118, 189);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(6);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(86, 27);
+            this.comboBox1.Size = new System.Drawing.Size(86, 31);
             this.comboBox1.TabIndex = 9;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -92,7 +92,7 @@
             this.comboBox2.Location = new System.Drawing.Point(118, 228);
             this.comboBox2.Margin = new System.Windows.Forms.Padding(6);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(86, 27);
+            this.comboBox2.Size = new System.Drawing.Size(86, 31);
             this.comboBox2.TabIndex = 10;
             // 
             // label2
@@ -101,7 +101,7 @@
             this.label2.Location = new System.Drawing.Point(15, 191);
             this.label2.Margin = new System.Windows.Forms.Padding(6);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 20);
+            this.label2.Size = new System.Drawing.Size(78, 23);
             this.label2.TabIndex = 11;
             this.label2.Text = "宝石种类";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -112,7 +112,7 @@
             this.label3.Location = new System.Drawing.Point(15, 230);
             this.label3.Margin = new System.Windows.Forms.Padding(6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 20);
+            this.label3.Size = new System.Drawing.Size(78, 23);
             this.label3.TabIndex = 12;
             this.label3.Text = "宝石品类";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -183,7 +183,7 @@
             this.label4.Location = new System.Drawing.Point(15, 269);
             this.label4.Margin = new System.Windows.Forms.Padding(6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 20);
+            this.label4.Size = new System.Drawing.Size(78, 23);
             this.label4.TabIndex = 18;
             this.label4.Text = "宝石等级";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -195,7 +195,7 @@
             this.comboBox3.Location = new System.Drawing.Point(118, 267);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(6);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(86, 27);
+            this.comboBox3.Size = new System.Drawing.Size(86, 31);
             this.comboBox3.TabIndex = 17;
             // 
             // textBox1
@@ -338,6 +338,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StoneForm";

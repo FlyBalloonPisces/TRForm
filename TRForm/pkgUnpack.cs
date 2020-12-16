@@ -496,13 +496,15 @@ namespace TalesRunnerForm
             "acctail"
             };
 
+            // 各角色公共服饰
             SortedList<string, short>[] listOc = new SortedList<string, short>[TrData.Characters];
+            // 各角色专属服饰
             SortedList<string, short> listChar = new SortedList<string, short>();
 
             int ch = 1;
             while (ch <= TrData.Characters)
             {
-                string pkgPath = fileInfo.FullName + "\\char" + ch + ".pkg"; // 获得pkg_path
+                string pkgPath = fileInfo.FullName + "\\char" + TrData.CharacterPkg[ch] + ".pkg"; // 获得pkg_path
                 FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
                 listOc[ch - 1] = new SortedList<string, short>();
 
@@ -549,10 +551,71 @@ namespace TalesRunnerForm
                         }
                         if (Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\').Length == 3)
                         {
-                            string fileName = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[2]; // 把目录和文件名合成一个路径
-                            if (fileName.Split('.').Length == 2 && (fileName.Split('_')[0] + "_").Equals(TrData.Character[ch]) && fileName.Split('_').Length >= 3)
+                            if (Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[1].Equals("character" + ch))
                             {
-                                if (fileName.Split('.')[1].Equals("pt1") && IsNumberic(fileName.Split('_')[2].Split('.')[0]))
+                                string fileName = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[2]; // 把目录和文件名合成一个路径
+                                //string test = Encoding.UTF8.GetString(decompressedEntryTitle);
+                                if (fileName.Split('.').Length == 2 && (fileName.Split('_')[0] + "_").Equals(TrData.Character[ch]) && fileName.Split('_').Length >= 3)
+                                {
+                                    if (fileName.Split('.')[1].Equals("pt1") && IsNumberic(fileName.Split('_')[2].Split('.')[0])) // 获取pt1文件以获取装备占用
+                                    {
+                                        int partNum = BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4).ToArray(), 0); // 获得单元数量
+                                        offset = BitConverter.ToInt32(decompressedEntryData.Skip(0x414).Take(4)
+                                            .ToArray(), 0); // 获取偏移量
+                                        fs.Seek(offset, SeekOrigin.Begin);
+                                        List<byte> decryptedFileDataList = new List<byte>();
+                                        for (int i = 0; i < partNum; i++)
+                                        {
+                                            fs.Seek(0x8, SeekOrigin.Current);
+                                            int fileSize =
+                                                BitConverter.ToInt32(pkg.ReadBytes(4), 0); // encrypted file data size
+                                            fs.Seek(0x4, SeekOrigin.Current);
+                                            int encryptType = BitConverter.ToInt32(pkg.ReadBytes(4), 0);
+                                            byte[] fileData = pkg.ReadBytes(fileSize); // encrypted file data
+                                            if ((encryptType & 1) == 1)
+                                            {
+                                                fileData = DeCompressBytes(fileData);
+                                            }
+
+                                            if ((encryptType & 2) == 2)
+                                            {
+                                                fileData = Decrypt2(fileData);
+                                            }
+                                            decryptedFileDataList.AddRange(fileData);
+                                        }
+                                        byte[] decryptedFileData = decryptedFileDataList.ToArray();
+                                        byte[] dataHeader = new byte[14];
+                                        Array.Copy(decryptedFileData, 0, dataHeader, 0, 14);
+                                        if (Encoding.UTF8.GetString(dataHeader) == "CharModelPart2")
+                                        {
+                                            byte[] dataOccupy = { 0, 0, 0, 0 }; // 角色占用占4字节
+                                                                                // 读取每段数据最后的字节并进行加和以获取部位占用
+                                            foreach (var index in IndexesOf(decryptedFileData, 0x40, new byte[] { 0x2e, 0x6d, 0x31 }))
+                                            {
+                                                long p = index + 3;
+                                                for (int i = 0; i < 4; i++)
+                                                {
+                                                    dataOccupy[i] += decryptedFileData[p + i];
+                                                }
+                                            }
+                                            string dataOccupy1 = Convert.ToString(dataOccupy[3], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[2], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[1], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[0], 2).PadLeft(8, '0');
+                                            //data_occupy1.Reverse();
+                                            listOcBinary.Add(fileName, dataOccupy1);
+
+                                            //FileStream fs2 = new FileStream(Form1.path + "Character" + ch + "_" + Form2.character[ch] + "occupy.txt", FileMode.Create, FileAccess.Write);
+                                            //StreamWriter export_file = new StreamWriter(fs2);
+                                            //export_file.Write(Form2.character[ch].Replace("_", ""));
+                                            //export_file.WriteLine();
+                                            //foreach (KeyValuePair<string,string> pair in List_ocBinary)
+                                            //{
+                                            //    export_file.Write(pair.Key+","+pair.Value);
+                                            //    export_file.WriteLine();
+                                            //}
+                                            //export_file.Close();
+                                        }
+                                    }
+                                }
+                                else if (fileName.Equals(TrData.Character[ch] + "set.ca3")) // 获取角色本身的各部位编号
                                 {
                                     int partNum = BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4).ToArray(), 0); // 获得单元数量
                                     offset = BitConverter.ToInt32(decompressedEntryData.Skip(0x414).Take(4)
@@ -579,109 +642,55 @@ namespace TalesRunnerForm
                                         decryptedFileDataList.AddRange(fileData);
                                     }
                                     byte[] decryptedFileData = decryptedFileDataList.ToArray();
-                                    byte[] dataHeader = new byte[14];
-                                    Array.Copy(decryptedFileData, 0, dataHeader, 0, 14);
-                                    if (Encoding.UTF8.GetString(dataHeader) == "CharModelPart2")
+                                    byte[] dataHeader = new byte[18];
+                                    Array.Copy(decryptedFileData, 0, dataHeader, 0, 18);
+                                    if (Encoding.UTF8.GetString(dataHeader) == "CharAnimationFile3")
                                     {
-                                        byte[] dataOccupy = { 0, 0, 0, 0 };
-                                        foreach (var index in IndexesOf(decryptedFileData, 0x40, new byte[] { 0x2e, 0x6d, 0x31 }))
+                                        //_ = (int)MessageBox.Show("Length = "+ decrypted_file_data[0x1c] + ",Amount = "+ decrypted_file_data[0x18], "Debug");
+                                        int position = 0x1c;
+                                        for (int i = 0; i < decryptedFileData[0x18]; i++)
                                         {
-                                            long p = index + 3;
-                                            for (int i = 0; i < 4; i++)
+                                            var nameLength = decryptedFileData[position];
+                                            byte[] dataPosition = new byte[nameLength];
+                                            Array.Copy(decryptedFileData, position += 2, dataPosition, 0, nameLength);
+                                            string str = Encoding.UTF8.GetString(dataPosition);
+                                            //_ = (int)MessageBox.Show(str + "," + ch, "Debug");
+                                            if (positionNames.Contains(str))
                                             {
-                                                dataOccupy[i] += decryptedFileData[p + i];
+                                                //_ = (int)MessageBox.Show(str + "," + ch, "Debug2");
+                                                for (int index = 0; index < positionNames.Length; index++)
+                                                {
+                                                    if (positionNames[index].Equals(str))
+                                                    {
+                                                        //_ = (int)MessageBox.Show(index + ","+str+"," +ch, "Debug");
+                                                        positionBinary[index] = i + 1;
+                                                    }
+                                                }
                                             }
+                                            position += nameLength;
                                         }
-                                        string dataOccupy1 = Convert.ToString(dataOccupy[3], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[2], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[1], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[0], 2).PadLeft(8, '0');
-                                        //data_occupy1.Reverse();
-                                        listOcBinary.Add(fileName, dataOccupy1);
 
-                                        //FileStream fs2 = new FileStream(Form1.path + "Character" + ch + "_" + Form2.character[ch] + "occupy.txt", FileMode.Create, FileAccess.Write);
+                                        //FileStream fs2 = new FileStream(Form1.path + "Character"+ch+"_"+Form2.character[ch].Replace("_", "") + ".txt", FileMode.Create, FileAccess.Write);
                                         //StreamWriter export_file = new StreamWriter(fs2);
-                                        //export_file.Write(Form2.character[ch].Replace("_", ""));
+                                        //export_file.Write(Form2.character[ch].Replace("_",""));
                                         //export_file.WriteLine();
-                                        //foreach (KeyValuePair<string,string> pair in List_ocBinary)
+                                        //for (int i =0;i < PositionBinary.Length;i++)
                                         //{
-                                        //    export_file.Write(pair.Key+","+pair.Value);
+                                        //    export_file.Write(PositionBinary[i]-1);
                                         //    export_file.WriteLine();
                                         //}
                                         //export_file.Close();
                                     }
                                 }
                             }
-                            else if (fileName.Equals(TrData.Character[ch] + "set.ca3"))
-                            {
-                                int partNum = BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4).ToArray(), 0); // 获得单元数量
-                                offset = BitConverter.ToInt32(decompressedEntryData.Skip(0x414).Take(4)
-                                    .ToArray(), 0); // 获取偏移量
-                                fs.Seek(offset, SeekOrigin.Begin);
-                                List<byte> decryptedFileDataList = new List<byte>();
-                                for (int i = 0; i < partNum; i++)
-                                {
-                                    fs.Seek(0x8, SeekOrigin.Current);
-                                    int fileSize =
-                                        BitConverter.ToInt32(pkg.ReadBytes(4), 0); // encrypted file data size
-                                    fs.Seek(0x4, SeekOrigin.Current);
-                                    int encryptType = BitConverter.ToInt32(pkg.ReadBytes(4), 0);
-                                    byte[] fileData = pkg.ReadBytes(fileSize); // encrypted file data
-                                    if ((encryptType & 1) == 1)
-                                    {
-                                        fileData = DeCompressBytes(fileData);
-                                    }
-
-                                    if ((encryptType & 2) == 2)
-                                    {
-                                        fileData = Decrypt2(fileData);
-                                    }
-                                    decryptedFileDataList.AddRange(fileData);
-                                }
-                                byte[] decryptedFileData = decryptedFileDataList.ToArray();
-                                byte[] dataHeader = new byte[18];
-                                Array.Copy(decryptedFileData, 0, dataHeader, 0, 18);
-                                if (Encoding.UTF8.GetString(dataHeader) == "CharAnimationFile3")
-                                {
-                                    //_ = (int)MessageBox.Show("Length = "+ decrypted_file_data[0x1c] + ",Amount = "+ decrypted_file_data[0x18], "Debug");
-                                    int position = 0x1c;
-                                    for (int i = 0; i < decryptedFileData[0x18]; i++)
-                                    {
-                                        var nameLength = decryptedFileData[position];
-                                        byte[] dataPosition = new byte[nameLength];
-                                        Array.Copy(decryptedFileData, position += 2, dataPosition, 0, nameLength);
-                                        string str = Encoding.UTF8.GetString(dataPosition);
-                                        //_ = (int)MessageBox.Show(str + "," + ch, "Debug");
-                                        if (positionNames.Contains(str))
-                                        {
-                                            //_ = (int)MessageBox.Show(str + "," + ch, "Debug2");
-                                            for (int index = 0; index < positionNames.Length; index++)
-                                            {
-                                                if (positionNames[index].Equals(str))
-                                                {
-                                                    //_ = (int)MessageBox.Show(index + ","+str+"," +ch, "Debug");
-                                                    positionBinary[index] = i + 1;
-                                                }
-                                            }
-                                        }
-                                        position += nameLength;
-                                    }
-
-                                    //FileStream fs2 = new FileStream(Form1.path + "Character"+ch+"_"+Form2.character[ch].Replace("_", "") + ".txt", FileMode.Create, FileAccess.Write);
-                                    //StreamWriter export_file = new StreamWriter(fs2);
-                                    //export_file.Write(Form2.character[ch].Replace("_",""));
-                                    //export_file.WriteLine();
-                                    //for (int i =0;i < PositionBinary.Length;i++)
-                                    //{
-                                    //    export_file.Write(PositionBinary[i]-1);
-                                    //    export_file.WriteLine();
-                                    //}
-                                    //export_file.Close();
-                                }
-                            }
+                            
                         }
                         fs.Seek(nextEntry, 0);
                         num++;
                     }
                 }
 
+                // 将占用的字节和角色本身的部位进行统一
                 foreach (KeyValuePair<string, string> pair in listOcBinary)
                 {
                     short occupation = 0;
@@ -701,11 +710,21 @@ namespace TalesRunnerForm
                     //_ = (int)MessageBox.Show("Name:" + pair.Key + ",Value:" + pair.Value + ",Oc:" + occupation, "debug");
                     if (Convert.ToInt32(pair.Key.Split('_')[2].Split('.')[0]) >= 1000)
                     {
+                        //if (!listOc[ch - 1].ContainsKey(pair.Key.Replace(TrData.Character[ch], TrData.Character[0])))
+                        //{
+                        // 如果是公共部件，则转化为公共名称all_开头
                         listOc[ch - 1].Add(pair.Key.Replace(TrData.Character[ch], TrData.Character[0]), occupation);
+                        //}
+
                     }
                     else
                     {
+                        //if (!listChar.ContainsKey(pair.Key))
+                        //{
+                        // 反之直接加入专属
                         listChar.Add(pair.Key, occupation);
+                        //}
+
                     }
                 }
                 listOcBinary.Clear();
@@ -730,9 +749,9 @@ namespace TalesRunnerForm
             //}
             //export_file.Close();
             // TODO 血腥维拉
-            const int constMale = 6533801;  //000011000111011001010101001
-            const int constFemale = 76303702; //100100011000100110101010110
-            const int constAll = 82837503;  //100111011111111111111111111
+            const int constMale = 6533801;  //0000011000111011001010101001
+            const int constFemale = 210521430; //1100100011000100110101010110
+            const int constAll = 217055231;  //1100111011111111111111111111
             int pos = 1;
             SortedList<int, int[]> listResult = new SortedList<int, int[]>();
             foreach (KeyValuePair<int, string> pair in listNames)

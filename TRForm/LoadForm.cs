@@ -85,6 +85,12 @@ namespace TalesRunnerForm
         private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             // 当BW程序出错（下标越位等），会直接执行
+            if (e.Error != null)
+            {
+                string str = "数据读取出错:" + e.Error.ToString();
+                _ = (int)MessageBox.Show(str, Resources.String_Error);
+                Environment.Exit(0);
+            }
             GC.Collect(); // 强制进行垃圾回收
             //MainForm form = new MainForm();
             //form.Show();

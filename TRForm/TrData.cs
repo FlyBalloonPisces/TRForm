@@ -811,7 +811,7 @@ namespace TalesRunnerForm
 
         // 数组控制用常量
         // TODO 血腥维拉
-        internal const int Characters = 27; // 28个常规角色
+        internal const int Characters = 28; // 28个常规角色
         internal const int Positions = 14; // 14个常规部位
 
         private static readonly int[] CharNum =
@@ -843,14 +843,15 @@ namespace TalesRunnerForm
             80404, // 拉拉
             83403, // 埃利姆斯
             83404, // 凯恩
-            85507  // 缘迕
-       //  ,XXXXX  // 血腥维拉
+            85507, // 缘迕
+            91242  // 血腥维拉
         };
 
         private static readonly string[] Level =
         {
-            // 长度6
+            // 长度7
             // 收藏等级
+            "No",
             "C",
             "B",
             "A",
@@ -913,7 +914,7 @@ namespace TalesRunnerForm
             "el_",
             "ca_",
             "gb_",
-            //"vrd_", // 预定使用
+            "vrd_",
             // 合作角色
             "k1_",
             "k2_",
@@ -939,9 +940,44 @@ namespace TalesRunnerForm
             "bk7_"
         };
 
+        public static readonly int[] CharacterPkg =
+        {
+            // 长度28
+            0, // 预留位，pkgUnpack的调用语句从1开始
+            // 普通角色
+            1, // 光光
+            2, // 明明
+            3, // 丽娜
+            4, // 大熊
+            5, // Dnd
+            6, // 纳鲁西斯
+            7, // 琪琪
+            8, // 雷
+            9, // 贝儿
+            10, // 凯
+            11, // 雪
+            12, // 深子
+            13, // 亚伯
+            14, // 哈鲁
+            15, // 维拉
+            16, // 孙悟空
+            17, // 隐雷
+            18, // 曦狐
+            19, // 露西
+            20, // 米狐
+            21, // 基纳丽
+            22, // R
+            23, // 哈朗
+            24, // 啦啦
+            25, // 埃利姆斯
+            26, // 凯恩
+            27, // 缘迕
+            15  // 血腥维拉
+        };
+
         private static readonly string[] Position =
         {
-            // 长度20
+            // 长度15
             "character_",
             "head_",
             "topbody_",
@@ -1148,7 +1184,7 @@ namespace TalesRunnerForm
         {
             for (int i = 0; i < Characters; i++)
             {
-                string path = PathPkg + "\\char" + (i + 1) + ".pkg";
+                string path = PathPkg + "\\char" + CharacterPkg[i + 1] + ".pkg";
                 if (!File.Exists(path))
                 {
                     return false;
@@ -2657,7 +2693,7 @@ namespace TalesRunnerForm
             strings[1] = Resources.Attr_NameCH + Item[tagItem].NameCh;
             strings[2] = Resources.Attr_Position + Item[tagItem].GetPosition();
             strings[3] = Resources.Attr_ItemNum + Item[tagItem].ItemNum;
-            strings[4] = Resources.Attr_CollectLv + (Item[tagItem].Point == 0 ? "No" : Level[Item[tagItem].Level - 1]);
+            strings[4] = Resources.Attr_CollectLv + (Item[tagItem].Point == 0 ? "No" : Level[Item[tagItem].Level]);
             strings[5] = Resources.Attr_CollectNum + Item[tagItem].Id;
             strings[6] = Resources.Attr_CollectPt + Item[tagItem].Point;
             strings[11] = "";
