@@ -558,6 +558,8 @@ namespace TalesRunnerForm
                         return Resources.Character26;
                     case 27:
                         return Resources.Character27;
+                    case 28:
+                        return Resources.Character28;
                     case 201:
                         return Resources.Character201;
                     case 202:
