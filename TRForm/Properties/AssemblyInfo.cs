@@ -31,7 +31,8 @@ using System.Runtime.InteropServices;
 //
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
+// TODO改版本号
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.6.0")]
-[assembly: AssemblyFileVersion("2.5.6.0")]
+[assembly: AssemblyVersion("2.5.7.0")]
+[assembly: AssemblyFileVersion("2.5.7.0")]
 [assembly: NeutralResourcesLanguage("zh-CN")]
