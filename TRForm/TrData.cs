@@ -26,7 +26,7 @@ namespace TalesRunnerForm
         /// </summary>
         internal static void InitData()
         {
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 P1[i] = -1;
                 P2[i] = -1;
@@ -36,7 +36,7 @@ namespace TalesRunnerForm
                 }
             }
 
-            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(CharNum[0]));
+            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(StaticVars.CharNum[0]));
             InitDevIl();
         }
 
@@ -52,7 +52,7 @@ namespace TalesRunnerForm
         private static int _acce; // 配装加速度数值
         private static int _pow; // 配装力数值
         private static int _ctrl; // 配装控制数值
-        private static int _lv; // 配装等级数值
+        private static int _lv; // 配装等级数值        
         private static bool _check1; // 内装勾选
         private static bool _check2; // 外装勾选
         private static readonly List<int> ListResult = new List<int>();
@@ -62,7 +62,8 @@ namespace TalesRunnerForm
 
         // 确定程序路径 进行文本读取
         public static readonly string Path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-
+        public static bool keysVersion = true; // 密匙版本：true韩服；false港服泰服
+        public static int Characters = 0; // 配装角色数量
         // ReSharper disable once AssignNullToNotNullAttribute
         //private static readonly DirectoryInfo PathExe = new DirectoryInfo(Application.StartupPath); // exe目录
         //private static readonly string PathPkg = PathExe.Parent?.FullName; // 游戏目录
@@ -103,10 +104,10 @@ namespace TalesRunnerForm
         private static readonly StringBuilder Modelpath = new StringBuilder(byte.MaxValue);
 
         // 配装用变量
-        private static readonly int[] P1 = new int[Positions]; // 存放的是索引
+        private static readonly int[] P1 = new int[StaticVars.Positions]; // 存放的是索引
 
         //private static readonly string[] P1_stone = new string[Positions]; // 存放的是宝石
-        private static readonly int[] P2 = new int[Positions]; // 存放的是索引
+        private static readonly int[] P2 = new int[StaticVars.Positions]; // 存放的是索引
 
         //private static readonly string[] P2_stone = new string[Positions]; // 存放的是宝石
         private static readonly int[] P3 = new int[4]; // 存放的是索引
@@ -419,7 +420,7 @@ namespace TalesRunnerForm
 
                         str = Regex.Replace(str, @"[，]$", "");
                         str += ItemAttrInfo[Num].Desc3;
-                        str += Limit212[value - 1];
+                        str += StaticVars.Limit212[value - 1];
                         str += ItemAttrInfo[Num].Desc4;
                     }
                 }
@@ -807,198 +808,6 @@ namespace TalesRunnerForm
 
         #endregion
 
-        #region 部分常量数组
-
-        private const int PerPage = 30; // 开箱页每页16个箱子
-
-        // 数组控制用常量
-        // TODO 血腥维拉
-        internal const int Characters = 28; // 28个常规角色
-        internal const int Positions = 14; // 14个常规部位
-
-        private static readonly int[] CharNum =
-        {
-            // 角色道具编号
-            17, // 光光
-            18, // 明明
-            34, // 莉娜
-            139, // 大熊
-            424, // 蒂蒂
-            1102, // 纳鲁西斯
-            2354, // 琪琪
-            4762, // 雷
-            7130, // 贝儿
-            8351, // 凯
-            21205, // 雪
-            21453, // 深子
-            24097, // 亚伯
-            25003, // 哈鲁
-            28281, // 维拉
-            30018, // 孙悟空
-            35914, // 隐雷
-            37033, // 曦狐
-            46299, // 露西
-            49147, // 米狐
-            52139, // 基纳丽
-            52386, // R
-            77385, // 哈朗
-            80404, // 拉拉
-            83403, // 埃利姆斯
-            83404, // 凯恩
-            85507, // 缘迕
-            91242  // 血腥维拉
-        };
-
-        private static readonly string[] Level =
-        {
-            // 长度7
-            // 收藏等级
-            "No",
-            "C",
-            "B",
-            "A",
-            "S",
-            "SS",
-            "SSS"
-        };
-
-        private static readonly int[] Limit212 =
-        {
-            // 长度15
-            // 212属性限制人数
-            15,
-            5,
-            10,
-            5,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10,
-            10
-        };
-
-        public static readonly string[] Character =
-        {
-            // 长度50
-            // 全角色通用
-            "all_",
-            // 普通角色
-            "cw_",
-            "mm_",
-            "rn_",
-            "bb_",
-            "dn_",
-            "ns_",
-            "mk_",
-            "rg_",
-            "bd_",
-            "ka_",
-            "yk_",
-            "kr_",
-            "ab_",
-            "hr_",
-            "vr_",
-            "og_",
-            "rg2_",
-            "sh_",
-            "lc_",
-            "mh_",
-            "kn_",
-            "r_",
-            "ha_",
-            "la_",
-            "el_",
-            "ca_",
-            "gb_",
-            "vrd_",
-            // 合作角色
-            "k1_",
-            "k2_",
-            "k3_",
-            "k4_",
-            "k5_",
-            "am_",
-            "gi_",
-            "do_",
-            "ke_",
-            "ta_",
-            "ku_",
-            "m1_",
-            "m2_",
-            "m3_",
-            "m4_",
-            "bk1_",
-            "bk2_",
-            "bk3_",
-            "bk4_",
-            "bk5_",
-            "bk6_",
-            "bk7_"
-        };
-
-        public static readonly int[] CharacterPkg =
-        {
-            // 长度28
-            0, // 预留位，pkgUnpack的调用语句从1开始
-            // 普通角色
-            1, // 光光
-            2, // 明明
-            3, // 丽娜
-            4, // 大熊
-            5, // Dnd
-            6, // 纳鲁西斯
-            7, // 琪琪
-            8, // 雷
-            9, // 贝儿
-            10, // 凯
-            11, // 雪
-            12, // 深子
-            13, // 亚伯
-            14, // 哈鲁
-            15, // 维拉
-            16, // 孙悟空
-            17, // 隐雷
-            18, // 曦狐
-            19, // 露西
-            20, // 米狐
-            21, // 基纳丽
-            22, // R
-            23, // 哈朗
-            24, // 啦啦
-            25, // 埃利姆斯
-            26, // 凯恩
-            27, // 缘迕
-            15  // 血腥维拉
-        };
-
-        private static readonly string[] Position =
-        {
-            // 长度15
-            "character_",
-            "head_",
-            "topbody_",
-            "downbody_",
-            "foot_",
-            "acchead_",
-            "accface_",
-            "acchand_",
-            "accback_",
-            "accneck_",
-            "pet_",
-            "expansion_",
-            "accwrist_",
-            "accbooster_",
-            "acctail_"
-        };
-
-        #endregion
-
         #region LoadForm用道具数据结构
 
         /// <summary>
@@ -1186,7 +995,7 @@ namespace TalesRunnerForm
         {
             for (int i = 0; i < Characters; i++)
             {
-                string path = PathPkg + "\\char" + CharacterPkg[i + 1] + ".pkg";
+                string path = PathPkg + "\\char" + StaticVars.CharacterPkg[i + 1] + ".pkg";
                 if (!File.Exists(path))
                 {
                     return false;
@@ -1206,8 +1015,16 @@ namespace TalesRunnerForm
             if (!File.Exists(path))
             {
                 return false;
+            } 
+            else
+            {
+                path = PathPkg + "\\tr15.pkg";
+                if (!File.Exists(path))
+                {
+                    keysVersion = false; // 旧版密匙
+                }
             }
-
+            Characters = keysVersion ? StaticVars.Characters_kr : StaticVars.Characters_kr;
             return true;
         }
 
@@ -2116,16 +1933,16 @@ namespace TalesRunnerForm
             // Imagepath.Append("tr9\\guiex\\itemimage\\");
             if (@char < 100)
             {
-                Imagepath.Append(Character[@char]);
+                Imagepath.Append(StaticVars.Character[@char]);
             }
             else if (@char > 200)
             {
-                Imagepath.Append(Character[@char - 200 + Characters]);
+                Imagepath.Append(StaticVars.Character[@char - 200 + Characters]);
             }
 
-            if (position <= Positions)
+            if (position <= StaticVars.Positions)
             {
-                Imagepath.Append(Position[position]);
+                Imagepath.Append(StaticVars.Position[position]);
             }
             else if (position == 1000)
             {
@@ -2174,28 +1991,28 @@ namespace TalesRunnerForm
             //Modelpath.Append("tr9\\guiex\\itemimage\\");
             if (itemKind > 1000)
             {
-                Modelpath.Append(Character[0]);
+                Modelpath.Append(StaticVars.Character[0]);
             }
             else if (@char < 100)
             {
-                Modelpath.Append(Character[@char]);
+                Modelpath.Append(StaticVars.Character[@char]);
             }
             else if (@char > 200)
             {
-                Modelpath.Append(Character[@char - 200 + Characters]);
+                Modelpath.Append(StaticVars.Character[@char - 200 + Characters]);
             }
 
-            if (position <= Positions)
+            if (position <= StaticVars.Positions)
             {
-                Modelpath.Append(Position[position]);
+                Modelpath.Append(StaticVars.Position[position]);
             }
             else if (position == 106)
             {
-                Modelpath.Append(Position[2]);
+                Modelpath.Append(StaticVars.Position[2]);
             }
             else if (position == 117)
             {
-                Modelpath.Append(Position[2]);
+                Modelpath.Append(StaticVars.Position[2]);
             }
 
             if (@char == 0)
@@ -2695,7 +2512,7 @@ namespace TalesRunnerForm
             strings[1] = Resources.Attr_NameCH + Item[tagItem].NameCh;
             strings[2] = Resources.Attr_Position + Item[tagItem].GetPosition();
             strings[3] = Resources.Attr_ItemNum + Item[tagItem].ItemNum;
-            strings[4] = Resources.Attr_CollectLv + (Item[tagItem].Point == 0 ? "No" : Level[Item[tagItem].Level]);
+            strings[4] = Resources.Attr_CollectLv + (Item[tagItem].Point == 0 ? "No" : StaticVars.Level[Item[tagItem].Level]);
             strings[5] = Resources.Attr_CollectNum + Item[tagItem].Id;
             strings[6] = Resources.Attr_CollectPt + Item[tagItem].Point;
             strings[11] = "";
@@ -3574,7 +3391,7 @@ namespace TalesRunnerForm
             if (mode == 3)
             {
                 //bool flag = false;
-                for (int i = 0; i < Positions; i++)
+                for (int i = 0; i < StaticVars.Positions; i++)
                 {
                     if (P1[i] >= 0)
                     {
@@ -3679,11 +3496,11 @@ namespace TalesRunnerForm
         internal static string[] StatusShow()
         {
             int para = 3; // 保存的数据数量
-            string[] strings = new string[2 + (4 + 2 * Positions) * para];
+            string[] strings = new string[2 + (4 + 2 * StaticVars.Positions) * para];
             string[] stringsA = AttrShow();
             strings[0] = stringsA[0];
             strings[1] = stringsA[1];
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 if (P1[i] >= 0)
                 {
@@ -3700,30 +3517,30 @@ namespace TalesRunnerForm
 
                 if (P2[i] >= 0)
                 {
-                    strings[2 + i * para + para * Positions] = Item[P2[i]].PicOffset.ToString();
-                    strings[2 + i * para + para * Positions + 1] = Item[P2[i]].GetName();
-                    strings[2 + i * para + para * Positions + 2] = Item[P2[i]].PkgNum.ToString();
+                    strings[2 + i * para + para * StaticVars.Positions] = Item[P2[i]].PicOffset.ToString();
+                    strings[2 + i * para + para * StaticVars.Positions + 1] = Item[P2[i]].GetName();
+                    strings[2 + i * para + para * StaticVars.Positions + 2] = Item[P2[i]].PkgNum.ToString();
                 }
                 else
                 {
-                    strings[2 + i * para + para * Positions] = "-1";
-                    strings[2 + i * para + para * Positions + 1] = string.Empty;
-                    strings[2 + i * para + para * Positions + 2] = "-1";
+                    strings[2 + i * para + para * StaticVars.Positions] = "-1";
+                    strings[2 + i * para + para * StaticVars.Positions + 1] = string.Empty;
+                    strings[2 + i * para + para * StaticVars.Positions + 2] = "-1";
                 }
 
                 if (i < 4)
                 {
                     if (P3[i] >= 0)
                     {
-                        strings[2 + i * para + 2 * para * Positions] = Item[P3[i]].PicOffset.ToString();
-                        strings[2 + i * para + 2 * para * Positions + 1] = Item[P3[i]].GetName();
-                        strings[2 + i * para + 2 * para * Positions + 2] = Item[P3[i]].PkgNum.ToString();
+                        strings[2 + i * para + 2 * para * StaticVars.Positions] = Item[P3[i]].PicOffset.ToString();
+                        strings[2 + i * para + 2 * para * StaticVars.Positions + 1] = Item[P3[i]].GetName();
+                        strings[2 + i * para + 2 * para * StaticVars.Positions + 2] = Item[P3[i]].PkgNum.ToString();
                     }
                     else
                     {
-                        strings[2 + i * para + 2 * para * Positions] = "-1";
-                        strings[2 + i * para + 2 * para * Positions + 1] = string.Empty;
-                        strings[2 + i * para + 2 * para * Positions + 2] = "-1";
+                        strings[2 + i * para + 2 * para * StaticVars.Positions] = "-1";
+                        strings[2 + i * para + 2 * para * StaticVars.Positions + 1] = string.Empty;
+                        strings[2 + i * para + 2 * para * StaticVars.Positions + 2] = "-1";
 
 
                     }
@@ -3929,7 +3746,7 @@ namespace TalesRunnerForm
             List<int> itemDup1 = new List<int>(); // 防止重复计算单件道具属性
             List<int> itemDup2 = new List<int>(); // 防止重复计算单件道具属性
             //int Num = Item.FindIndex(item => item.ItemNum == a1);
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 if (P1[i] >= 0 && Item[P1[i]].Avatar == 0)
                 {
@@ -3974,7 +3791,7 @@ namespace TalesRunnerForm
 
             }
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 if (P3[i] >= 0)
                 {
@@ -4002,7 +3819,7 @@ namespace TalesRunnerForm
             // 添加配装的套装属性
             AttrSet.Clear();
             List<int> itemSet = new List<int>();
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 if (P1[i] >= 0)
                 {
@@ -4169,7 +3986,7 @@ namespace TalesRunnerForm
             List<int> itemDup1 = new List<int>(); // 防止重复计算单件道具属性
             List<int> itemDup2 = new List<int>(); // 防止重复计算单件道具属性
             //int Num = Item.FindIndex(item => item.ItemNum == a1);
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 List<Attr> stoneAttr;
                 if (P1[i] >= 0)
@@ -4421,18 +4238,29 @@ namespace TalesRunnerForm
             return null;
         }
 
-        internal static void CharChange(int selectedIndex)
+        internal static int[] CharChange(int selectedIndex)
         {
             _charNow = selectedIndex;
             // long offset = Item.Find(item => item.ItemNum.Equals(CharNum[_charNow])).PicOffset; // 找不到时idx返回-1
-            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(CharNum[_charNow]));
+            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(StaticVars.CharNum[_charNow]));
+            // 获取角色基础数值并返回
+            int[] status = new int[4];
+            status[0] = Convert.ToInt32(Item[P3[0]].Attr[Item[P3[0]].Attr.FindIndex(item => item.Num == 17)].Value);
+            status[1] = Convert.ToInt32(Item[P3[0]].Attr[Item[P3[0]].Attr.FindIndex(item => item.Num == 18)].Value);
+            status[2] = Convert.ToInt32(Item[P3[0]].Attr[Item[P3[0]].Attr.FindIndex(item => item.Num == 19)].Value);
+            status[3] = Convert.ToInt32(Item[P3[0]].Attr[Item[P3[0]].Attr.FindIndex(item => item.Num == 20)].Value);
+            _topSpd = status[0];
+            _acce = status[1];
+            _pow = status[2];
+            _ctrl = status[3];
+            return status;
         }
 
         internal static void SaveItv(string fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
             StreamWriter exportFile = new StreamWriter(fs);
-            for (int i = 0; i < Positions; i++)
+            for (int i = 0; i < StaticVars.Positions; i++)
             {
                 exportFile.Write(P1[i] + "," + P2[i] + ",");
             }
@@ -4461,17 +4289,17 @@ namespace TalesRunnerForm
         {
             string[] strArray1 = File.ReadAllLines(fileName, Encoding.UTF8);
             string[] strArray2 = strArray1[0].Split(',');
-            for (int i = 0; i < Positions * 2; i += 2)
+            for (int i = 0; i < StaticVars.Positions * 2; i += 2)
             {
                 P1[i / 2] = Convert.ToInt32(strArray2[i]);
                 P2[i / 2] = Convert.ToInt32(strArray2[i + 1]);
             }
 
-            _charNow = Convert.ToInt32(strArray2[Positions * 2]);
-            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(CharNum[_charNow]));
+            _charNow = Convert.ToInt32(strArray2[StaticVars.Positions * 2]);
+            P3[0] = Item.FindIndex(item => item.ItemNum.Equals(StaticVars.CharNum[_charNow]));
             for (int i = 1; i < 4; i++)
             {
-                P3[i] = Convert.ToInt32(strArray2[i + Positions * 2]);
+                P3[i] = Convert.ToInt32(strArray2[i + StaticVars.Positions * 2]);
             }
 
             //Index_Stone.Clear();
@@ -4519,9 +4347,9 @@ namespace TalesRunnerForm
 
             if (mode == 2)
             {
-                if (_boxPage + page > (total / PerPage))
+                if (_boxPage + page > (total / StaticVars.PerPage))
                 {
-                    _boxPage = (total / PerPage);
+                    _boxPage = (total / StaticVars.PerPage);
                 }
                 else
                 {
@@ -4538,14 +4366,14 @@ namespace TalesRunnerForm
         {
             int para = 3; // 传送的数据数量
             int total = ItemBox.Count;
-            string[] strings = new string[para * PerPage + 2];
+            string[] strings = new string[para * StaticVars.PerPage + 2];
             if (mode == 1)
             {
-                if (_boxPage != ((total - 1) / PerPage))
+                if (_boxPage != ((total - 1) / StaticVars.PerPage))
                 {
-                    for (int i = 0; i < PerPage; i++)
+                    for (int i = 0; i < StaticVars.PerPage; i++)
                     {
-                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
+                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
                         strings[i * para] = ItemRest[index].GetName();
                         strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
@@ -4553,15 +4381,15 @@ namespace TalesRunnerForm
                 }
                 else
                 {
-                    for (int i = 0; i < (total % PerPage); i++)
+                    for (int i = 0; i < (total % StaticVars.PerPage); i++)
                     {
-                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
+                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
                         strings[i * para] = ItemRest[index].GetName();
                         strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
 
-                    for (int i = total % PerPage; i < PerPage; i++)
+                    for (int i = total % StaticVars.PerPage; i < StaticVars.PerPage; i++)
                     {
                         strings[i * para] = string.Empty;
                         strings[i * para + 1] = "-1";
@@ -4571,37 +4399,37 @@ namespace TalesRunnerForm
             }
             else if (mode == 2)
             {
-                if (_boxPage != ((total - 1) / PerPage))
+                if (_boxPage != ((total - 1) / StaticVars.PerPage))
                 {
-                    for (int i = 0; i < PerPage; i++)
+                    for (int i = 0; i < StaticVars.PerPage; i++)
                     {
-                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
+                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
                         strings[i * 2] = ItemRest[index].GetName();
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < (total % PerPage); i++)
+                    for (int i = 0; i < (total % StaticVars.PerPage); i++)
                     {
-                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * PerPage + i].BoxNum);
+                        int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
                         strings[i * 2] = ItemRest[index].GetName();
                     }
 
-                    for (int i = total % PerPage; i < PerPage; i++)
+                    for (int i = total % StaticVars.PerPage; i < StaticVars.PerPage; i++)
                     {
                         strings[i * 2] = string.Empty;
                     }
                 }
             }
 
-            strings[para * PerPage] = (_boxPage + 1) + "";
-            strings[para * PerPage + 1] = (((total - 1) / PerPage) + 1) + "";
+            strings[para * StaticVars.PerPage] = (_boxPage + 1) + "";
+            strings[para * StaticVars.PerPage + 1] = (((total - 1) / StaticVars.PerPage) + 1) + "";
             return strings;
         }
 
         internal static int PictureBoxBoxd_RightClick(int boxNum)
         {
-            return PerPage * _boxPage + boxNum - 1;
+            return StaticVars.PerPage * _boxPage + boxNum - 1;
         }
 
         #endregion
@@ -4610,7 +4438,7 @@ namespace TalesRunnerForm
 
         internal static bool IsBoxable(int boxNum)
         {
-            int tagBox = PerPage * _boxPage + boxNum - 1;
+            int tagBox = StaticVars.PerPage * _boxPage + boxNum - 1;
             if (tagBox >= ItemBox.Count)
             {
                 return false;

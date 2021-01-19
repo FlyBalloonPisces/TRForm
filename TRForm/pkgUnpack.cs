@@ -14,16 +14,9 @@ namespace TalesRunnerForm
         private static byte[] Decrypt(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            byte[] aesKey =
-            {
-                0x0D, 0x68, 0x07, 0x6F, 0x0A, 0x09, 0x07, 0x6C, 0x65, 0x73,
-                0x0D, 0x75, 0x6E, 0x0A, 0x65, 0x0D
-            };
-            byte[] xorKey =
-            {
-                0x05, 0x5B, 0xCB, 0x64, 0xFB, 0xC2, 0xCE, 0xB4, 0x77, 0x8B,
-                0x1B, 0xB8, 0xE9, 0xB5, 0x9C, 0xC6
-            };
+            byte[] aesKey = TrData.keysVersion ? StaticVars.aesKey1_kr : StaticVars.aesKey1_hk;
+            byte[] xorKey = TrData.keysVersion ? StaticVars.xorKey1_kr : StaticVars.xorKey1_hk;
+
             using (RijndaelManaged aes = new RijndaelManaged())
             {
                 aes.Mode = CipherMode.ECB;
@@ -59,18 +52,8 @@ namespace TalesRunnerForm
         private static byte[] Decrypt2(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            byte[] aesKey =
-            {
-                0xdb, 0x27, 0xb, 0xbb, 0x82, 0x88, 0xdf, 0xf3, 0x44, 0xee,
-               0xef, 0x93, 0x67, 0xd1, 0xb5, 0xc2, 0xb6, 0xda, 0x17, 0x59,
-               0x7, 0x75, 0x6, 0x8f, 0x32, 0x4a, 0x9f, 0x29, 0x49, 0x52,
-               0x32, 0xc2
-            };
-            byte[] xorKey =
-            {
-                0x1c, 0x67, 0x5b, 0xd4, 0x5b, 0x4a, 0x46, 0x74, 0x31, 0x7,
-               0x4b, 0x82, 0xab, 0x3f, 0x55, 0xfd
-            };
+            byte[] aesKey = TrData.keysVersion ? StaticVars.aesKey2_kr : StaticVars.aesKey2_hk;
+            byte[] xorKey = TrData.keysVersion ? StaticVars.xorKey2_kr : StaticVars.xorKey2_hk;
             // MemoryStream mStream = new MemoryStream(data);
             using (RijndaelManaged aes = new RijndaelManaged())
             {
@@ -337,13 +320,7 @@ namespace TalesRunnerForm
             SortedList<string, string> listPic = new SortedList<string, string>();
             string pkgDir = fileInfo.FullName; // 获得pkg_path
             // string pkgName = fileInfo.Name.Split('.')[0]; // 获取文件名：tr9
-            string[] tr_pkg =
-            {
-                "9",
-                "13",
-                "14",
-                "15"
-            };
+            string[] tr_pkg = TrData.keysVersion ? StaticVars.tr_pkg_kr : StaticVars.tr_pkg_hk;
             // Console.WriteLine("pkg_name = " + pkg_name);
             for (int pkgNum = 0; pkgNum < tr_pkg.Length; pkgNum++)
             {
@@ -478,23 +455,7 @@ namespace TalesRunnerForm
         internal static SortedList<int, int[]> Occupation(FileInfo fileInfo, SortedList<int, string> listNames, BackgroundWorker bw)
         {
             // 全角色占用
-            string[] positionNames =
-            {
-            "head",
-            "topbody",
-            "downbody",
-            "foot",
-            "acchead",
-            "accface",
-            "acchand",
-            "accback",
-            "accneck",
-            "pet",
-            "expansion",
-            "accwrist",
-            "accbooster",
-            "acctail"
-            };
+
 
             // 各角色公共服饰
             SortedList<string, short>[] listOc = new SortedList<string, short>[TrData.Characters];
@@ -504,12 +465,12 @@ namespace TalesRunnerForm
             int ch = 1;
             while (ch <= TrData.Characters)
             {
-                string pkgPath = fileInfo.FullName + "\\char" + TrData.CharacterPkg[ch] + ".pkg"; // 获得pkg_path
+                string pkgPath = fileInfo.FullName + "\\char" + StaticVars.CharacterPkg[ch] + ".pkg"; // 获得pkg_path
                 FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
                 listOc[ch - 1] = new SortedList<string, short>();
 
                 SortedList<string, string> listOcBinary = new SortedList<string, string>();
-                int[] positionBinary = new int[TrData.Positions];
+                int[] positionBinary = new int[StaticVars.Positions];
                 using (BinaryReader pkg = new BinaryReader(fs))
                 {
                     //_ = (int)MessageBox.Show("3", "Debug");
@@ -555,7 +516,7 @@ namespace TalesRunnerForm
                             {
                                 string fileName = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[2]; // 把目录和文件名合成一个路径
                                 //string test = Encoding.UTF8.GetString(decompressedEntryTitle);
-                                if (fileName.Split('.').Length == 2 && (fileName.Split('_')[0] + "_").Equals(TrData.Character[ch]) && fileName.Split('_').Length >= 3)
+                                if (fileName.Split('.').Length == 2 && (fileName.Split('_')[0] + "_").Equals(StaticVars.Character[ch]) && fileName.Split('_').Length >= 3)
                                 {
                                     if (fileName.Split('.')[1].Equals("pt1") && IsNumberic(fileName.Split('_')[2].Split('.')[0])) // 获取pt1文件以获取装备占用
                                     {
@@ -615,7 +576,7 @@ namespace TalesRunnerForm
                                         }
                                     }
                                 }
-                                else if (fileName.Equals(TrData.Character[ch] + "set.ca3")) // 获取角色本身的各部位编号
+                                else if (fileName.Equals(StaticVars.Character[ch] + "set.ca3")) // 获取角色本身的各部位编号
                                 {
                                     int partNum = BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4).ToArray(), 0); // 获得单元数量
                                     offset = BitConverter.ToInt32(decompressedEntryData.Skip(0x414).Take(4)
@@ -655,12 +616,12 @@ namespace TalesRunnerForm
                                             Array.Copy(decryptedFileData, position += 2, dataPosition, 0, nameLength);
                                             string str = Encoding.UTF8.GetString(dataPosition);
                                             //_ = (int)MessageBox.Show(str + "," + ch, "Debug");
-                                            if (positionNames.Contains(str))
+                                            if (StaticVars.positionNames.Contains(str))
                                             {
                                                 //_ = (int)MessageBox.Show(str + "," + ch, "Debug2");
-                                                for (int index = 0; index < positionNames.Length; index++)
+                                                for (int index = 0; index < StaticVars.positionNames.Length; index++)
                                                 {
-                                                    if (positionNames[index].Equals(str))
+                                                    if (StaticVars.positionNames[index].Equals(str))
                                                     {
                                                         //_ = (int)MessageBox.Show(index + ","+str+"," +ch, "Debug");
                                                         positionBinary[index] = i + 1;
@@ -713,7 +674,7 @@ namespace TalesRunnerForm
                         //if (!listOc[ch - 1].ContainsKey(pair.Key.Replace(TrData.Character[ch], TrData.Character[0])))
                         //{
                         // 如果是公共部件，则转化为公共名称all_开头
-                        listOc[ch - 1].Add(pair.Key.Replace(TrData.Character[ch], TrData.Character[0]), occupation);
+                        listOc[ch - 1].Add(pair.Key.Replace(StaticVars.Character[ch], StaticVars.Character[0]), occupation);
                         //}
 
                     }

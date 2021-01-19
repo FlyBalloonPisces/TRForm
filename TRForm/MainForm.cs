@@ -39,6 +39,9 @@ namespace TalesRunnerForm
         private delegate void SetIntVoid(int t);
         private SetIntVoid _setIntVoid;
 
+        private delegate int[] SetIntInts(int t);
+        private SetIntInts _setIntInts;
+
         private delegate void SetBooleanVoid(bool t);
         private SetBooleanVoid _setBooleanVoid;
 
@@ -277,6 +280,12 @@ namespace TalesRunnerForm
                 _getString() +
                 Resources.About2;
             label13.Text = Resources.String_SetImage;
+
+            for (int i = 0; i < TrData.Characters; i++)
+            {
+                comboBox8.Items.Add(StaticVars.CharName[i]);
+            }
+
             foreach (Control control in (ArrangedElementCollection)groupBox3.Controls)
             {
                 if (control is ComboBox box)
@@ -292,6 +301,7 @@ namespace TalesRunnerForm
                     box.SelectedIndex = 0;
                 }
             }
+
             _iOld = -1;
             _getListViewItems = TrData.GetListViewItems;
             _listViewItems = _getListViewItems();
@@ -836,38 +846,39 @@ namespace TalesRunnerForm
                 short picPkg = Convert.ToInt16(strings[i + 2]);
                 if (picOffset >= 0)
                 {
-                    if (i < 2 + TrData.Positions * para)
+                    if (i < 2 + StaticVars.Positions * para)
                     {
+                        PictureBox pic = GetpictureBoxdddd((i + minus) / para);
                         GetpictureBoxdddd((i + minus) / para).Image = _showDds(picOffset, picPkg);
                         toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para), strings[i + 1]);
                     }
-                    else if (i < 2 + TrData.Positions * para * 2)
+                    else if (i < 2 + StaticVars.Positions * para * 2)
                     {
-                        GetpictureBoxdddd((-i - minus) / para + TrData.Positions).Image = _showDds(picOffset, picPkg);
-                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + TrData.Positions), strings[i + 1]);
+                        GetpictureBoxdddd((-i - minus) / para + StaticVars.Positions).Image = _showDds(picOffset, picPkg);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + StaticVars.Positions), strings[i + 1]);
                     }
                     else
                     {
-                        GetpictureBoxdddd((i + minus) / para - TrData.Positions * 2 + 20).Image = _showDds(picOffset, picPkg);
-                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - TrData.Positions * 2 + 20), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para - StaticVars.Positions * 2 + 20).Image = _showDds(picOffset, picPkg);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - StaticVars.Positions * 2 + 20), strings[i + 1]);
                     }
                 }
                 else
                 {
-                    if (i < 2 + TrData.Positions * para)
+                    if (i < 2 + StaticVars.Positions * para)
                     {
                         GetpictureBoxdddd((i + minus) / para).Image = GetpictureBoxddddDefaultPic((i + minus) / para);
                         toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para), strings[i + 1]);
                     }
-                    else if (i < 2 + TrData.Positions * para * 2)
+                    else if (i < 2 + StaticVars.Positions * para * 2)
                     {
-                        GetpictureBoxdddd((-i - minus) / para + TrData.Positions).Image = GetpictureBoxddddDefaultPic((-i - minus) / para + TrData.Positions);
-                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + TrData.Positions), strings[i + 1]);
+                        GetpictureBoxdddd((-i - minus) / para + StaticVars.Positions).Image = GetpictureBoxddddDefaultPic((-i - minus) / para + StaticVars.Positions);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((-i - minus) / para + StaticVars.Positions), strings[i + 1]);
                     }
                     else
                     {
-                        GetpictureBoxdddd((i + minus) / para - TrData.Positions * para + 20).Image = GetpictureBoxddddDefaultPic((i + minus) / para - TrData.Positions * para + 20);
-                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - TrData.Positions * para + 20), strings[i + 1]);
+                        GetpictureBoxdddd((i + minus) / para - StaticVars.Positions * 2 + 20).Image = GetpictureBoxddddDefaultPic((i + minus) / para - StaticVars.Positions * 2 + 20);
+                        toolTip1.SetToolTip(GetpictureBoxdddd((i + minus) / para - StaticVars.Positions * 2 + 20), strings[i + 1]);
                     }
                 }
             }
@@ -979,10 +990,18 @@ namespace TalesRunnerForm
         /// </summary>
         private void comboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // TODO 血腥维拉
-            _setIntVoid = TrData.CharChange;
-            _setIntVoid(comboBox8.SelectedIndex);
+            _setIntInts = TrData.CharChange;
+            int[] status = _setIntInts(comboBox8.SelectedIndex);
             ItemChanged(3, 0);
+            numeric_reset();
+            numeric1.Value = status[0];
+            numeric_reset();
+            numeric2.Value = status[1];
+            numeric_reset();
+            numeric3.Value = status[2];
+            numeric_reset();
+            numeric4.Value = status[3];
+            numeric_check();
         }
 
         /// <summary>
@@ -1043,8 +1062,45 @@ namespace TalesRunnerForm
             StatusShow();
         }
 
+        private void numeric_check()
+        {
+            if (numeric1.Value + numeric2.Value + numeric3.Value + numeric4.Value >= 15)
+            {
+                numeric1.Maximum = numeric1.Value;
+                numeric2.Maximum = numeric2.Value;
+                numeric3.Maximum = numeric3.Value;
+                numeric4.Maximum = numeric4.Value;
+            }
+            else if (numeric1.Value + numeric2.Value + numeric3.Value + numeric4.Value <= 12)
+            {
+                numeric1.Minimum = numeric1.Value;
+                numeric2.Minimum = numeric2.Value;
+                numeric3.Minimum = numeric3.Value;
+                numeric4.Minimum = numeric4.Value;
+            }
+            else
+            {
+                numeric_reset();
+            }
+            label23.Text = Resources.Anubis_StatusAddUp + (numeric1.Value + numeric2.Value + numeric3.Value + numeric4.Value);
+        }
+
+        private void numeric_reset()
+        {
+            numeric1.Maximum = 7;
+            numeric2.Maximum = 7;
+            numeric3.Maximum = 7;
+            numeric4.Maximum = 7;
+
+            numeric1.Minimum = 1;
+            numeric2.Minimum = 1;
+            numeric3.Minimum = 1;
+            numeric4.Minimum = 1;
+        }
+
         private void numeric1_ValueChanged(object sender, EventArgs e)
         {
+            numeric_check();
             _setIntVoid = TrData.SetTopSpeed;
             _setIntVoid((int)numeric1.Value);
             StatusShow();
@@ -1052,6 +1108,7 @@ namespace TalesRunnerForm
 
         private void numeric2_ValueChanged(object sender, EventArgs e)
         {
+            numeric_check();
             _setIntVoid = TrData.SetAcceleration;
             _setIntVoid((int)numeric2.Value);
             StatusShow();
@@ -1059,6 +1116,7 @@ namespace TalesRunnerForm
 
         private void numeric3_ValueChanged(object sender, EventArgs e)
         {
+            numeric_check();
             _setIntVoid = TrData.SetPower;
             _setIntVoid((int)numeric3.Value);
             StatusShow();
@@ -1066,6 +1124,7 @@ namespace TalesRunnerForm
 
         private void numeric4_ValueChanged(object sender, EventArgs e)
         {
+            numeric_check();
             _setIntVoid = TrData.SetControl;
             _setIntVoid((int)numeric4.Value);
             StatusShow();

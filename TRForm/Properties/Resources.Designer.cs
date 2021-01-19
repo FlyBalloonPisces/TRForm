@@ -214,7 +214,7 @@ namespace TalesRunnerForm.Properties {
         ///   查找类似 Made by Yuki, FlyBalloon
         ///本工具仅用于查看TalesRunner的装备属性
         ///
-        ///工具版本：2.5.6
+        ///工具版本：2.5.7
         ///装备库版本： 的本地化字符串。
         /// </summary>
         internal static string About1 {
@@ -226,10 +226,14 @@ namespace TalesRunnerForm.Properties {
         /// <summary>
         ///   查找类似 
         ///本次更新：
-        ///针对游戏更新进行更新
+        ///优化数据存放结构
+        ///修复配装部分图片不显示的情况
+        ///修复配装部分装备卸下后装备不消失情况
+        ///配装更换角色时阿奴栏属性自动更新
+        ///配装阿奴部分设置了总上限与总下限
+        ///港服文件处理
         ///
         ///未来更新：
-        ///优化数据存放结构
         ///联网的版本更新（也不知道还能有几个版本）
         ///箱子名称黑名单的自定义化
         ///提供英化韩化配置文件
@@ -301,6 +305,15 @@ namespace TalesRunnerForm.Properties {
         internal static string Anubis_Normal {
             get {
                 return ResourceManager.GetString("Anubis_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 属性总和  的本地化字符串。
+        /// </summary>
+        internal static string Anubis_StatusAddUp {
+            get {
+                return ResourceManager.GetString("Anubis_StatusAddUp", resourceCulture);
             }
         }
         

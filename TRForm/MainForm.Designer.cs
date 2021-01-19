@@ -171,6 +171,8 @@ namespace TalesRunnerForm
             this.tabPage3_2 = new System.Windows.Forms.TabPage();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.tabPage3_3 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.numeric5 = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
@@ -1646,35 +1648,6 @@ namespace TalesRunnerForm
             // 
             this.comboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Items.AddRange(new object[] {
-            "光光",
-            "明明",
-            "莉娜",
-            "大熊",
-            "蒂蒂",
-            "纳鲁西斯",
-            "琪琪",
-            "雷",
-            "贝尔",
-            "凯",
-            "雪",
-            "深子",
-            "亚伯",
-            "哈鲁",
-            "维拉",
-            "孙悟空",
-            "隐雷",
-            "曦狐",
-            "露西",
-            "米狐",
-            "基纳丽",
-            "R",
-            "哈朗",
-            "拉拉",
-            "埃利姆斯",
-            "凯恩",
-            "缘迕",
-            "血腥维拉"});
             this.comboBox8.Location = new System.Drawing.Point(60, 24);
             this.comboBox8.Name = "comboBox8";
             this.comboBox8.Size = new System.Drawing.Size(79, 31);
@@ -2285,6 +2258,8 @@ namespace TalesRunnerForm
             // tabPage3_3
             // 
             this.tabPage3_3.BackColor = System.Drawing.Color.White;
+            this.tabPage3_3.Controls.Add(this.label23);
+            this.tabPage3_3.Controls.Add(this.label1);
             this.tabPage3_3.Controls.Add(this.label10);
             this.tabPage3_3.Controls.Add(this.numeric5);
             this.tabPage3_3.Controls.Add(this.label17);
@@ -2302,6 +2277,28 @@ namespace TalesRunnerForm
             this.tabPage3_3.Size = new System.Drawing.Size(294, 403);
             this.tabPage3_3.TabIndex = 2;
             this.tabPage3_3.Text = "阿奴";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Location = new System.Drawing.Point(151, 72);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(103, 23);
+            this.label23.TabIndex = 61;
+            this.label23.Text = "属性总和 15";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(7, 101);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(237, 23);
+            this.label1.TabIndex = 60;
+            this.label1.Text = "属性总和最高为15，最低为12";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label10
             // 
@@ -2497,12 +2494,12 @@ namespace TalesRunnerForm
             // 
             this.textBox11.BackColor = System.Drawing.Color.White;
             this.textBox11.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.textBox11.Location = new System.Drawing.Point(3, 97);
+            this.textBox11.Location = new System.Drawing.Point(3, 127);
             this.textBox11.Multiline = true;
             this.textBox11.Name = "textBox11";
             this.textBox11.ReadOnly = true;
             this.textBox11.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox11.Size = new System.Drawing.Size(288, 303);
+            this.textBox11.Size = new System.Drawing.Size(288, 273);
             this.textBox11.TabIndex = 1;
             // 
             // tabPage1_6
@@ -3360,6 +3357,8 @@ namespace TalesRunnerForm
         private CheckBox checkBox12;
         private CheckBox checkBox13;
         private TextBox textBox12;
+        private Label label1;
+        private Label label23;
     }
 }
 

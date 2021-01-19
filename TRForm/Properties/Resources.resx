@@ -121,17 +121,21 @@
     <value>Made by Yuki, FlyBalloon
 本工具仅用于查看TalesRunner的装备属性
 
-工具版本：2.5.6
+工具版本：2.5.7
 装备库版本：</value>
     <comment>关于1</comment>
   </data>
   <data name="About2" xml:space="preserve">
     <value>
 本次更新：
-针对游戏更新进行更新
+优化数据存放结构
+修复配装部分图片不显示的情况
+修复配装部分装备卸下后装备不消失情况
+配装更换角色时阿奴栏属性自动更新
+配装阿奴部分设置了总上限与总下限
+港服文件处理
 
 未来更新：
-优化数据存放结构
 联网的版本更新（也不知道还能有几个版本）
 箱子名称黑名单的自定义化
 提供英化韩化配置文件
@@ -168,6 +172,10 @@
   </data>
   <data name="Anubis_Normal" xml:space="preserve">
     <value>普通</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_StatusAddUp" xml:space="preserve">
+    <value>属性总和 </value>
     <comment>阿努属性页用</comment>
   </data>
   <data name="Attr_AvatarOff" xml:space="preserve">
