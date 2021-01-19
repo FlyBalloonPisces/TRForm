@@ -3615,6 +3615,10 @@ namespace TalesRunnerForm
                     {
                         Itemdesc.Append(Multi(t.Value, 100f).ToString()).Append('%');
                     }
+                    else if (ItemAttrInfo[num].Type == 0)
+                    {
+                        // 啥都不做
+                    }
                     else
                     {
                         Itemdesc.Append(t.Value);
