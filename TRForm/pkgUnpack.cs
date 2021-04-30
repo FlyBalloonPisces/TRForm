@@ -373,9 +373,45 @@ namespace TalesRunnerForm
                         //    pkgName + "\\" +
                         //    Encoding.UTF8.GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
                         string[] filePaths = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\'); // 把目录和文件名合成一个路径
-                        string filePath = filePaths[filePaths.Length - 1];
-                        string entryFileAndOffset = tr_pkg[pkgNum] + "," + entryOffset.ToString();
-                        listPic.Add(filePath, entryFileAndOffset);
+                        string fileName = filePaths[filePaths.Length - 1];
+                        //if (filePaths.Length <= 2 || fileName.Split('_').Length > 3)
+                        //{
+                        //    int xyz = 1;
+                        //}
+                        string[] fileNames = fileName.Split('_');
+                        if (fileNames.Length > 1)
+                        {
+                            // 非carditemimg.png类似道具
+                            string filePosition = fileNames[0];
+                            if (fileNames.Length >= 3)
+                            {
+                                // 包括SSS
+                                filePosition = fileNames[1];
+                            }
+                            else if (fileNames.Length == 2)
+                            {
+                                filePosition = fileNames[0];
+                            }
+                            string folderPosition = filePaths[2]; // topbody等位置名称
+                            if (filePosition == folderPosition || folderPosition == "etc")
+                            {
+                                string entryFileAndOffset = tr_pkg[pkgNum] + "," + entryOffset.ToString();
+                                if (!listPic.ContainsKey(fileName))
+                                {
+                                    listPic.Add(fileName, entryFileAndOffset);
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string entryFileAndOffset = tr_pkg[pkgNum] + "," + entryOffset.ToString();
+                            if (!listPic.ContainsKey(fileName))
+                            {
+                                listPic.Add(fileName, entryFileAndOffset);
+
+                            }
+                        }
                         fs.Seek(nextEntry, 0);
                         num++;
                     }
@@ -644,7 +680,7 @@ namespace TalesRunnerForm
                                     }
                                 }
                             }
-                            
+
                         }
                         fs.Seek(nextEntry, 0);
                         num++;

@@ -4385,7 +4385,7 @@ namespace TalesRunnerForm
                 }
                 else
                 {
-                    for (int i = 0; i < (total % StaticVars.PerPage); i++)
+                    for (int i = 0; i <= ((total - 1) % StaticVars.PerPage); i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
                         strings[i * para] = ItemRest[index].GetName();
@@ -4393,7 +4393,7 @@ namespace TalesRunnerForm
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
 
-                    for (int i = total % StaticVars.PerPage; i < StaticVars.PerPage; i++)
+                    for (int i = (total - 1) % StaticVars.PerPage; i < StaticVars.PerPage - 1; i++)
                     {
                         strings[i * para] = string.Empty;
                         strings[i * para + 1] = "-1";
