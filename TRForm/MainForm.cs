@@ -111,6 +111,8 @@ namespace TalesRunnerForm
         /// </summary>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _doSomeThing = TrData.SaveBoxBan;
+            _doSomeThing();
             Environment.Exit(0);
         }
 

@@ -56,6 +56,7 @@ namespace TalesRunnerForm
         private static bool _check1; // 内装勾选
         private static bool _check2; // 外装勾选
         private static readonly List<int> ListResult = new List<int>();
+        private static readonly List<int> ListBoxBan = new List<int>(); // 箱子黑名单
         private static readonly SortedList<int, List<Attr>> List212 = new SortedList<int, List<Attr>>(); //212属性用列表
         private static List<ListViewItem> _listViewItems = new List<ListViewItem>();
         private static bool _search; // 是否进行了条件搜索 初始值为false
@@ -2317,90 +2318,25 @@ namespace TalesRunnerForm
         {
             string path = Path + "itemdata2.txt";
             string[] strArray1 = File.ReadAllLines(path, Encoding.UTF8);
-            string pattern1 = @"패키지$";
-            string pattern2 = @"팩$";
-            string pattern3 = @"팀 보상 상자$";
-            string pattern4 = @"세트$";
-            string pattern5 = @"세트S$";
-            string pattern6 = @"세트A$";
-            string pattern7 = @"개 세트$"; // 金币箱子也以此结尾
-            string pattern8 = @"일차 상자$";
-            string pattern9 = @"손오공의 선물$";
-            string pattern10 = @"TR 상자$";
-            string pattern11 = @"UP$";
-            string pattern12 = @"^PC방 선물꾸러미";
-            string pattern13 = @"흥부와 놀부1 상자";
-            string pattern14 = @"흥부와 놀부2 상자";
-            string pattern15 = @"해와 달 상자";
-            string pattern16 = @"제크와 콩나무 상자";
-            string pattern17 = @"복숭아 동자 상자";
-            string pattern18 = @"알라딘 상자";
-            string pattern19 = @"개구리 왕자 상자";
-            string pattern20 = @"설녀 상자";
-            string pattern21 = @"알리바바 상자";
-            string pattern22 = @"피터팬 상자";
-            string pattern23 = @"피리부는 사나이 상자";
-            string pattern24 = @"이상한 나라의 앨리스 상자";
-            string pattern25 = @"피노키오 모험 상자";
-            string pattern26 = @"^포장된";
-            string pattern27 = @"^실속 한가위 보따리";
-            string pattern28 = @"^고급 한가위 보따리";
-            string pattern29 = @"^봉인된 미니";
-            string pattern30 = @"^봉인된 유령";
-            string pattern31 = @"10억 증서";
-            string pattern32 = @"학년 진급 보상$";
-            string pattern33 = @"^버닝";
-            string pattern34 = @"경험치 상자$";
-            string pattern35 = @"도깨비 상자$";
-            string pattern36 = @"연오 상자$";
-            string pattern37 = @"보급품 세트";
+
+            string pathBan = Path + "boxBan.txt";
+            string[] strArrayBan = File.ReadAllLines(pathBan, Encoding.UTF8);
+
+            for (int indexBan = 0; indexBan < strArrayBan.Length; ++indexBan)
+            {
+                int num = Convert.ToInt32(strArrayBan[indexBan]);
+                if (!ListBoxBan.Contains(num))
+                {
+                    ListBoxBan.Add(num);
+                }
+            }
 
             for (int index1 = 1; index1 < strArray1.Length; ++index1)
             {
                 string[] strArray2 = strArray1[index1].Split('|');
                 string[] strArray3 = strArray2[0].Split(',');
                 int index = ItemRest.FindIndex(item => item.ItemNum.Equals(Convert.ToInt32(strArray3[0])));
-                bool flag = !Regex.IsMatch(ItemRest[index].Name, pattern1) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern2) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern3) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern4) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern5) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern6) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern8) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern9) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern10) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern11) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern12) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern13) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern14) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern15) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern16) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern17) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern18) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern19) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern20) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern21) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern22) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern22) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern23) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern24) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern25) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern26) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern27) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern28) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern29) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern30) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern31) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern32) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern33) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern34) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern35) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern36) &&
-                            !Regex.IsMatch(ItemRest[index].Name, pattern37);
-                if (!flag)
-                {
-                    flag = Regex.IsMatch(ItemRest[index].Name, pattern7);
-                }
+                bool flag = !ListBoxBan.Contains(ItemRest[index].ItemNum);
 
                 if (flag)
                 {
@@ -2458,8 +2394,9 @@ namespace TalesRunnerForm
                         MemberGold = memberList3,
                         WeightGold = weightList3
                     });
-                }
+                } 
             }
+
         }
 
         internal static string GetDataVersion()
@@ -4378,7 +4315,7 @@ namespace TalesRunnerForm
                     for (int i = 0; i < StaticVars.PerPage; i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
-                        strings[i * para] = ItemRest[index].GetName();
+                        strings[i * para] = ItemRest[index].GetName() + "\r" + ItemRest[index].ItemNum; ;
                         strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
@@ -4388,12 +4325,12 @@ namespace TalesRunnerForm
                     for (int i = 0; i <= ((total - 1) % StaticVars.PerPage); i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
-                        strings[i * para] = ItemRest[index].GetName();
+                        strings[i * para] = ItemRest[index].GetName() + "\r" + ItemRest[index].ItemNum; ;
                         strings[i * para + 1] = ItemRest[index].PicOffset.ToString();
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
 
-                    for (int i = (total - 1) % StaticVars.PerPage; i < StaticVars.PerPage - 1; i++)
+                    for (int i = (total - 1) % StaticVars.PerPage; i <= StaticVars.PerPage - 1; i++)
                     {
                         strings[i * para] = string.Empty;
                         strings[i * para + 1] = "-1";
@@ -4408,7 +4345,7 @@ namespace TalesRunnerForm
                     for (int i = 0; i < StaticVars.PerPage; i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
-                        strings[i * 2] = ItemRest[index].GetName();
+                        strings[i * 2] = ItemRest[index].GetName() + "\r" + ItemRest[index].ItemNum; ;
                     }
                 }
                 else
@@ -4416,7 +4353,7 @@ namespace TalesRunnerForm
                     for (int i = 0; i < (total % StaticVars.PerPage); i++)
                     {
                         int index = ItemRest.FindIndex(item => item.ItemNum == ItemBox[_boxPage * StaticVars.PerPage + i].BoxNum);
-                        strings[i * 2] = ItemRest[index].GetName();
+                        strings[i * 2] = ItemRest[index].GetName() + "\r" + ItemRest[index].ItemNum;
                     }
 
                     for (int i = total % StaticVars.PerPage; i < StaticVars.PerPage; i++)
@@ -4456,6 +4393,13 @@ namespace TalesRunnerForm
             int numItem = ItemBox[tagBox].BoxNum;
             int tagItem = ItemRest.FindIndex(item => item.ItemNum == numItem);
             return ItemRest[tagItem].GetName();
+        }
+
+        internal static int GetBoxNum(int tagBox)
+        {
+            int numItem = ItemBox[tagBox].BoxNum;
+            int tagItem = ItemRest.FindIndex(item => item.ItemNum == numItem);
+            return ItemRest[tagItem].ItemNum;
         }
 
         internal static List<int> GetBoxMember(int tagBox)
@@ -4757,6 +4701,37 @@ namespace TalesRunnerForm
         internal static float GetBoxSilverRate(int tagBox)
         {
             return ItemBox[tagBox].SilverRate;
+        }
+
+        internal static bool BoxBan(int numBox)
+        {
+            bool flag = true;
+
+            try
+            {
+                if (!ListBoxBan.Contains(numBox))
+                {
+                    ListBoxBan.Add(numBox);
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return flag;
+        }
+
+        internal static void SaveBoxBan()
+        {
+            FileStream fs = new FileStream(Path + "boxban.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter exportFile = new StreamWriter(fs);
+            foreach (int i in ListBoxBan)
+            {
+                exportFile.Write(i);
+                exportFile.WriteLine();
+            }
+            exportFile.Close();
         }
 
         #endregion

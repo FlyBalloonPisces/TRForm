@@ -13,6 +13,7 @@ namespace TalesRunnerForm
     {
         private Point _mPoint;
         private readonly string _boxName = string.Empty;
+        private readonly int _itemNum;
         private readonly int _position;
         private readonly List<int> _memberTotal = new List<int>(); // 全奖品池
         // private readonly List<int> _memberBasic = new List<int>(); // 普通奖品池
@@ -75,6 +76,9 @@ namespace TalesRunnerForm
         private ShowDds _showDds;
 
         private delegate float Calculation(float f1, float f2);
+
+        private delegate bool BoxBan(int t);
+        private BoxBan boxBan;
         #endregion
 
         /// <summary>
@@ -91,7 +95,9 @@ namespace TalesRunnerForm
             InitializeComponent();
             GetString getString = TrData.GetBoxName;
             _boxName = getString(tag);
-            GetInt getInt = TrData.GetBoxPosition;
+            GetInt getInt = TrData.GetBoxNum;
+            _itemNum = getInt(tag);
+            getInt = TrData.GetBoxPosition;
             _position = getInt(tag);
             if (_position != 395) // 非魔方道具
             {
@@ -817,6 +823,21 @@ namespace TalesRunnerForm
             if (e.Button == MouseButtons.Left)
             {
                 Location = new Point(Location.X + e.X - _mPoint.X, Location.Y + e.Y - _mPoint.Y);
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            boxBan = TrData.BoxBan;
+            bool flag = boxBan(_itemNum);
+            if (flag)
+            {
+                label33.Text = "已将本箱子放入黑名单";
+                button13.Enabled = false;
+            }
+            else
+            {
+                label33.Text = "出现错误 请重试";
             }
         }
     }

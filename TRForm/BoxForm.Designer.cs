@@ -121,6 +121,9 @@
             this.label35 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.label33 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
+            this.groupBoxEx5 = new ControlEx.GroupBoxEx();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
@@ -163,6 +166,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox35)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox36)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
+            this.groupBoxEx5.SuspendLayout();
             this.SuspendLayout();
             // 
             // button4
@@ -1205,12 +1209,52 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.Location = new System.Drawing.Point(20, 34);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(360, 26);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "点击右侧按钮 不再在开箱页面显示此箱子";
+            // 
+            // button13
+            // 
+            this.button13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button13.AutoSize = true;
+            this.button13.BackColor = System.Drawing.Color.Black;
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button13.ForeColor = System.Drawing.Color.White;
+            this.button13.Location = new System.Drawing.Point(443, 56);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(105, 38);
+            this.button13.TabIndex = 66;
+            this.button13.Text = "黑名单";
+            this.button13.UseVisualStyleBackColor = false;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // groupBoxEx5
+            // 
+            this.groupBoxEx5.BackColor = System.Drawing.Color.White;
+            this.groupBoxEx5.Controls.Add(this.label33);
+            this.groupBoxEx5.Controls.Add(this.button13);
+            this.groupBoxEx5.LineColor = System.Drawing.Color.DodgerBlue;
+            this.groupBoxEx5.Location = new System.Drawing.Point(13, 364);
+            this.groupBoxEx5.Name = "groupBoxEx5";
+            this.groupBoxEx5.Size = new System.Drawing.Size(554, 100);
+            this.groupBoxEx5.TabIndex = 67;
+            this.groupBoxEx5.TabStop = false;
+            this.groupBoxEx5.Text = "黑名单";
+            // 
             // BoxForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(583, 370);
+            this.ClientSize = new System.Drawing.Size(583, 476);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBoxEx5);
             this.Controls.Add(this.groupBoxEx4);
             this.Controls.Add(this.groupBoxEx3);
             this.Controls.Add(this.groupBoxEx2);
@@ -1272,6 +1316,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox35)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox36)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
+            this.groupBoxEx5.ResumeLayout(false);
+            this.groupBoxEx5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1369,5 +1415,8 @@
         private System.Windows.Forms.Label label31;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button button13;
+        private ControlEx.GroupBoxEx groupBoxEx5;
     }
 }
