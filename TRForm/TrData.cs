@@ -4706,7 +4706,6 @@ namespace TalesRunnerForm
         internal static bool BoxBan(int numBox)
         {
             bool flag = true;
-
             try
             {
                 if (!ListBoxBan.Contains(numBox))
@@ -4714,7 +4713,7 @@ namespace TalesRunnerForm
                     ListBoxBan.Add(numBox);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
