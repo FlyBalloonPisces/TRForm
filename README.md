@@ -1,6 +1,15 @@
 # TRForm
 TalesRunner ItemStatus Kit
 
+
+2.5.8(2021.05.29)
+
+https://github.com/FlyBalloonPisces/TRForm/releases/tag/2.6.0
+
+箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可
+修复开箱页面，最后一页报错的现象
+
+
 2.5.8(2021.04.30)
 
 https://github.com/FlyBalloonPisces/TRForm/releases/tag/2.5.8
