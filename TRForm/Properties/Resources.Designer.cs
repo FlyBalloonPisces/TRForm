@@ -214,7 +214,7 @@ namespace TalesRunnerForm.Properties {
         ///   查找类似 Made by Yuki, FlyBalloon
         ///本工具仅用于查看TalesRunner的装备属性
         ///
-        ///工具版本：2.6.0
+        ///工具版本：2.6.1
         ///装备库版本： 的本地化字符串。
         /// </summary>
         internal static string About1 {
@@ -226,7 +226,8 @@ namespace TalesRunnerForm.Properties {
         /// <summary>
         ///   查找类似 
         ///本次更新：
-        ///箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可
+        ///修内尔角色更新
+        ///箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
         ///修复开箱页面，最后一页报错的现象
         ///
         ///未来更新：

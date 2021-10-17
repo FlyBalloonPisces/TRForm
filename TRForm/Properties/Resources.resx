@@ -121,14 +121,15 @@
     <value>Made by Yuki, FlyBalloon
 本工具仅用于查看TalesRunner的装备属性
 
-工具版本：2.6.0
+工具版本：2.6.1
 装备库版本：</value>
     <comment>关于1</comment>
   </data>
   <data name="About2" xml:space="preserve">
     <value>
 本次更新：
-箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可
+修内尔角色更新
+箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
 修复开箱页面，最后一页报错的现象
 
 未来更新：
