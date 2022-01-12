@@ -62,8 +62,8 @@ namespace TalesRunnerForm
 
         // 数组控制用常量
         // TODO 人物数的自动读取
-        internal const int Characters_kr = 29; // 29个常规角色
-        internal const int Characters_hk = 28; // 28个常规角色
+        internal const int Characters_kr = 30; // 30个常规角色
+        internal const int Characters_hk = 29; // 29个常规角色
         internal const int Positions = 14; // 14个常规部位
 
         internal static readonly string[] CharName =
@@ -96,7 +96,8 @@ namespace TalesRunnerForm
             "凯恩",
             "缘迕",
             "血腥维拉",
-            "修内尔"
+            "修内尔",
+            "露露亚"
         };
 
         internal static readonly int[] CharNum =
@@ -130,7 +131,8 @@ namespace TalesRunnerForm
             83404, // 凯恩
             85507, // 缘迕
             91242, // 血腥维拉
-            94708  // 修内尔
+            94708, // 修内尔
+            96962  // 露露亚
         };
 
         internal static readonly string[] Level =
@@ -202,6 +204,7 @@ namespace TalesRunnerForm
             "gb_",
             "vrd_",
             "xn_",
+            "rl_",
             // 合作角色
             "k1_",
             "k2_",
@@ -314,7 +317,8 @@ namespace TalesRunnerForm
             26, // 凯恩
             27, // 缘迕
             15, // 血腥维拉
-            29  // 修内尔
+            29, // 修内尔
+            30  // 露露亚
         };
         #endregion
     }

@@ -19,7 +19,7 @@ namespace TalesRunnerForm.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -47,8 +47,8 @@ namespace TalesRunnerForm.Properties {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -214,7 +214,7 @@ namespace TalesRunnerForm.Properties {
         ///   查找类似 Made by Yuki, FlyBalloon
         ///本工具仅用于查看TalesRunner的装备属性
         ///
-        ///工具版本：2.6.1
+        ///工具版本：2.6.2
         ///装备库版本： 的本地化字符串。
         /// </summary>
         internal static string About1 {
@@ -226,9 +226,10 @@ namespace TalesRunnerForm.Properties {
         /// <summary>
         ///   查找类似 
         ///本次更新：
-        ///修内尔角色更新
+        ///露露亚角色更新
         ///箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
-        ///修复开箱页面，最后一页报错的现象
+        ///鱼饵道具加入开箱页面
+        ///修复开箱页面，最后一页最后一个箱子不显示的现象
         ///
         ///未来更新：
         ///联网的版本更新（也不知道还能有几个版本）

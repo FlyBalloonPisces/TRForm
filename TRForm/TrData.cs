@@ -504,111 +504,62 @@ namespace TalesRunnerForm
 
             public static string GetChar(int c)
             {
-                switch (c)
+                if (c <= StaticVars.Characters_kr)
                 {
-                    case 1:
-                        return Resources.Character1;
-                    case 2:
-                        return Resources.Character2;
-                    case 3:
-                        return Resources.Character3;
-                    case 4:
-                        return Resources.Character4;
-                    case 5:
-                        return Resources.Character5;
-                    case 6:
-                        return Resources.Character6;
-                    case 7:
-                        return Resources.Character7;
-                    case 8:
-                        return Resources.Character8;
-                    case 9:
-                        return Resources.Character9;
-                    case 10:
-                        return Resources.Character10;
-                    case 11:
-                        return Resources.Character11;
-                    case 12:
-                        return Resources.Character12;
-                    case 13:
-                        return Resources.Character13;
-                    case 14:
-                        return Resources.Character14;
-                    case 15:
-                        return Resources.Character15;
-                    case 16:
-                        return Resources.Character16;
-                    case 17:
-                        return Resources.Character17;
-                    case 18:
-                        return Resources.Character18;
-                    case 19:
-                        return Resources.Character19;
-                    case 20:
-                        return Resources.Character20;
-                    case 21:
-                        return Resources.Character21;
-                    case 22:
-                        return Resources.Character22;
-                    case 23:
-                        return Resources.Character23;
-                    case 24:
-                        return Resources.Character24;
-                    case 25:
-                        return Resources.Character25;
-                    case 26:
-                        return Resources.Character26;
-                    case 27:
-                        return Resources.Character27;
-                    case 28:
-                        return Resources.Character28;
-                    case 201:
-                        return Resources.Character201;
-                    case 202:
-                        return Resources.Character202;
-                    case 203:
-                        return Resources.Character203;
-                    case 204:
-                        return Resources.Character204;
-                    case 205:
-                        return Resources.Character205;
-                    case 206:
-                        return Resources.Character206;
-                    case 207:
-                        return Resources.Character207;
-                    case 208:
-                        return Resources.Character208;
-                    case 209:
-                        return Resources.Character209;
-                    case 210:
-                        return Resources.Character210;
-                    case 211:
-                        return Resources.Character211;
-                    case 212:
-                        return Resources.Character212;
-                    case 213:
-                        return Resources.Character213;
-                    case 214:
-                        return Resources.Character214;
-                    case 215:
-                        return Resources.Character215;
-                    case 216:
-                        return Resources.Character216;
-                    case 217:
-                        return Resources.Character217;
-                    case 218:
-                        return Resources.Character218;
-                    case 219:
-                        return Resources.Character219;
-                    case 220:
-                        return Resources.Character220;
-                    case 221:
-                        return Resources.Character221;
-                    case 222:
-                        return Resources.Character222;
-                    default:
-                        return Resources.Character_Other;
+                    return StaticVars.CharName[c - 1];
+                } else
+                {
+                    switch (c)
+                    {
+                        case 201:
+                            return Resources.Character201;
+                        case 202:
+                            return Resources.Character202;
+                        case 203:
+                            return Resources.Character203;
+                        case 204:
+                            return Resources.Character204;
+                        case 205:
+                            return Resources.Character205;
+                        case 206:
+                            return Resources.Character206;
+                        case 207:
+                            return Resources.Character207;
+                        case 208:
+                            return Resources.Character208;
+                        case 209:
+                            return Resources.Character209;
+                        case 210:
+                            return Resources.Character210;
+                        case 211:
+                            return Resources.Character211;
+                        case 212:
+                            return Resources.Character212;
+                        case 213:
+                            return Resources.Character213;
+                        case 214:
+                            return Resources.Character214;
+                        case 215:
+                            return Resources.Character215;
+                        case 216:
+                            return Resources.Character216;
+                        case 217:
+                            return Resources.Character217;
+                        case 218:
+                            return Resources.Character218;
+                        case 219:
+                            return Resources.Character219;
+                        case 220:
+                            return Resources.Character220;
+                        case 221:
+                            return Resources.Character221;
+                        case 222:
+                            return Resources.Character222;
+                        default:
+                            return Resources.Character_Other;
+                    }
                 }
+                
             }
 
             /// <summary>
@@ -1148,7 +1099,8 @@ namespace TalesRunnerForm
                 "clientiteminfo\\essenitemcollectiondesc", "clientiteminfo\\tblavataritemdescattr",
                 "content\\alchemist\\essenalchemistmixcondition", "clientiteminfo\\tblavataritemsetdesc",
                 "clientiteminfo\\tblavataritemsetattr", "archives\\essenarchives_exchangelist",
-                "clientiteminfo\\essenitemcubereward", "clientiteminfo\\settingitemcubelist"
+                "clientiteminfo\\essenitemcubereward", "clientiteminfo\\settingitemcubelist",
+                "content\\fishing\\essenfishing_decoy"
             };
             Encoding[] encodings =
             {
@@ -1336,7 +1288,6 @@ namespace TalesRunnerForm
             bw.ReportProgress(68);
 
 
-
             bw.ReportProgress(70);
 
             // 普通箱子内容物
@@ -1368,6 +1319,41 @@ namespace TalesRunnerForm
                                     {{Convert.ToInt32(str11[1]), Convert.ToSingle(str11[3])}},
                                 WeightTotalBasic = Convert.ToInt32(str11[3]),
                                 Position = 250,
+                                SilverRate = 0
+                            });
+                        }
+                    }
+                }
+            }
+
+            // 鱼饵道具
+            str1 = txtFileList["content\\fishing\\essenfishing_decoy"];
+            for (int index1 = 1; index1 < str1.Length; ++index1)
+            {
+                string[] str11 = StringDivide(str1[index1]);
+                if (list.ContainsKey(Convert.ToInt32(str11[0])) && list.ContainsKey(Convert.ToInt32(str11[1])))
+                {
+                    list[Convert.ToInt32(str11[0])].Demand = true;
+                    list[Convert.ToInt32(str11[1])].Demand = true;
+                    if (listBox.ContainsKey(Convert.ToInt32(str11[0])))
+                    {
+                        listBox[Convert.ToInt32(str11[0])].MemWeiBasic
+                            .Add(Convert.ToInt32(str11[1]), 0);
+                    }
+                    else
+                    {
+                        if (list[Convert.ToInt32(str11[0])].Position == 186 &&
+                            list[Convert.ToInt32(str11[0])].PicOffset > 0)
+                        {
+                            listBox.Add(Convert.ToInt32(str11[0]), new ItemBoxStatusMaking
+                            {
+                                BoxNum = Convert.ToInt32(str11[0]),
+                                //MemberBasic = new List<int> { Convert.ToInt32(str1_1[1]) },
+                                //WeightBasic = new List<int> { Convert.ToInt32(str1_1[3]) },
+                                MemWeiBasic = new SortedList<int, float>
+                                    {{Convert.ToInt32(str11[1]), 0}},
+                                WeightTotalBasic = 0,
+                                Position = 186,
                                 SilverRate = 0
                             });
                         }
@@ -2320,16 +2306,20 @@ namespace TalesRunnerForm
             string[] strArray1 = File.ReadAllLines(path, Encoding.UTF8);
 
             string pathBan = Path + "boxBan.txt";
-            string[] strArrayBan = File.ReadAllLines(pathBan, Encoding.UTF8);
-
-            for (int indexBan = 0; indexBan < strArrayBan.Length; ++indexBan)
+            if (File.Exists(pathBan))
             {
-                int num = Convert.ToInt32(strArrayBan[indexBan]);
-                if (!ListBoxBan.Contains(num))
+                string[] strArrayBan = File.ReadAllLines(pathBan, Encoding.UTF8);
+
+                for (int indexBan = 0; indexBan < strArrayBan.Length; ++indexBan)
                 {
-                    ListBoxBan.Add(num);
+                    int num = Convert.ToInt32(strArrayBan[indexBan]);
+                    if (!ListBoxBan.Contains(num))
+                    {
+                        ListBoxBan.Add(num);
+                    }
                 }
             }
+
 
             for (int index1 = 1; index1 < strArray1.Length; ++index1)
             {
@@ -2378,23 +2368,46 @@ namespace TalesRunnerForm
                             weightList3.Add(Convert.ToSingle(strArray4[index2 + 1]));
                         }
                     }
-
-                    ItemBox.Add(new ItemBoxStatus
+                    if (memberList1.Count > 1)
                     {
-                        BoxNum = Convert.ToInt32(strArray3[0]),
-                        WeightTotalBasic = Convert.ToSingle(strArray3[1]),
-                        WeightTotalSilver = Convert.ToSingle(strArray3[2]),
-                        WeightTotalGold = Convert.ToSingle(strArray3[3]),
-                        SilverRate = Convert.ToSingle(strArray3[4]),
-                        Position = Convert.ToInt32(strArray3[5]),
-                        MemberBasic = memberList1,
-                        WeightBasic = weightList1,
-                        MemberSilver = memberList2,
-                        WeightSilver = weightList2,
-                        MemberGold = memberList3,
-                        WeightGold = weightList3
-                    });
-                } 
+                        bool flag_no100pro = false;
+                        for (int i = 0; i < weightList1.Count; i++)
+                        {
+                            if (weightList1[i] != 1)
+                            {
+                                flag_no100pro = true;
+                                break;
+                            }
+                        }
+
+                        if (flag_no100pro)
+                        {
+                            ItemBox.Add(new ItemBoxStatus
+                            {
+                                BoxNum = Convert.ToInt32(strArray3[0]),
+                                WeightTotalBasic = Convert.ToSingle(strArray3[1]),
+                                WeightTotalSilver = Convert.ToSingle(strArray3[2]),
+                                WeightTotalGold = Convert.ToSingle(strArray3[3]),
+                                SilverRate = Convert.ToSingle(strArray3[4]),
+                                Position = Convert.ToInt32(strArray3[5]),
+                                MemberBasic = memberList1,
+                                WeightBasic = weightList1,
+                                MemberSilver = memberList2,
+                                WeightSilver = weightList2,
+                                MemberGold = memberList3,
+                                WeightGold = weightList3
+                            });
+                        }
+                        else
+                        {
+                            ListBoxBan.Add(Convert.ToInt32(strArray3[0]));
+                        }
+                    }
+                }
+                else
+                {
+                    ListBoxBan.Add(Convert.ToInt32(strArray3[0]));
+                }
             }
 
         }
@@ -4330,7 +4343,7 @@ namespace TalesRunnerForm
                         strings[i * para + 2] = ItemRest[index].PkgNum.ToString();
                     }
 
-                    for (int i = (total - 1) % StaticVars.PerPage; i <= StaticVars.PerPage - 1; i++)
+                    for (int i = (total - 1) % StaticVars.PerPage + 1; i <= StaticVars.PerPage - 1; i++)
                     {
                         strings[i * para] = string.Empty;
                         strings[i * para + 1] = "-1";

@@ -124,6 +124,7 @@
             this.label33 = new System.Windows.Forms.Label();
             this.button13 = new System.Windows.Forms.Button();
             this.groupBoxEx5 = new ControlEx.GroupBoxEx();
+            this.label36 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxEx1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
@@ -772,7 +773,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 23);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 3;
             this.label2.Text = "开箱结果";
             // 
@@ -800,7 +801,7 @@
             0,
             0});
             this.numeric1.Name = "numeric1";
-            this.numeric1.Size = new System.Drawing.Size(57, 29);
+            this.numeric1.Size = new System.Drawing.Size(57, 25);
             this.numeric1.TabIndex = 1;
             this.numeric1.Value = new decimal(new int[] {
             1,
@@ -813,7 +814,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 23);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(146, 23);
+            this.label1.Size = new System.Drawing.Size(121, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "开启获得的道具数";
             // 
@@ -852,7 +853,7 @@
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(77, 48);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(0, 23);
+            this.label30.Size = new System.Drawing.Size(0, 20);
             this.label30.TabIndex = 64;
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1026,7 +1027,7 @@
             "金色"});
             this.comboBox1.Location = new System.Drawing.Point(130, 20);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(71, 31);
+            this.comboBox1.Size = new System.Drawing.Size(71, 27);
             this.comboBox1.TabIndex = 47;
             // 
             // button7
@@ -1044,7 +1045,7 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(6, 48);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(78, 23);
+            this.label20.Size = new System.Drawing.Size(65, 20);
             this.label20.TabIndex = 3;
             this.label20.Text = "开箱结果";
             // 
@@ -1053,7 +1054,7 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(6, 23);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(129, 23);
+            this.label21.Size = new System.Drawing.Size(107, 20);
             this.label21.TabIndex = 0;
             this.label21.Text = "开启的魔方种类";
             // 
@@ -1191,7 +1192,7 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(6, 48);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(78, 23);
+            this.label34.Size = new System.Drawing.Size(65, 20);
             this.label34.TabIndex = 3;
             this.label34.Text = "开箱结果";
             // 
@@ -1200,7 +1201,7 @@
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(6, 23);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(44, 23);
+            this.label35.Size = new System.Drawing.Size(37, 20);
             this.label35.TabIndex = 0;
             this.label35.Text = "开箱";
             // 
@@ -1215,7 +1216,7 @@
             this.label33.Font = new System.Drawing.Font("微软雅黑", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label33.Location = new System.Drawing.Point(20, 34);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(360, 26);
+            this.label33.Size = new System.Drawing.Size(283, 19);
             this.label33.TabIndex = 65;
             this.label33.Text = "点击右侧按钮 不再在开箱页面显示此箱子";
             // 
@@ -1248,6 +1249,15 @@
             this.groupBoxEx5.TabStop = false;
             this.groupBoxEx5.Text = "黑名单";
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(345, 175);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(177, 20);
+            this.label36.TabIndex = 68;
+            this.label36.Text = "鱼饵道具不提供开箱模拟。";
+            // 
             // BoxForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1261,6 +1271,7 @@
             this.Controls.Add(this.groupBoxEx1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label19);
+            this.Controls.Add(this.label36);
             this.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1319,6 +1330,7 @@
             this.groupBoxEx5.ResumeLayout(false);
             this.groupBoxEx5.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1418,5 +1430,6 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Button button13;
         private ControlEx.GroupBoxEx groupBoxEx5;
+        private System.Windows.Forms.Label label36;
     }
 }

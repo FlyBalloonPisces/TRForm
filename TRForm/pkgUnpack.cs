@@ -745,10 +745,10 @@ namespace TalesRunnerForm
             //    export_file.WriteLine();
             //}
             //export_file.Close();
-            // TODO 血腥维拉
-            const int constMale = 6533801;  //0000011000111011001010101001
-            const int constFemale = 210521430; //1100100011000100110101010110
-            const int constAll = 217055231;  //1100111011111111111111111111
+            // TODO 已到 露露亚
+            const int constMale =   0b010000011000111011001010101001;
+            const int constFemale = 0b101100100011000100110101010110;
+            const int constAll =    0b111100111011111111111111111111;
             int pos = 1;
             SortedList<int, int[]> listResult = new SortedList<int, int[]>();
             foreach (KeyValuePair<int, string> pair in listNames)
@@ -771,11 +771,11 @@ namespace TalesRunnerForm
                     {
                         listResult.Add(pair.Key, new[] { 0, listOc[19][pair.Value], chars });
                     }
-                    else if (chars == constMale)
+                    else if ((chars & constMale) == constMale)
                     {
                         listResult.Add(pair.Key, new[] { 1, listOc[17][pair.Value], chars });
                     }
-                    else if (chars == constFemale)
+                    else if ((chars & constFemale) == constFemale)
                     {
                         listResult.Add(pair.Key, new[] { 2, listOc[19][pair.Value], chars });
                     }

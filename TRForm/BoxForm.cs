@@ -271,12 +271,21 @@ namespace TalesRunnerForm
                 groupBoxEx4.Parent = null;
                 groupBoxEx4.Enabled = false;
             }
-            else //if (_position == 396)
+            else if (_position == 396)
             {
                 groupBoxEx2.Parent = null;
                 groupBoxEx2.Enabled = false;
                 groupBoxEx3.Parent = null;
                 groupBoxEx3.Enabled = false;
+            }
+            else
+            {
+                groupBoxEx2.Parent = null;
+                groupBoxEx2.Enabled = false;
+                groupBoxEx3.Parent = null;
+                groupBoxEx3.Enabled = false;
+                groupBoxEx4.Parent = null;
+                groupBoxEx4.Enabled = false;
             }
 
             int k = (total - 1) / PerPageShow + 1;
