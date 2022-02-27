@@ -214,7 +214,7 @@ namespace TalesRunnerForm.Properties {
         ///   查找类似 Made by Yuki, FlyBalloon
         ///本工具仅用于查看TalesRunner的装备属性
         ///
-        ///工具版本：2.6.23
+        ///工具版本：2.6.3
         ///装备库版本： 的本地化字符串。
         /// </summary>
         internal static string About1 {
