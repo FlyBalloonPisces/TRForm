@@ -532,7 +532,105 @@ namespace TalesRunnerForm
             textBox1.Text = strings[8];
             textBox8.Text = strings[9];
             textBox9.Text = strings[10];
+            textBox13.Text = strings[11];
+            richTextBox1.Text = "";
+            ModifyItemDesc(strings[12]);
         }
+
+        /// <summary>
+        /// 设置RichTextBox使用的文本
+        /// </summary>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        private void ModifyItemDesc(string desc)
+        {
+            // 小于号标记
+            int signStart = 0;
+            // smallbold标签
+            bool flagBold = false;
+
+            Color color = SystemColors.Window;
+            char[] charStr = desc.ToCharArray();
+            string label = "";
+            // 逐个字符处理
+            for (int i = 0; i < charStr.Length; i++)
+            {
+                // 在此之前还未遇到双引号并且当前的字符为\"
+                if (signStart == 0 && charStr[i] == '<')
+                {
+                    signStart = 1;
+                    continue;
+                }
+
+                if (signStart == 1 && charStr[i] == '>')
+                {
+                    // 在此之前遇到了双引号并且当前的字符为\" 说明字段拼接该结束了
+                    signStart = 0;
+                    string labelLow = label.ToLower();
+                    if (labelLow.Length == 12)
+                    {
+                        string strColor = "#" + labelLow.Substring(6);
+                        color = ColorTranslator.FromHtml(strColor);
+                    }
+                    if (labelLow.Length == 6)
+                    {
+                        color = SystemColors.Window;
+                    }
+                    if (labelLow.Length == 9)
+                    {
+                        flagBold = true;
+                    }
+                    if (labelLow.Length == 10)
+                    {
+                        flagBold = false;
+                    }
+                    if (labelLow.Length == 2)
+                    {
+                        richTextBox1.AppendText("\r\n");
+                    }
+                    label = "";
+                    continue;
+                }
+
+                if (signStart == 1 && charStr[i] != '>')
+                {
+                    // 处理 \"中国,北京\"这种不规范的字符串
+                    label += charStr[i];
+                    continue;
+                }
+
+                if (signStart == 0)
+                {
+                    AppendText(richTextBox1, "" + charStr[i], color, flagBold);
+                    continue;
+                }
+
+            }
+
+        }
+
+        /// <summary>
+        /// RichTextBox控件添加指定颜色
+        /// </summary>
+        /// <param name="richTextBox"></param>
+        /// <param name="str"></param>
+        /// <param name="color"></param>
+        private void AppendText(RichTextBox richTextBox, string str, Color color, bool bold)
+{
+    richTextBox.AppendText(str);
+    richTextBox.Find(str, RichTextBoxFinds.Reverse);
+    richTextBox.SelectionColor = color;
+            if (bold)
+            {
+                richTextBox.SelectionFont = new Font(richTextBox.Font, richTextBox.Font.Style | FontStyle.Bold);
+            }
+            else
+            {
+                richTextBox.SelectionFont = new Font(richTextBox.Font, richTextBox.Font.Style ^ FontStyle.Bold);
+            }
+    richTextBox.SelectionStart = richTextBox.Text.Length; //取消选中
+}
         #endregion
 
         #region tabPage2搜索页面

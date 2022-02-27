@@ -473,6 +473,7 @@ namespace TalesRunnerForm
             public short Occupation; // 装备占用位置 -1代表无占用
             public int Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
             public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
+            public string Desc = "";
 
             /// <summary>
             /// 进行特定语言下装备名称的返回
@@ -820,6 +821,7 @@ namespace TalesRunnerForm
             public short Occupation; // 装备占用位置 -1代表无占用
             public int Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
             public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
+            public string Desc = ""; // 道具介绍
         }
 
         #endregion
@@ -1168,8 +1170,9 @@ namespace TalesRunnerForm
                         PicOffset = offset,
                         // Attr = new List<Attr>()
                         // Sex = sex
-                        Occupation = Convert.ToInt16(str11[12].Equals("4001") && str11[4].Equals("10") ? 512 : 0)
+                        Occupation = Convert.ToInt16(str11[12].Equals("4001") && str11[4].Equals("10") ? 512 : 0),
                         // Chars = 0
+                        Desc = str11[23]
                     });
                     if ((limitPosition.Contains(Convert.ToInt32(str11[4])) ||
                          (Convert.ToInt32(str11[4]) == 0 && Convert.ToInt32(str11[3]) != 0)) &&
@@ -1295,6 +1298,10 @@ namespace TalesRunnerForm
             for (int index1 = 1; index1 < str1.Length; ++index1)
             {
                 string[] str11 = StringDivide(str1[index1]);
+                if (str11.Length < 4)
+                {
+                    continue;
+                }
                 if (list.ContainsKey(Convert.ToInt32(str11[1])) && list.ContainsKey(Convert.ToInt32(str11[2])))
                 {
                     list[Convert.ToInt32(str11[1])].Demand = true;
@@ -1327,39 +1334,47 @@ namespace TalesRunnerForm
             }
 
             // 鱼饵道具
-            str1 = txtFileList["content\\fishing\\essenfishing_decoy"];
-            for (int index1 = 1; index1 < str1.Length; ++index1)
+            try
             {
-                string[] str11 = StringDivide(str1[index1]);
-                if (list.ContainsKey(Convert.ToInt32(str11[0])) && list.ContainsKey(Convert.ToInt32(str11[1])))
+                str1 = txtFileList["content\\fishing\\essenfishing_decoy"];
+                for (int index1 = 1; index1 < str1.Length; ++index1)
                 {
-                    list[Convert.ToInt32(str11[0])].Demand = true;
-                    list[Convert.ToInt32(str11[1])].Demand = true;
-                    if (listBox.ContainsKey(Convert.ToInt32(str11[0])))
+                    string[] str11 = StringDivide(str1[index1]);
+                    if (list.ContainsKey(Convert.ToInt32(str11[0])) && list.ContainsKey(Convert.ToInt32(str11[1])))
                     {
-                        listBox[Convert.ToInt32(str11[0])].MemWeiBasic
-                            .Add(Convert.ToInt32(str11[1]), 0);
-                    }
-                    else
-                    {
-                        if (list[Convert.ToInt32(str11[0])].Position == 186 &&
-                            list[Convert.ToInt32(str11[0])].PicOffset > 0)
+                        list[Convert.ToInt32(str11[0])].Demand = true;
+                        list[Convert.ToInt32(str11[1])].Demand = true;
+                        if (listBox.ContainsKey(Convert.ToInt32(str11[0])))
                         {
-                            listBox.Add(Convert.ToInt32(str11[0]), new ItemBoxStatusMaking
+                            listBox[Convert.ToInt32(str11[0])].MemWeiBasic
+                                .Add(Convert.ToInt32(str11[1]), 0);
+                        }
+                        else
+                        {
+                            if (list[Convert.ToInt32(str11[0])].Position == 186 &&
+                                list[Convert.ToInt32(str11[0])].PicOffset > 0)
                             {
-                                BoxNum = Convert.ToInt32(str11[0]),
-                                //MemberBasic = new List<int> { Convert.ToInt32(str1_1[1]) },
-                                //WeightBasic = new List<int> { Convert.ToInt32(str1_1[3]) },
-                                MemWeiBasic = new SortedList<int, float>
+                                listBox.Add(Convert.ToInt32(str11[0]), new ItemBoxStatusMaking
+                                {
+                                    BoxNum = Convert.ToInt32(str11[0]),
+                                    //MemberBasic = new List<int> { Convert.ToInt32(str1_1[1]) },
+                                    //WeightBasic = new List<int> { Convert.ToInt32(str1_1[3]) },
+                                    MemWeiBasic = new SortedList<int, float>
                                     {{Convert.ToInt32(str11[1]), 0}},
-                                WeightTotalBasic = 0,
-                                Position = 186,
-                                SilverRate = 0
-                            });
+                                    WeightTotalBasic = 0,
+                                    Position = 186,
+                                    SilverRate = 0
+                                });
+                            }
                         }
                     }
                 }
             }
+            catch (System.Collections.Generic.KeyNotFoundException e)
+            {
+
+            }
+           
 
             // 前线箱子道具
             str1 = txtFileList["archives\\essenarchives_exchangelist"];
@@ -1663,7 +1678,7 @@ namespace TalesRunnerForm
                                           pair.Value.Char + "," + pair.Value.Level + "," + pair.Value.SetNum + "," +
                                           pair.Value.PkgNum + "," + pair.Value.PicOffset + "," +
                                           pair.Value.Sex + "," + pair.Value.Occupation + ","
-                                          + pair.Value.Chars + "," + pair.Value.Slot + "|");
+                                          + pair.Value.Chars + "," + pair.Value.Slot + ",\"" + pair.Value.Desc + "\"|");
 
                         pair.Value.Attr.Sort((a, b) => a.Num.CompareTo(b.Num));
 
@@ -2159,7 +2174,7 @@ namespace TalesRunnerForm
             for (int index1 = 2; index1 < strArray1.Length; ++index1)
             {
                 string[] strArray2 = strArray1[index1].Split('|');
-                string[] strArray3 = strArray2[0].Split(',');
+                string[] strArray3 = StringDivide(strArray2[0]);
                 List<Attr> attrList = new List<Attr>();
                 if (strArray2[1].Length != 0)
                 {
@@ -2202,7 +2217,8 @@ namespace TalesRunnerForm
                             Sex = Convert.ToByte(strArray3[14]),
                             Occupation = Convert.ToInt16(strArray3[15]),
                             Chars = Convert.ToInt32(strArray3[16]),
-                            Slot = Convert.ToInt32(strArray3[17])
+                            Slot = Convert.ToInt32(strArray3[17]),
+                            Desc = strArray3[18]
                         });
                     }
                     else
@@ -2456,7 +2472,7 @@ namespace TalesRunnerForm
         /// <param name="tagItem">道具索引</param>
         internal static string[] GetItemStatus(int tagItem)
         {
-            string[] strings = new string[12];
+            string[] strings = new string[13];
 
             strings[0] = Resources.Attr_Name + Item[tagItem].Name;
             strings[1] = Resources.Attr_NameCH + Item[tagItem].NameCh;
@@ -2466,11 +2482,12 @@ namespace TalesRunnerForm
             strings[5] = Resources.Attr_CollectNum + Item[tagItem].Id;
             strings[6] = Resources.Attr_CollectPt + Item[tagItem].Point;
             strings[11] = "";
+            strings[12] = Item[tagItem].Desc;
             for (int i = 0; i < Characters; i++)
             {
                 if ((Item[tagItem].Chars & (1 << i)) != 0)
                 {
-                    strings[11] = strings[11] + ItemStatus.GetChar(i + 1) + "\n";
+                    strings[11] = strings[11] + ItemStatus.GetChar(i + 1) + "\r\n";
                 }
             }
 
@@ -4812,8 +4829,6 @@ namespace TalesRunnerForm
         {
             // 双引号开始标记
             int qutationStart = 0;
-            // 双引号结束标记
-            int qutationEnd = 0;
             char[] charStr = sss.ToCharArray();
             // 用于拼接字符 作为一个字段值
             StringBuilder stb = new StringBuilder();
@@ -4830,11 +4845,10 @@ namespace TalesRunnerForm
                     continue;
                 }
 
-                if (qutationStart == 1 && charStr[i] == '\"' && qutationEnd == 0)
+                if (qutationStart == 1 && charStr[i] == '\"')
                 {
                     // 在此之前遇到了双引号并且当前的字符为\" 说明字段拼接该结束了
                     qutationStart = 0;
-                    qutationEnd++;
                     // 当最后一个字符是双引号时，由于下次循环不会执行，所以在此保存一下
                     if (i == charStr.Length - 1 && stb.Length != 0)
                     {
@@ -4845,16 +4859,9 @@ namespace TalesRunnerForm
                     continue;
                 }
 
-                if (qutationStart == 1 && charStr[i] == ',' && qutationEnd == 0)
+                if (qutationStart == 1 && charStr[i] == ',')
                 {
                     // 处理 \"中国,北京\"这种不规范的字符串
-                    stb.Append(charStr[i]);
-                    continue;
-                }
-
-                if (qutationStart == 1 && charStr[i] == ',' && qutationEnd == 1 &&
-                    i < lastindex)
-                {
                     stb.Append(charStr[i]);
                     continue;
                 }
