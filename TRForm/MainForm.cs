@@ -617,20 +617,20 @@ namespace TalesRunnerForm
         /// <param name="str"></param>
         /// <param name="color"></param>
         private void AppendText(RichTextBox richTextBox, string str, Color color, bool bold)
-{
-    richTextBox.AppendText(str);
-    richTextBox.Find(str, RichTextBoxFinds.Reverse);
-    richTextBox.SelectionColor = color;
+        {
+            richTextBox.AppendText(str);
+            richTextBox.Find(str, RichTextBoxFinds.Reverse);
+            richTextBox.SelectionColor = color;
             if (bold)
             {
-                richTextBox.SelectionFont = new Font(richTextBox.Font, richTextBox.Font.Style | FontStyle.Bold);
+                richTextBox.SelectionFont = new Font(richTextBox.Font, FontStyle.Bold);
             }
             else
             {
-                richTextBox.SelectionFont = new Font(richTextBox.Font, richTextBox.Font.Style ^ FontStyle.Bold);
+                richTextBox.SelectionFont = new Font(richTextBox.Font, FontStyle.Regular);
             }
-    richTextBox.SelectionStart = richTextBox.Text.Length; //取消选中
-}
+            richTextBox.SelectionStart = richTextBox.Text.Length; //取消选中
+        }
         #endregion
 
         #region tabPage2搜索页面

@@ -1,9 +1,6 @@
 ﻿using DevIL;
-using DevIL.Unmanaged;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -355,7 +352,7 @@ namespace TRUnpack
         private static ImageExporter _mExporter;
 
         private static DevIL.Image _mActiveImage;
-        
+
 
         /// <summary>
         /// 图片读取初始化

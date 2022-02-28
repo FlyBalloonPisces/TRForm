@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TalesRunnerForm
+﻿namespace TalesRunnerForm
 {
     public static class StaticVars
     {
@@ -267,7 +261,7 @@ namespace TalesRunnerForm
         };
 
         internal static readonly string[] positionNames =
-        {   
+        {
             "head",
             "topbody",
             "downbody",

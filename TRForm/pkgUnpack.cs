@@ -746,9 +746,9 @@ namespace TalesRunnerForm
             //}
             //export_file.Close();
             // TODO 已到 露露亚
-            const int constMale =   0b010000011000111011001010101001;
+            const int constMale = 0b010000011000111011001010101001;
             const int constFemale = 0b101100100011000100110101010110;
-            const int constAll =    0b111100111011111111111111111111;
+            const int constAll = 0b111100111011111111111111111111;
             int pos = 1;
             SortedList<int, int[]> listResult = new SortedList<int, int[]>();
             foreach (KeyValuePair<int, string> pair in listNames)
