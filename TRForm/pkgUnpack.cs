@@ -14,8 +14,8 @@ namespace TalesRunnerForm
         private static byte[] Decrypt(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            byte[] aesKey = TrData.keysVersion ? StaticVars.aesKey1_kr : StaticVars.aesKey1_hk;
-            byte[] xorKey = TrData.keysVersion ? StaticVars.xorKey1_kr : StaticVars.xorKey1_hk;
+            byte[] aesKey = StaticVars.aesKey1;
+            byte[] xorKey = StaticVars.xorKey1;
 
             using (RijndaelManaged aes = new RijndaelManaged())
             {
@@ -52,8 +52,8 @@ namespace TalesRunnerForm
         private static byte[] Decrypt2(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            byte[] aesKey = TrData.keysVersion ? StaticVars.aesKey2_kr : StaticVars.aesKey2_hk;
-            byte[] xorKey = TrData.keysVersion ? StaticVars.xorKey2_kr : StaticVars.xorKey2_hk;
+            byte[] aesKey = StaticVars.aesKeys[TrData.keysVersion];
+            byte[] xorKey = StaticVars.xorKeys[TrData.keysVersion];
             // MemoryStream mStream = new MemoryStream(data);
             using (RijndaelManaged aes = new RijndaelManaged())
             {
@@ -320,7 +320,7 @@ namespace TalesRunnerForm
             SortedList<string, string> listPic = new SortedList<string, string>();
             string pkgDir = fileInfo.FullName; // 获得pkg_path
             // string pkgName = fileInfo.Name.Split('.')[0]; // 获取文件名：tr9
-            string[] tr_pkg = TrData.keysVersion ? StaticVars.tr_pkg_kr : StaticVars.tr_pkg_hk;
+            string[] tr_pkg = StaticVars.tr_pkg_kr;
             // Console.WriteLine("pkg_name = " + pkg_name);
             for (int pkgNum = 0; pkgNum < tr_pkg.Length; pkgNum++)
             {

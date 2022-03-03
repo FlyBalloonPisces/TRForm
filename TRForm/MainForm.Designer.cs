@@ -62,6 +62,10 @@ namespace TalesRunnerForm
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.tabPage2_5 = new System.Windows.Forms.TabPage();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.tabPage2_6 = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -224,12 +228,24 @@ namespace TalesRunnerForm
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.tabPage1_4 = new System.Windows.Forms.TabPage();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tabPage1_7 = new System.Windows.Forms.TabPage();
+            this.groupBoxEx_th = new ControlEx.GroupBoxEx();
+            this.button_th1 = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textBox_th = new System.Windows.Forms.TextBox();
+            this.button_th2 = new System.Windows.Forms.Button();
+            this.groupBoxEx_hk = new ControlEx.GroupBoxEx();
+            this.button_hk1 = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.textBox_hk = new System.Windows.Forms.TextBox();
+            this.button_hk2 = new System.Windows.Forms.Button();
+            this.groupBoxEx_kr = new ControlEx.GroupBoxEx();
+            this.button_kr1 = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.textBox_kr = new System.Windows.Forms.TextBox();
+            this.button_kr2 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage2_5 = new System.Windows.Forms.TabPage();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.tabPage2_6 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -251,6 +267,8 @@ namespace TalesRunnerForm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabPage2_5.SuspendLayout();
+            this.tabPage2_6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage1_2.SuspendLayout();
             this.tabControl4.SuspendLayout();
@@ -339,8 +357,10 @@ namespace TalesRunnerForm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxB1)).BeginInit();
             this.tabPage1_3.SuspendLayout();
             this.tabPage1_4.SuspendLayout();
-            this.tabPage2_5.SuspendLayout();
-            this.tabPage2_6.SuspendLayout();
+            this.tabPage1_7.SuspendLayout();
+            this.groupBoxEx_th.SuspendLayout();
+            this.groupBoxEx_hk.SuspendLayout();
+            this.groupBoxEx_kr.SuspendLayout();
             this.SuspendLayout();
             // 
             // label19
@@ -434,6 +454,7 @@ namespace TalesRunnerForm
             this.tabControl1.Controls.Add(this.tabPage1_6);
             this.tabControl1.Controls.Add(this.tabPage1_3);
             this.tabControl1.Controls.Add(this.tabPage1_4);
+            this.tabControl1.Controls.Add(this.tabPage1_7);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -732,6 +753,53 @@ namespace TalesRunnerForm
             this.label13.TabIndex = 0;
             this.label13.Text = "点击道具图片\r\n查看同套道具";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // tabPage2_5
+            // 
+            this.tabPage2_5.Controls.Add(this.textBox13);
+            this.tabPage2_5.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2_5.Name = "tabPage2_5";
+            this.tabPage2_5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2_5.Size = new System.Drawing.Size(318, 243);
+            this.tabPage2_5.TabIndex = 4;
+            this.tabPage2_5.Text = "装备角色";
+            this.tabPage2_5.UseVisualStyleBackColor = true;
+            // 
+            // textBox13
+            // 
+            this.textBox13.BackColor = System.Drawing.Color.White;
+            this.textBox13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox13.Location = new System.Drawing.Point(3, 3);
+            this.textBox13.Multiline = true;
+            this.textBox13.Name = "textBox13";
+            this.textBox13.ReadOnly = true;
+            this.textBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox13.Size = new System.Drawing.Size(312, 237);
+            this.textBox13.TabIndex = 1;
+            // 
+            // tabPage2_6
+            // 
+            this.tabPage2_6.Controls.Add(this.richTextBox1);
+            this.tabPage2_6.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2_6.Name = "tabPage2_6";
+            this.tabPage2_6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2_6.Size = new System.Drawing.Size(318, 243);
+            this.tabPage2_6.TabIndex = 5;
+            this.tabPage2_6.Text = "道具说明";
+            this.tabPage2_6.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.ForeColor = System.Drawing.SystemColors.Window;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox1.Size = new System.Drawing.Size(312, 237);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
             // 
             // pictureBox1
             // 
@@ -3017,6 +3085,190 @@ namespace TalesRunnerForm
             this.textBox7.Size = new System.Drawing.Size(329, 411);
             this.textBox7.TabIndex = 0;
             // 
+            // tabPage1_7
+            // 
+            this.tabPage1_7.Controls.Add(this.groupBoxEx_th);
+            this.tabPage1_7.Controls.Add(this.groupBoxEx_hk);
+            this.tabPage1_7.Controls.Add(this.groupBoxEx_kr);
+            this.tabPage1_7.Location = new System.Drawing.Point(4, 30);
+            this.tabPage1_7.Name = "tabPage1_7";
+            this.tabPage1_7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1_7.Size = new System.Drawing.Size(335, 417);
+            this.tabPage1_7.TabIndex = 6;
+            this.tabPage1_7.Text = "路径";
+            this.tabPage1_7.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxEx_th
+            // 
+            this.groupBoxEx_th.BackColor = System.Drawing.Color.White;
+            this.groupBoxEx_th.Controls.Add(this.button_th1);
+            this.groupBoxEx_th.Controls.Add(this.label26);
+            this.groupBoxEx_th.Controls.Add(this.textBox_th);
+            this.groupBoxEx_th.Controls.Add(this.button_th2);
+            this.groupBoxEx_th.LineColor = System.Drawing.Color.DodgerBlue;
+            this.groupBoxEx_th.Location = new System.Drawing.Point(9, 273);
+            this.groupBoxEx_th.Margin = new System.Windows.Forms.Padding(6);
+            this.groupBoxEx_th.Name = "groupBoxEx_th";
+            this.groupBoxEx_th.Size = new System.Drawing.Size(317, 120);
+            this.groupBoxEx_th.TabIndex = 19;
+            this.groupBoxEx_th.TabStop = false;
+            this.groupBoxEx_th.Text = "韩服";
+            // 
+            // button_th1
+            // 
+            this.button_th1.AutoSize = true;
+            this.button_th1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_th1.Location = new System.Drawing.Point(155, 79);
+            this.button_th1.Name = "button_th1";
+            this.button_th1.Size = new System.Drawing.Size(88, 33);
+            this.button_th1.TabIndex = 6;
+            this.button_th1.Text = "指定路径";
+            this.button_th1.UseVisualStyleBackColor = true;
+            this.button_th1.Click += new System.EventHandler(this.button_th1_Click);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 25);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(78, 23);
+            this.label26.TabIndex = 5;
+            this.label26.Text = "游戏路径";
+            // 
+            // textBox_th
+            // 
+            this.textBox_th.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_th.Location = new System.Drawing.Point(6, 48);
+            this.textBox_th.MaxLength = 5;
+            this.textBox_th.Name = "textBox_th";
+            this.textBox_th.Size = new System.Drawing.Size(305, 29);
+            this.textBox_th.TabIndex = 3;
+            // 
+            // button_th2
+            // 
+            this.button_th2.AutoSize = true;
+            this.button_th2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_th2.Location = new System.Drawing.Point(236, 79);
+            this.button_th2.Name = "button_th2";
+            this.button_th2.Size = new System.Drawing.Size(88, 33);
+            this.button_th2.TabIndex = 2;
+            this.button_th2.Text = "以此重启";
+            this.button_th2.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxEx_hk
+            // 
+            this.groupBoxEx_hk.BackColor = System.Drawing.Color.White;
+            this.groupBoxEx_hk.Controls.Add(this.button_hk1);
+            this.groupBoxEx_hk.Controls.Add(this.label25);
+            this.groupBoxEx_hk.Controls.Add(this.textBox_hk);
+            this.groupBoxEx_hk.Controls.Add(this.button_hk2);
+            this.groupBoxEx_hk.LineColor = System.Drawing.Color.DodgerBlue;
+            this.groupBoxEx_hk.Location = new System.Drawing.Point(9, 141);
+            this.groupBoxEx_hk.Margin = new System.Windows.Forms.Padding(6);
+            this.groupBoxEx_hk.Name = "groupBoxEx_hk";
+            this.groupBoxEx_hk.Size = new System.Drawing.Size(317, 120);
+            this.groupBoxEx_hk.TabIndex = 19;
+            this.groupBoxEx_hk.TabStop = false;
+            this.groupBoxEx_hk.Text = "港服";
+            // 
+            // button_hk1
+            // 
+            this.button_hk1.AutoSize = true;
+            this.button_hk1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_hk1.Location = new System.Drawing.Point(155, 79);
+            this.button_hk1.Name = "button_hk1";
+            this.button_hk1.Size = new System.Drawing.Size(88, 33);
+            this.button_hk1.TabIndex = 6;
+            this.button_hk1.Text = "指定路径";
+            this.button_hk1.UseVisualStyleBackColor = true;
+            this.button_hk1.Click += new System.EventHandler(this.button_hk1_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 25);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(78, 23);
+            this.label25.TabIndex = 5;
+            this.label25.Text = "游戏路径";
+            // 
+            // textBox_hk
+            // 
+            this.textBox_hk.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_hk.Location = new System.Drawing.Point(6, 48);
+            this.textBox_hk.MaxLength = 5;
+            this.textBox_hk.Name = "textBox_hk";
+            this.textBox_hk.Size = new System.Drawing.Size(305, 29);
+            this.textBox_hk.TabIndex = 3;
+            // 
+            // button_hk2
+            // 
+            this.button_hk2.AutoSize = true;
+            this.button_hk2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_hk2.Location = new System.Drawing.Point(236, 79);
+            this.button_hk2.Name = "button_hk2";
+            this.button_hk2.Size = new System.Drawing.Size(88, 33);
+            this.button_hk2.TabIndex = 2;
+            this.button_hk2.Text = "以此重启";
+            this.button_hk2.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxEx_kr
+            // 
+            this.groupBoxEx_kr.BackColor = System.Drawing.Color.White;
+            this.groupBoxEx_kr.Controls.Add(this.button_kr1);
+            this.groupBoxEx_kr.Controls.Add(this.label24);
+            this.groupBoxEx_kr.Controls.Add(this.textBox_kr);
+            this.groupBoxEx_kr.Controls.Add(this.button_kr2);
+            this.groupBoxEx_kr.LineColor = System.Drawing.Color.DodgerBlue;
+            this.groupBoxEx_kr.Location = new System.Drawing.Point(9, 9);
+            this.groupBoxEx_kr.Margin = new System.Windows.Forms.Padding(6);
+            this.groupBoxEx_kr.Name = "groupBoxEx_kr";
+            this.groupBoxEx_kr.Size = new System.Drawing.Size(317, 120);
+            this.groupBoxEx_kr.TabIndex = 18;
+            this.groupBoxEx_kr.TabStop = false;
+            this.groupBoxEx_kr.Text = "韩服";
+            // 
+            // button_kr1
+            // 
+            this.button_kr1.AutoSize = true;
+            this.button_kr1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_kr1.Location = new System.Drawing.Point(155, 79);
+            this.button_kr1.Name = "button_kr1";
+            this.button_kr1.Size = new System.Drawing.Size(88, 33);
+            this.button_kr1.TabIndex = 6;
+            this.button_kr1.Text = "指定路径";
+            this.button_kr1.UseVisualStyleBackColor = true;
+            this.button_kr1.Click += new System.EventHandler(this.button_kr1_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 25);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(78, 23);
+            this.label24.TabIndex = 5;
+            this.label24.Text = "游戏路径";
+            // 
+            // textBox_kr
+            // 
+            this.textBox_kr.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_kr.Location = new System.Drawing.Point(6, 48);
+            this.textBox_kr.MaxLength = 5;
+            this.textBox_kr.Name = "textBox_kr";
+            this.textBox_kr.Size = new System.Drawing.Size(305, 29);
+            this.textBox_kr.TabIndex = 3;
+            // 
+            // button_kr2
+            // 
+            this.button_kr2.AutoSize = true;
+            this.button_kr2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_kr2.Location = new System.Drawing.Point(236, 79);
+            this.button_kr2.Name = "button_kr2";
+            this.button_kr2.Size = new System.Drawing.Size(88, 33);
+            this.button_kr2.TabIndex = 2;
+            this.button_kr2.Text = "以此重启";
+            this.button_kr2.UseVisualStyleBackColor = true;
+            // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -3025,53 +3277,6 @@ namespace TalesRunnerForm
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(600, 489);
             this.panel1.TabIndex = 3;
-            // 
-            // tabPage2_5
-            // 
-            this.tabPage2_5.Controls.Add(this.textBox13);
-            this.tabPage2_5.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2_5.Name = "tabPage2_5";
-            this.tabPage2_5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2_5.Size = new System.Drawing.Size(318, 243);
-            this.tabPage2_5.TabIndex = 4;
-            this.tabPage2_5.Text = "装备角色";
-            this.tabPage2_5.UseVisualStyleBackColor = true;
-            // 
-            // textBox13
-            // 
-            this.textBox13.BackColor = System.Drawing.Color.White;
-            this.textBox13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox13.Location = new System.Drawing.Point(3, 3);
-            this.textBox13.Multiline = true;
-            this.textBox13.Name = "textBox13";
-            this.textBox13.ReadOnly = true;
-            this.textBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox13.Size = new System.Drawing.Size(312, 237);
-            this.textBox13.TabIndex = 1;
-            // 
-            // tabPage2_6
-            // 
-            this.tabPage2_6.Controls.Add(this.richTextBox1);
-            this.tabPage2_6.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2_6.Name = "tabPage2_6";
-            this.tabPage2_6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2_6.Size = new System.Drawing.Size(318, 243);
-            this.tabPage2_6.TabIndex = 5;
-            this.tabPage2_6.Text = "道具说明";
-            this.tabPage2_6.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.ForeColor = System.Drawing.SystemColors.Window;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox1.Size = new System.Drawing.Size(312, 237);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
             // 
             // MainForm
             // 
@@ -3119,6 +3324,9 @@ namespace TalesRunnerForm
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabPage2_5.ResumeLayout(false);
+            this.tabPage2_5.PerformLayout();
+            this.tabPage2_6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage1_2.ResumeLayout(false);
             this.tabControl4.ResumeLayout(false);
@@ -3218,9 +3426,13 @@ namespace TalesRunnerForm
             this.tabPage1_3.PerformLayout();
             this.tabPage1_4.ResumeLayout(false);
             this.tabPage1_4.PerformLayout();
-            this.tabPage2_5.ResumeLayout(false);
-            this.tabPage2_5.PerformLayout();
-            this.tabPage2_6.ResumeLayout(false);
+            this.tabPage1_7.ResumeLayout(false);
+            this.groupBoxEx_th.ResumeLayout(false);
+            this.groupBoxEx_th.PerformLayout();
+            this.groupBoxEx_hk.ResumeLayout(false);
+            this.groupBoxEx_hk.PerformLayout();
+            this.groupBoxEx_kr.ResumeLayout(false);
+            this.groupBoxEx_kr.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3423,6 +3635,22 @@ namespace TalesRunnerForm
         private TextBox textBox13;
         private TabPage tabPage2_6;
         private RichTextBox richTextBox1;
+        private TabPage tabPage1_7;
+        private GroupBoxEx groupBoxEx_kr;
+        private Label label24;
+        private TextBox textBox_kr;
+        private Button button_kr2;
+        private Button button_kr1;
+        private GroupBoxEx groupBoxEx_th;
+        private Button button_th1;
+        private Label label26;
+        private TextBox textBox_th;
+        private Button button_th2;
+        private GroupBoxEx groupBoxEx_hk;
+        private Button button_hk1;
+        private Label label25;
+        private TextBox textBox_hk;
+        private Button button_hk2;
     }
 }
 

@@ -131,10 +131,10 @@
 新增道具说明页面，与游戏内一致
 装备可用角色移入标签页
 自定义游戏路径
-自行读取角色数量和图片等
 箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
 
 未来更新：
+自行读取角色数量和图片等
 提供英化韩化配置文件
 
 注1：
@@ -1039,6 +1039,18 @@
     <value>读取装备列表失败!
 是否手动指定游戏文件夹路径?</value>
     <comment>装备列表读取失败</comment>
+  </data>
+  <data name="String_ManualFail" xml:space="preserve">
+    <value>设置失败</value>
+    <comment>手动指定目录失败</comment>
+  </data>
+  <data name="String_ManualSuccess" xml:space="preserve">
+    <value>设置完成</value>
+    <comment>手动指定目录成功</comment>
+  </data>
+  <data name="String_NoKey" xml:space="preserve">
+    <value>无法读取游戏数据！</value>
+    <comment>加密改了</comment>
   </data>
   <data name="String_OccupationListFailed" xml:space="preserve">
     <value>读取角色列表失败!

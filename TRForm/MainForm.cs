@@ -309,6 +309,10 @@ namespace TalesRunnerForm
             _listViewItems = _getListViewItems();
             listView1.VirtualListSize = _listViewItems.Count;
             ShowBoxList(1);
+            this.textBox_kr.Text = TrData.PathPkgs[0];
+            this.textBox_hk.Text = TrData.PathPkgs[1];
+            this.textBox_th.Text = TrData.PathPkgs[2];
+
             GC.Collect();
         }
 
@@ -630,6 +634,42 @@ namespace TalesRunnerForm
                 richTextBox.SelectionFont = new Font(richTextBox.Font, FontStyle.Regular);
             }
             richTextBox.SelectionStart = richTextBox.Text.Length; //取消选中
+        }
+
+        private void button_kr1_Click(object sender, EventArgs e)
+        {
+            if (TrData.ManualPath2(0))
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualSuccess);
+            }
+            else
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualFail);
+            }
+        }
+
+        private void button_hk1_Click(object sender, EventArgs e)
+        {
+            if (TrData.ManualPath2(1))
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualSuccess);
+            }
+            else
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualFail);
+            }
+        }
+
+        private void button_th1_Click(object sender, EventArgs e)
+        {
+            if (TrData.ManualPath2(2))
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualSuccess);
+            }
+            else
+            {
+                _ = (int)MessageBox.Show(Resources.String_ManualFail);
+            }
         }
         #endregion
 
@@ -1381,5 +1421,6 @@ namespace TalesRunnerForm
         }
 
         #endregion
+
     }
 }

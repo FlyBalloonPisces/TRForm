@@ -63,12 +63,15 @@ namespace TalesRunnerForm
 
         // 确定程序路径 进行文本读取
         public static readonly string Path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-        public static bool keysVersion = true; // 密匙版本：true韩服；false港服泰服
+        public static int keysVersion = 0; // 密匙版本
+        public static int serverVersion = 0; // 服务器
         public static int Characters = 0; // 配装角色数量
         // ReSharper disable once AssignNullToNotNullAttribute
         //private static readonly DirectoryInfo PathExe = new DirectoryInfo(Application.StartupPath); // exe目录
         //private static readonly string PathPkg = PathExe.Parent?.FullName; // 游戏目录
         private static string PathPkg = ""; // 游戏目录
+        public static string[] PathPkgs = new string[3]; // 游戏目录
+        public static int[] KeyVersions = new int[3]; // 对应的key编号
 
         // 装备列表
         /// <summary>
@@ -870,7 +873,7 @@ namespace TalesRunnerForm
             }
 
             bw.ReportProgress(100);
-            Thread.Sleep(3000);
+            Thread.Sleep(1000);
         }
 
         /// <summary>
@@ -888,6 +891,49 @@ namespace TalesRunnerForm
                 // 手动指定
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 通过注册表寻找游戏路径（需要管理员权限）
+        /// 未找到的情况下调用手动指定
+        /// </summary>
+        /// <returns>是否寻找到游戏路径</returns>
+        private static bool GetGamePath()
+        {
+            string path = Path + "gamepath.txt";
+            if (!File.Exists(path))
+            {
+                if (!MakeGamePath())
+                {
+                    return false;
+                }
+            }
+
+            string[] readAllLines = File.ReadAllLines(path, Encoding.UTF8);
+            serverVersion = Convert.ToInt32(readAllLines[0]);
+            for (int i = 1; i < readAllLines.Length; i++)
+            {
+                string[] strArray = readAllLines[i].Split(',');
+                int num = Convert.ToInt32(strArray[0]);
+                KeyVersions[num] = Convert.ToInt32(strArray[1]);
+                PathPkgs[num] = strArray[2];
+            }
+            PathPkg = PathPkgs[keysVersion];
+            return true;
+        }
+
+        private static bool MakeGamePath()
+        {
+            if(!GetGamePathByRegistry())
+            {
+                return ManualPath();
+            }
+            else
+            {
+                SavePathPkgs();
+                return true;
+            }
+            
         }
 
         /// <summary>
@@ -914,6 +960,7 @@ namespace TalesRunnerForm
                 GC.Collect();
                 if (GetPicData())
                 {
+                    SavePathPkgs();
                     return true;
                 }
                 else
@@ -925,6 +972,112 @@ namespace TalesRunnerForm
             {
                 return false;
             }
+        }
+
+        public static bool ManualPath2(int server)
+        {
+            String pathPkg = "";
+                OpenFileDialog op = new OpenFileDialog
+                {
+                    DefaultExt = "exe",
+                    FileName = "talesrunner.exe",
+                    Filter = "超级跑跑程序|talesrunner.exe",
+                    InitialDirectory = Path.Replace("$\\", "")
+                };
+                if (op.ShowDialog() == DialogResult.OK)
+                {
+                    pathPkg = new FileInfo(op.FileName).DirectoryName;
+                }
+                op.Dispose();
+                GC.Collect();
+                if (GetPicData())
+                {
+                PathPkgs[server] = pathPkg;
+                SavePathPkgs();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+
+        /// <summary>
+        /// 保存路径
+        /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
+        private static void SavePathPkgs()
+        {
+            // 第一行，启动的版本
+            // 序号，key序号，路径
+            FileStream fs = new FileStream(Path + "gamepath.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter exportFile = new StreamWriter(fs);
+            exportFile.Write(serverVersion);
+            exportFile.WriteLine();
+            for (int i = 0; i < PathPkgs.Length; i++)
+            {
+                exportFile.Write(i);
+                exportFile.Write(",");
+                exportFile.Write(KeyVersions[i]);
+                exportFile.Write(",");
+                exportFile.Write(PathPkgs[i]);
+                exportFile.WriteLine();
+            }
+            exportFile.Close();
+        }
+
+        /// <summary>
+        /// 确认服务器名称，kr hk th
+        /// </summary>
+        /// <returns></returns>
+        private static void ServerVersion()
+        {
+            FileInfo fileInfo = new FileInfo(PathPkg + "\\patch.st");
+            if (fileInfo.Exists)
+            {
+                string[] strArray1 = File.ReadAllLines(PathPkg + "\\patch.st", Encoding.UTF8);
+                if (strArray1[2].Equals("7=talesrunner-dl.game.playstove.com"))
+                {
+                    serverVersion = 0;
+                } 
+                else if (strArray1[2].Equals("7=patch.talesrunner.com.hk"))
+                {
+                    serverVersion = 1;
+                }
+                else if (strArray1[2].Equals("7=patch1.trdownload.in.th"))
+                {
+                    serverVersion = 2;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 确定后期文本使用的key样式
+        /// </summary>
+        /// <returns></returns>
+        private static bool TestKeyVersion()
+        {
+            FileInfo fileInfo = new FileInfo(PathPkg + "\\tr4.pkg");
+            string[] titles =
+            {
+                "clientiteminfo\\tblavataritemdesc"
+            };
+            Encoding[] encodings =
+            {
+                Encoding.UTF8
+            };
+            
+            for (keysVersion = 0; keysVersion < StaticVars.xorKeys.Length; keysVersion++)
+            {
+                SortedList<string, string[]> txtFileList = PkgUnpack.TxtText(fileInfo, titles, encodings);
+                string[] str1 = txtFileList["clientiteminfo\\tblavataritemdesc"];
+                if (str1[0].Equals("_talesrunner_"))
+                {
+                    GC.Collect();
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -948,6 +1101,7 @@ namespace TalesRunnerForm
         /// <returns>是否读取</returns>
         private static bool GetCharData()
         {
+            // TODO 角色自动读取
             for (int i = 0; i < Characters; i++)
             {
                 string path = PathPkg + "\\char" + StaticVars.CharacterPkg[i + 1] + ".pkg";
@@ -956,7 +1110,6 @@ namespace TalesRunnerForm
                     return false;
                 }
             }
-
             return true;
         }
 
@@ -971,15 +1124,15 @@ namespace TalesRunnerForm
             {
                 return false;
             }
-            else
-            {
-                path = PathPkg + "\\tr15.pkg";
-                if (!File.Exists(path))
-                {
-                    keysVersion = false; // 旧版密匙
-                }
-            }
-            Characters = keysVersion ? StaticVars.Characters_kr : StaticVars.Characters_kr;
+            //else
+            //{
+            //    path = PathPkg + "\\tr15.pkg";
+            //    if (!File.Exists(path))
+            //    {
+            //        keysVersion = false; // 旧版密匙
+            //    }
+            //}
+            Characters = StaticVars.Characters_kr;
             return true;
         }
 
@@ -995,9 +1148,9 @@ namespace TalesRunnerForm
             //     return false;
             // }
             FileInfo fileInfo = new FileInfo(PathPkg + "\\tr4.pkg");
-            string path1 = Path + "itemdata.txt";
-            string path2 = Path + "itemsetdata.txt";
-            string path3 = Path + "itemdata2.txt";
+            string path1 = Path + "itemdata_" + StaticVars.Server[serverVersion] + ".txt";
+            string path2 = Path + "itemsetdata_" + StaticVars.Server[serverVersion] + ".txt";
+            string path3 = Path + "itemdata2_" + StaticVars.Server[serverVersion] + ".txt";
 
             if (File.Exists(path1) && File.Exists(path2) && File.Exists(path3))
             {
@@ -1045,6 +1198,13 @@ namespace TalesRunnerForm
         /// <param name="bw">执行该动作的后台进程</param>
         private static void MakeItemData(FileInfo fileInfo, BackgroundWorker bw)
         {
+            // TODO 测试key的逻辑顺序
+            if (!TestKeyVersion())
+            {
+                _ = (int)MessageBox.Show(Resources.String_NoKey, Resources.String_Error);
+                Environment.Exit(0);
+            }
+
             // 限制录入属性
             string path1 = Path + "itemattr.txt";
             List<int> attrs = new List<int>();
@@ -1371,7 +1531,7 @@ namespace TalesRunnerForm
                     }
                 }
             }
-            catch (System.Collections.Generic.KeyNotFoundException e)
+            catch (KeyNotFoundException)
             {
 
             }
@@ -1658,7 +1818,7 @@ namespace TalesRunnerForm
 
             // 写入文本
             string date = DateTime.Now.ToString("yyyy/MM/dd"); // 2020-02-02
-            FileStream fs2 = new FileStream(Path + "itemdata.txt", FileMode.Create,
+            FileStream fs2 = new FileStream(Path + "itemdata_" + StaticVars.Server[serverVersion] + ".txt", FileMode.Create,
                 FileAccess.Write);
             StreamWriter exportFile2 = new StreamWriter(fs2);
             exportFile2.Write(date);
@@ -1709,7 +1869,7 @@ namespace TalesRunnerForm
 
 
             // 箱子信息写入
-            FileStream fs4 = new FileStream(Path + "itemdata2.txt", FileMode.Create, FileAccess.Write);
+            FileStream fs4 = new FileStream(Path + "itemdata2_" + StaticVars.Server[serverVersion] + ".txt", FileMode.Create, FileAccess.Write);
             StreamWriter exportFile4 = new StreamWriter(fs4);
             exportFile4.Write(fileInfo.Length);
             exportFile4.WriteLine();
@@ -1849,7 +2009,7 @@ namespace TalesRunnerForm
             bw.ReportProgress(93);
 
             // 写入文本
-            FileStream fs3 = new FileStream(Path + "itemsetdata.txt", FileMode.Create,
+            FileStream fs3 = new FileStream(Path + "itemsetdata_" + StaticVars.Server[serverVersion] + ".txt", FileMode.Create,
                 FileAccess.Write);
             StreamWriter exportFile3 = new StreamWriter(fs3);
             exportFile3.Write(fileInfo.Length);
@@ -2167,7 +2327,7 @@ namespace TalesRunnerForm
                 }
             }
 
-            path = Path + "itemdata.txt";
+            path = Path + "itemdata_" + StaticVars.Server[serverVersion] + ".txt";
             string[] strArray1 = File.ReadAllLines(path, Encoding.UTF8);
             // 追加了收藏等级和套装数据，针对属性为空的道具做了处理使其不会产生异常
             _dataVer = strArray1[0];
@@ -2269,7 +2429,7 @@ namespace TalesRunnerForm
         /// </summary>
         private static void GetItemSetData()
         {
-            string path = Path + "itemsetdata.txt";
+            string path = Path + "itemsetdata_" + StaticVars.Server[serverVersion] + ".txt";
             string[] strArray1 = File.ReadAllLines(path, Encoding.UTF8);
             for (int index1 = 1; index1 < strArray1.Length; ++index1)
             {
@@ -2319,10 +2479,10 @@ namespace TalesRunnerForm
         /// </summary>
         private static void GetItemData2()
         {
-            string path = Path + "itemdata2.txt";
+            string path = Path + "itemdata2_" + StaticVars.Server[serverVersion] + ".txt";
             string[] strArray1 = File.ReadAllLines(path, Encoding.UTF8);
 
-            string pathBan = Path + "boxBan.txt";
+            string pathBan = Path + "boxBan_" + StaticVars.Server[serverVersion] + ".txt";
             if (File.Exists(pathBan))
             {
                 string[] strArrayBan = File.ReadAllLines(pathBan, Encoding.UTF8);
@@ -4754,7 +4914,7 @@ namespace TalesRunnerForm
 
         internal static void SaveBoxBan()
         {
-            FileStream fs = new FileStream(Path + "boxban.txt", FileMode.Create, FileAccess.Write);
+            FileStream fs = new FileStream(Path + "boxban_" + StaticVars.Server[serverVersion] + ".txt", FileMode.Create, FileAccess.Write);
             StreamWriter exportFile = new StreamWriter(fs);
             foreach (int i in ListBoxBan)
             {
@@ -5327,7 +5487,7 @@ namespace TalesRunnerForm
         /// <returns>是否寻找到游戏路径</returns>
         /// 版权声明：本文为CSDN博主「BillCYJ」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
         /// 原文链接：https://blog.csdn.net/BillCYJ/article/details/93998131
-        private static bool GetGamePath()
+        private static bool GetGamePathByRegistry()
         {
             // RegistryKey 表示 Windows 注册表中的项级节点，OpenSubKey(String)以只读方式打开密钥
             RegistryKey SVNKey = Registry.CurrentUser.OpenSubKey("Software\\SGUP\\Apps\\2");
@@ -5335,7 +5495,7 @@ namespace TalesRunnerForm
             {
                 return ManualPath();
             }
-            PathPkg = SVNKey.GetValue("GamePath") as string; // 获取到注册表中的TortoiseSVN的安装目录
+            PathPkgs[0] = SVNKey.GetValue("GamePath") as string; // 获取到注册表中的TortoiseSVN的安装目录
             //int num = (int)MessageBox.Show(PathPkg, "错误");
             return true;
         }

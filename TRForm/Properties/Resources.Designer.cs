@@ -229,10 +229,10 @@ namespace TalesRunnerForm.Properties {
         ///新增道具说明页面，与游戏内一致
         ///装备可用角色移入标签页
         ///自定义游戏路径
-        ///自行读取角色数量和图片等
         ///箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
         ///
         ///未来更新：
+        ///自行读取角色数量和图片等
         ///提供英化韩化配置文件
         ///
         ///注1：
@@ -2460,6 +2460,33 @@ namespace TalesRunnerForm.Properties {
         internal static string String_ItemListFailed {
             get {
                 return ResourceManager.GetString("String_ItemListFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置失败 的本地化字符串。
+        /// </summary>
+        internal static string String_ManualFail {
+            get {
+                return ResourceManager.GetString("String_ManualFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 设置完成 的本地化字符串。
+        /// </summary>
+        internal static string String_ManualSuccess {
+            get {
+                return ResourceManager.GetString("String_ManualSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法读取游戏数据！ 的本地化字符串。
+        /// </summary>
+        internal static string String_NoKey {
+            get {
+                return ResourceManager.GetString("String_NoKey", resourceCulture);
             }
         }
         
