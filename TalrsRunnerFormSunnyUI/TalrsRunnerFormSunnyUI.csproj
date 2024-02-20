@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6CE2A429-E712-4C31-9686-8F631B2E65E4}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>TalrsRunnerFormSunnyUI</RootNamespace>
     <AssemblyName>TalrsRunnerFormSunnyUI</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SunnyUI, Version=3.6.3.0, Culture=neutral, PublicKeyToken=27d7d2e821d97aeb, processorArchitecture=MSIL">
       <HintPath>..\TRForm\packages\SunnyUI.3.6.3\lib\net472\SunnyUI.dll</HintPath>
@@ -58,6 +61,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zlib.net, Version=1.0.3.0, Culture=neutral, PublicKeyToken=47d7877cb3620160">
+      <HintPath>..\TRForm\packages\zlib.net.1.0.4.0\lib\zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About\FAbout.cs">
@@ -545,4 +551,9 @@
     <None Include="Resources\sp_287.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if not exist "$(TargetDir)DevIL.dll" copy "$(SolutionDir)Resources\DevIL.dll" "$(TargetDir)"
+if not exist "$(TargetDir)ILU.dll" copy "$(SolutionDir)Resources\ILU.dll" "$(TargetDir)"
+copy "$(SolutionDir)Resources\itemattr.txt" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>

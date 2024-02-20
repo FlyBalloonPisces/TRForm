@@ -84,6 +84,51 @@ namespace TalrsRunnerFormSunnyUI.Data
             "acctail"
         };
 
+        internal static readonly string[] NecessaryFolder =
+        {
+            "guiex\\itemimage",
+            "script"
+        };
+
+        internal static readonly string[] NecessaryText =
+        {
+            "clientiteminfo\\tblavataritemdesc",
+            "clientiteminfo\\tblavataritemdescex",
+            "tblluckybagresultitems_1",
+            "clientiteminfo\\tblavataritemdescattr",
+            "content\\alchemist\\essenalchemistmixcondition",
+            "clientiteminfo\\tblavataritemsetdesc",
+            "clientiteminfo\\tblavataritemsetattr",
+            "archives\\essenarchives_exchangelist",
+            "clientiteminfo\\essenitemcubereward",
+            "clientiteminfo\\settingitemcubelist",
+            "content\\fishing\\essenfishing_decoy",
+            "content\\trading\\tradingitemrate_ver2",
+            "collectionrenewal\\essenitem_collectionrenewal_itemlist",
+            "collectionrenewal\\essenitem_collectionrenewal_itemrank",
+            "collectionrenewal\\essenitem_collectionrenewal_group",
+            "content\\statsystem\\essenstatsystemnodeinfo",
+            "clientiteminfo\\essenexchangesysteminfo",
+            "clientiteminfo\\essenexchangesystemconsumelist",
+            "clientiteminfo\\selectivepackage\\essenselectiveboxreward",
+            "clientiteminfo\\selectivepackage\\essenselectivepackagebonusreward",
+            "clientiteminfo\\selectivepackage\\essenselectivepackageboxitem",
+            "clientiteminfo\\essenitemcollectiondesc",
+            "clientiteminfo\\tblalchemist_recipe_mix_condition",
+            "clientiteminfo\\tblalchemist_recipe",
+            "clientiteminfo\\enchantsystem\\essenenchantsystemitem",
+            "clientiteminfo\\enchantsystem\\essenenchantsystemstonemount"
+        };
+
+        internal static readonly string[] LocalText =
+{
+            "itemdata",
+            "itemdata2",
+            "itemsetdata",
+            "itemattr",
+            "itemoccupation",
+            "itemtranslation"
+        };
         #endregion
 
 
