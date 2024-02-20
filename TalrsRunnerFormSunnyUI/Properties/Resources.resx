@@ -1,0 +1,1291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About1" xml:space="preserve">
+    <value>Made by Yuki, FlyBalloon
+本工具仅用于查看TalesRunner的装备属性
+
+工具版本：2.6.3
+装备库版本：</value>
+    <comment>关于1</comment>
+  </data>
+  <data name="About2" xml:space="preserve">
+    <value>
+本次更新：
+新增道具说明页面，与游戏内一致
+装备可用角色移入标签页
+自定义游戏路径
+箱子名称黑名单的自定义化，通过点击箱子页的黑名单即可（测试）
+
+未来更新：
+自行读取角色数量和图片等
+提供英化韩化配置文件
+
+注1：
+出于方便玩家翻译的理由,本工具的档案没有加密
+可以自行修改(但是记得备份)
+
+注2：
+搜索属性第三项改为自定义数值
+方便各位使用者查找一些特殊的属性
+详细编号可查阅[ID]选项卡</value>
+    <comment>关于2</comment>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="all_813_011" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_011.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_012" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_012.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_013" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_013.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_014" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_014.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_015" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_015.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_016" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_016.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_131" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_131.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_132" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_132.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_133" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_133.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_134" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_134.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_135" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_135.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_136" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_136.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_251" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_251.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_252" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_252.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_253" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_253.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_254" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_254.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_255" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_255.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_371" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_371.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_372" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_372.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_373" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_373.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_374" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_374.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_375" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_375.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_376" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_376.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_492" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_492.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_493" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_493.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_494" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_494.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_495" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_495.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_813_496" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_813_496.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="all_char" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_char.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Anubis_15" xml:space="preserve">
+    <value>1.5倍</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_Crit" xml:space="preserve">
+    <value>暴击</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_Damage" xml:space="preserve">
+    <value>伤害</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_Fury" xml:space="preserve">
+    <value>愤怒</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_Normal" xml:space="preserve">
+    <value>普通</value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Anubis_StatusAddUp" xml:space="preserve">
+    <value>属性总和 </value>
+    <comment>阿努属性页用</comment>
+  </data>
+  <data name="Attr_AvatarOff" xml:space="preserve">
+    <value>&lt;在Avatar Off时套用属性&gt;</value>
+    <comment>属性-Avatar</comment>
+  </data>
+  <data name="Attr_AvatarOn" xml:space="preserve">
+    <value>&lt;在Avatar On时套用属性&gt;</value>
+    <comment>属性-Avatar</comment>
+  </data>
+  <data name="Attr_Character" xml:space="preserve">
+    <value>适用角色:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_CollectLv" xml:space="preserve">
+    <value>收藏等级:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_CollectNum" xml:space="preserve">
+    <value>收藏编号:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_CollectPt" xml:space="preserve">
+    <value>收藏分数:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_ItemNum" xml:space="preserve">
+    <value>装备编号:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_Name" xml:space="preserve">
+    <value>装备名称:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_NameCH" xml:space="preserve">
+    <value>中文名称:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_Position" xml:space="preserve">
+    <value>装备部位:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Attr_SetNum" xml:space="preserve">
+    <value>套装编号:</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="brasscoin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brasscoin.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="carditemimg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\carditemimg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CardPackMap1" xml:space="preserve">
+    <value>数学王系列</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap10" xml:space="preserve">
+    <value>彼得潘</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap11" xml:space="preserve">
+    <value>青蛙王子</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap2" xml:space="preserve">
+    <value>被遗忘的天使神殿</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap3" xml:space="preserve">
+    <value>亨利城的训练</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap4" xml:space="preserve">
+    <value>阿里巴巴</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap5" xml:space="preserve">
+    <value>四人同心</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap6" xml:space="preserve">
+    <value>地狱火之路</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap7" xml:space="preserve">
+    <value>冰河世纪</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap8" xml:space="preserve">
+    <value>魔笛</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap9" xml:space="preserve">
+    <value>甜蜜的饼干树林</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="CardPackMap_Other" xml:space="preserve">
+    <value>套装所属</value>
+    <comment>卡包地图名</comment>
+  </data>
+  <data name="cashup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cashup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Character1" xml:space="preserve">
+    <value>光光</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character10" xml:space="preserve">
+    <value>凯</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character11" xml:space="preserve">
+    <value>雪</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character12" xml:space="preserve">
+    <value>深子</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character13" xml:space="preserve">
+    <value>亚伯</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character14" xml:space="preserve">
+    <value>哈鲁</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character15" xml:space="preserve">
+    <value>维拉</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character16" xml:space="preserve">
+    <value>孙悟空</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character17" xml:space="preserve">
+    <value>隐雷</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character18" xml:space="preserve">
+    <value>曦狐</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character19" xml:space="preserve">
+    <value>露西</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character2" xml:space="preserve">
+    <value>明明</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character20" xml:space="preserve">
+    <value>米狐</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character201" xml:space="preserve">
+    <value>GyuRi</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character202" xml:space="preserve">
+    <value>SeungYeon</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character203" xml:space="preserve">
+    <value>Nicole</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character204" xml:space="preserve">
+    <value>Hara</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character205" xml:space="preserve">
+    <value>Ji-Young</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character206" xml:space="preserve">
+    <value>Amu</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character207" xml:space="preserve">
+    <value>Giroro</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character208" xml:space="preserve">
+    <value>Dororo</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character209" xml:space="preserve">
+    <value>Keroro</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character21" xml:space="preserve">
+    <value>基纳莉</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character210" xml:space="preserve">
+    <value>Tamama</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character211" xml:space="preserve">
+    <value>Kururu</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character212" xml:space="preserve">
+    <value>Min</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character213" xml:space="preserve">
+    <value>Fei</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character214" xml:space="preserve">
+    <value>Suzy</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character215" xml:space="preserve">
+    <value>Jia</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character216" xml:space="preserve">
+    <value>ZICO</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character217" xml:space="preserve">
+    <value>JAEHYO</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character218" xml:space="preserve">
+    <value>P.O</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character219" xml:space="preserve">
+    <value>U-KWON</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character22" xml:space="preserve">
+    <value>R</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character220" xml:space="preserve">
+    <value>B-Bomb</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character221" xml:space="preserve">
+    <value>P-KYUNG</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character222" xml:space="preserve">
+    <value>TAEIL</value>
+    <comment>角色-合作角色</comment>
+  </data>
+  <data name="Character23" xml:space="preserve">
+    <value>哈朗</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character24" xml:space="preserve">
+    <value>拉拉</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character25" xml:space="preserve">
+    <value>埃利姆斯</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character26" xml:space="preserve">
+    <value>凯恩</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character27" xml:space="preserve">
+    <value>缘迕</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character28" xml:space="preserve">
+    <value>血腥维拉</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character3" xml:space="preserve">
+    <value>莉娜</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character4" xml:space="preserve">
+    <value>大熊</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character5" xml:space="preserve">
+    <value>DnD</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character6" xml:space="preserve">
+    <value>纳鲁西斯</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character7" xml:space="preserve">
+    <value>琪琪</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character8" xml:space="preserve">
+    <value>雷</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character9" xml:space="preserve">
+    <value>贝儿</value>
+    <comment>角色-角色</comment>
+  </data>
+  <data name="Character_Other" xml:space="preserve">
+    <value>全体角色通用</value>
+    <comment>角色-其他</comment>
+  </data>
+  <data name="Collocation_Avatar" xml:space="preserve">
+    <value>外装</value>
+    <comment>TabPage5</comment>
+  </data>
+  <data name="Collocation_Character" xml:space="preserve">
+    <value>内装</value>
+    <comment>TabPage5</comment>
+  </data>
+  <data name="contributionpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\contributionpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DevIL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DevIL.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="expup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\expup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="farmrecipe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\farmrecipe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fpup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fpup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Header_Name" xml:space="preserve">
+    <value>装备名称</value>
+    <comment>ListView1</comment>
+  </data>
+  <data name="Header_Num" xml:space="preserve">
+    <value>编号</value>
+    <comment>ListView1</comment>
+  </data>
+  <data name="Icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ILU" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ILU.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="IniOperation_IniGetAllItemKeys_必须指定节点名称" xml:space="preserve">
+    <value>必须指定节点名称</value>
+  </data>
+  <data name="IniOperation_IniGetStringValue_必须指定键名称_key_" xml:space="preserve">
+    <value>必须指定键名称(key)</value>
+  </data>
+  <data name="IniOperation_IniWriteItems_必须指定键值对" xml:space="preserve">
+    <value>必须指定键值对</value>
+  </data>
+  <data name="IniOperation_IniWriteValue_值不能为null" xml:space="preserve">
+    <value>值不能为null</value>
+  </data>
+  <data name="IniOperation_IniWriteValue_必须指定键名称" xml:space="preserve">
+    <value>必须指定键名称</value>
+  </data>
+  <data name="itemattr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\itemattr.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="item_img_myth" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\item_img_myth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="losing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\losing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Page_About" xml:space="preserve">
+    <value>关于</value>
+    <comment>TabPage3</comment>
+  </data>
+  <data name="Page_Attr" xml:space="preserve">
+    <value>属性</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="Page_Collocation" xml:space="preserve">
+    <value>配装</value>
+    <comment>TabPage5</comment>
+  </data>
+  <data name="Page_ID" xml:space="preserve">
+    <value>ID</value>
+    <comment>TabPage4</comment>
+  </data>
+  <data name="Page_Search" xml:space="preserve">
+    <value>搜索</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="pass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pass.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pcpup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pcpup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PetSeries1" xml:space="preserve">
+    <value>A型</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries10" xml:space="preserve">
+    <value>神秘公寓</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries11" xml:space="preserve">
+    <value>天使</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries12" xml:space="preserve">
+    <value>恶魔</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries13" xml:space="preserve">
+    <value>塔罗牌</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries14" xml:space="preserve">
+    <value>超级跑跑角色</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries15" xml:space="preserve">
+    <value>国际象棋</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries2" xml:space="preserve">
+    <value>B型</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries3" xml:space="preserve">
+    <value>O型</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries4" xml:space="preserve">
+    <value>AB型</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries5" xml:space="preserve">
+    <value>GirlsDay</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries6" xml:space="preserve">
+    <value>GirlFriend</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries7" xml:space="preserve">
+    <value>SEVENTEEN</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries8" xml:space="preserve">
+    <value>BTS</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries9" xml:space="preserve">
+    <value>Astro</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="PetSeries_Other" xml:space="preserve">
+    <value>同</value>
+    <comment>TabPage1</comment>
+  </data>
+  <data name="position1001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position1001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position1003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position1003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position2001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position2001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position2002" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position2002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position2003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position2003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position2004" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position2004.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3002" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3003" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3004" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3004.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3005" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3005.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3007" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3007.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3008" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3008.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3009" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3009.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position3010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position3010.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position4001" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position4001.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position5006" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position5006.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="position5010" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\position5010.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Position_1001" xml:space="preserve">
+    <value>角色</value>
+    <comment>部位-角色</comment>
+  </data>
+  <data name="Position_1002" xml:space="preserve">
+    <value>变身</value>
+    <comment>部位-变身</comment>
+  </data>
+  <data name="Position_1003" xml:space="preserve">
+    <value>特殊</value>
+    <comment>部位-特殊</comment>
+  </data>
+  <data name="Position_1004" xml:space="preserve">
+    <value>合作角色</value>
+    <comment>部位-合作角色</comment>
+  </data>
+  <data name="Position_2001" xml:space="preserve">
+    <value>头发</value>
+    <comment>部位-头发</comment>
+  </data>
+  <data name="Position_2002" xml:space="preserve">
+    <value>上衣</value>
+    <comment>部位-上衣</comment>
+  </data>
+  <data name="Position_2003" xml:space="preserve">
+    <value>下衣</value>
+    <comment>部位-下衣</comment>
+  </data>
+  <data name="Position_2004" xml:space="preserve">
+    <value>鞋子</value>
+    <comment>部位-鞋子</comment>
+  </data>
+  <data name="Position_3001" xml:space="preserve">
+    <value>头饰</value>
+    <comment>部位-头饰</comment>
+  </data>
+  <data name="Position_3002" xml:space="preserve">
+    <value>面饰</value>
+    <comment>部位-面饰</comment>
+  </data>
+  <data name="Position_3003" xml:space="preserve">
+    <value>颈饰</value>
+    <comment>部位-颈饰</comment>
+  </data>
+  <data name="Position_3004" xml:space="preserve">
+    <value>手饰</value>
+    <comment>部位-手饰</comment>
+  </data>
+  <data name="Position_3005" xml:space="preserve">
+    <value>背饰</value>
+    <comment>部位-背饰</comment>
+  </data>
+  <data name="Position_3007" xml:space="preserve">
+    <value>项链</value>
+    <comment>部位-项链</comment>
+  </data>
+  <data name="Position_3008" xml:space="preserve">
+    <value>手环</value>
+    <comment>部位-手环</comment>
+  </data>
+  <data name="Position_3009" xml:space="preserve">
+    <value>推进器</value>
+    <comment>部位-推进器</comment>
+  </data>
+  <data name="Position_3010" xml:space="preserve">
+    <value>尾巴</value>
+    <comment>部位-尾巴</comment>
+  </data>
+  <data name="Position_4001" xml:space="preserve">
+    <value>宠物</value>
+    <comment>部位-宠物</comment>
+  </data>
+  <data name="Position_5006" xml:space="preserve">
+    <value>荣誉</value>
+    <comment>部位-荣誉</comment>
+  </data>
+  <data name="Position_5010" xml:space="preserve">
+    <value>象征</value>
+    <comment>部位-象征</comment>
+  </data>
+  <data name="Position_Other" xml:space="preserve">
+    <value>其他</value>
+    <comment>部位-其他</comment>
+  </data>
+  <data name="Position_Set" xml:space="preserve">
+    <value>套装</value>
+    <comment>部位-套装</comment>
+  </data>
+  <data name="raidpoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\raidpoint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="random_buff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\random_buff.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="random_item" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\random_item.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="recipe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\recipe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="result" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\result.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rpup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rpup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Search_All" xml:space="preserve">
+    <value>全部</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Ascending" xml:space="preserve">
+    <value>升序</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_AvatarAll" xml:space="preserve">
+    <value>内外装</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_AvatarOff" xml:space="preserve">
+    <value>内装</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_AvatarOn" xml:space="preserve">
+    <value>外装</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Chinese" xml:space="preserve">
+    <value>中文(如果有)</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_CollectNum" xml:space="preserve">
+    <value>收藏编号</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Condition" xml:space="preserve">
+    <value>条件搜索</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Condition1" xml:space="preserve">
+    <value>搜索条件1</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Condition2" xml:space="preserve">
+    <value>搜索条件2</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Condition3" xml:space="preserve">
+    <value>搜索条件3</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Descending" xml:space="preserve">
+    <value>降序</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_ItemNum" xml:space="preserve">
+    <value>装备编号</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Jump" xml:space="preserve">
+    <value>定位</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Korean" xml:space="preserve">
+    <value>韩文</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Language" xml:space="preserve">
+    <value>装备语言</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Num" xml:space="preserve">
+    <value>装备定位</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_NumSort" xml:space="preserve">
+    <value>编号排序</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Position" xml:space="preserve">
+    <value>部位</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_Search" xml:space="preserve">
+    <value>搜索</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Search_ShowAll" xml:space="preserve">
+    <value>恢复全部</value>
+    <comment>TabPage2</comment>
+  </data>
+  <data name="Sex_Female" xml:space="preserve">
+    <value>女性角色通用</value>
+    <comment>性别</comment>
+  </data>
+  <data name="Sex_Male" xml:space="preserve">
+    <value>男性角色通用</value>
+    <comment>性别</comment>
+  </data>
+  <data name="Sex_Other" xml:space="preserve">
+    <value>全体角色通用</value>
+    <comment>性别</comment>
+  </data>
+  <data name="Sex_Part" xml:space="preserve">
+    <value>部分角色通用</value>
+    <comment>性别</comment>
+  </data>
+  <data name="spup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\spup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_190" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_190.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_194" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_194.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_207" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_207.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_211" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_211.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_214" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_214.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_215" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_215.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_216" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_216.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_217" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_217.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_218" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_218.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_231" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_231.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_240" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_240.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_244" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_244.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_245" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_245.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_246" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_246.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_255" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_255.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_258" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_258.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_259" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_259.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_260" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_260.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_264" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_264.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_284" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_284.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_285" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_285.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_287" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_287.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_37" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_37.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_38" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_38.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_55" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_55.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_56" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_56.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sp_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sp_9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Stone_A" xml:space="preserve">
+    <value>A</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_B" xml:space="preserve">
+    <value>B</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_Blue" xml:space="preserve">
+    <value>蓝色宝石</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_C" xml:space="preserve">
+    <value>C</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_D" xml:space="preserve">
+    <value>D</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_E" xml:space="preserve">
+    <value>E</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_F" xml:space="preserve">
+    <value>F</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_G" xml:space="preserve">
+    <value>G</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_Green" xml:space="preserve">
+    <value>绿色宝石</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_H" xml:space="preserve">
+    <value>H</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_I" xml:space="preserve">
+    <value>I</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_J" xml:space="preserve">
+    <value>J</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV0" xml:space="preserve">
+    <value>LV0</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV1" xml:space="preserve">
+    <value>LV1</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV2" xml:space="preserve">
+    <value>LV2</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV3" xml:space="preserve">
+    <value>LV3</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV4" xml:space="preserve">
+    <value>LV4</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_LV5" xml:space="preserve">
+    <value>LV5</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_Orange" xml:space="preserve">
+    <value>橙色宝石</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_Red" xml:space="preserve">
+    <value>红色宝石</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="Stone_Special" xml:space="preserve">
+    <value>特殊宝石</value>
+    <comment>宝石</comment>
+  </data>
+  <data name="String_AttrListFailed" xml:space="preserve">
+    <value>读取属性列表失败!</value>
+    <comment>属性列表读取失败</comment>
+  </data>
+  <data name="String_Basic" xml:space="preserve">
+    <value>普通魔方</value>
+    <comment>普通魔方</comment>
+  </data>
+  <data name="String_BetweenPages" xml:space="preserve">
+    <value>/</value>
+    <comment>页数用</comment>
+  </data>
+  <data name="String_Error" xml:space="preserve">
+    <value>错误</value>
+    <comment>错误</comment>
+  </data>
+  <data name="String_FileFormatDesc" xml:space="preserve">
+    <value>配装数据文件（*.itv）|*.itv</value>
+    <comment>配装数据格式</comment>
+  </data>
+  <data name="String_Gold" xml:space="preserve">
+    <value>金魔方</value>
+    <comment>金魔方</comment>
+  </data>
+  <data name="String_ItemListFailed" xml:space="preserve">
+    <value>读取装备列表失败!
+是否手动指定游戏文件夹路径?</value>
+    <comment>装备列表读取失败</comment>
+  </data>
+  <data name="String_ManualFail" xml:space="preserve">
+    <value>设置失败</value>
+    <comment>手动指定目录失败</comment>
+  </data>
+  <data name="String_ManualSuccess" xml:space="preserve">
+    <value>设置完成</value>
+    <comment>手动指定目录成功</comment>
+  </data>
+  <data name="String_NoKey" xml:space="preserve">
+    <value>无法读取游戏数据！</value>
+    <comment>加密改了</comment>
+  </data>
+  <data name="String_OccupationListFailed" xml:space="preserve">
+    <value>读取角色列表失败!
+无法使用配装功能！</value>
+    <comment>角色列表读取失败 无法使用配装功能</comment>
+  </data>
+  <data name="String_PicListFailed" xml:space="preserve">
+    <value>读取装备图片失败!</value>
+    <comment>装备图片读取失败</comment>
+  </data>
+  <data name="String_ProgressPercent" xml:space="preserve">
+    <value> %</value>
+    <comment>后台任务进度用百分号</comment>
+  </data>
+  <data name="String_SetImage" xml:space="preserve">
+    <value>点击道具图片
+查看同套道具</value>
+    <comment>套装图片显示文字</comment>
+  </data>
+  <data name="String_Silver" xml:space="preserve">
+    <value>银魔方</value>
+    <comment>银魔方</comment>
+  </data>
+  <data name="String_X" xml:space="preserve">
+    <value>×</value>
+    <comment>乘号</comment>
+  </data>
+  <data name="title" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\title.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="titleability" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\titleability.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="trup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\all_9999_2259.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="usertitle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\usertitle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="xmas_set" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\xmas_set.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1024_gameu_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1024_gameu_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1024_gameu_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1024_gameu_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1024_gameu_l" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1024_gameu_l.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1024_gameu_r" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1024_gameu_r.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\13.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

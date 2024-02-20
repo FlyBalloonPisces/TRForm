@@ -12,9 +12,9 @@ namespace TRUnpack
             for (i = 0; i < args.Length; i++)
             {
                 FileInfo fileInfo = new FileInfo(args[i]);
-                PkgUnpack.Unpack(fileInfo);
+                PkgUnpack.UnpackForDemo(fileInfo);
             }
-            //FileInfo fileInfo = new FileInfo("C:\\Games\\TalesRunner\\tr13.pkg");
+            //FileInfo fileInfo = new FileInfo("E:\\TRKR\\tr4.pkg");
             //PkgUnpack.Unpack(fileInfo);
 
             Console.WriteLine("Unpack done");

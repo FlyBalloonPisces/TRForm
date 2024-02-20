@@ -259,7 +259,7 @@ namespace TalesRunnerForm
                     }
 
                     // Console.WriteLine("file_dir = " + encoding.GetString(decompressed_entry_title));
-                    string filePath = pkgName + "\\" + Encoding.UTF8.GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
+                    string filePath = pkgName + "\\" + Encoding.GetEncoding(949).GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
                     // String file_dir = Path.GetDirectoryName(file_path); // 返回文件路径
                     // Console.WriteLine("path = "+file_path);
                     int partNum = BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4).ToArray(), 0); // 获得单元数量
@@ -372,7 +372,7 @@ namespace TalesRunnerForm
                         //string filePath =
                         //    pkgName + "\\" +
                         //    Encoding.UTF8.GetString(decompressedEntryTitle); // 把目录和文件名合成一个路径
-                        string[] filePaths = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\'); // 把目录和文件名合成一个路径
+                        string[] filePaths = Encoding.GetEncoding(949).GetString(decompressedEntryTitle).Split('\\'); // 把目录和文件名合成一个路径
                         string fileName = filePaths[filePaths.Length - 1];
                         //if (filePaths.Length <= 2 || fileName.Split('_').Length > 3)
                         //{
@@ -488,10 +488,10 @@ namespace TalesRunnerForm
 
         private delegate void PbValue(int n);
 
-        internal static SortedList<int, int[]> Occupation(FileInfo fileInfo, SortedList<int, string> listNames, BackgroundWorker bw)
+        internal static SortedList<int, long[]> Occupation(FileInfo fileInfo, SortedList<int, string> listNames, BackgroundWorker bw)
         {
             // 全角色占用
-
+            
 
             // 各角色公共服饰
             SortedList<string, short>[] listOc = new SortedList<string, short>[TrData.Characters];
@@ -546,11 +546,11 @@ namespace TalesRunnerForm
                         {
                             decompressedEntryTitle[i] = decompressedEntryData[i];
                         }
-                        if (Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\').Length == 3)
+                        if (Encoding.GetEncoding(949).GetString(decompressedEntryTitle).Split('\\').Length == 3)
                         {
-                            if (Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[1].Equals("character" + ch))
+                            if (Encoding.GetEncoding(949).GetString(decompressedEntryTitle).Split('\\')[1].Equals("character" + ch))
                             {
-                                string fileName = Encoding.UTF8.GetString(decompressedEntryTitle).Split('\\')[2]; // 把目录和文件名合成一个路径
+                                string fileName = Encoding.GetEncoding(949).GetString(decompressedEntryTitle).Split('\\')[2]; // 把目录和文件名合成一个路径
                                 //string test = Encoding.UTF8.GetString(decompressedEntryTitle);
                                 if (fileName.Split('.').Length == 2 && (fileName.Split('_')[0] + "_").Equals(StaticVars.Character[ch]) && fileName.Split('_').Length >= 3)
                                 {
@@ -745,16 +745,16 @@ namespace TalesRunnerForm
             //    export_file.WriteLine();
             //}
             //export_file.Close();
-            // TODO 已到 露露亚
-            const int constMale = 0b010000011000111011001010101001;
-            const int constFemale = 0b101100100011000100110101010110;
-            const int constAll = 0b111100111011111111111111111111;
+            // TODO 已到 克洛伊
+            const long constMale = 0b001010011011000111011001010101001;
+            const long constFemale = 0b110101100100011000100110101010110;
+            const long constAll = 0b111111111111011111111111111111111;
             int pos = 1;
-            SortedList<int, int[]> listResult = new SortedList<int, int[]>();
+            SortedList<int, long[]> listResult = new SortedList<int, long[]>();
             foreach (KeyValuePair<int, string> pair in listNames)
             {
-                int chars = 0;
-                int p = 1;
+                long chars = 0;
+                long p = 1;
                 ch = 1;
                 while (ch <= TrData.Characters)
                 {
@@ -783,7 +783,7 @@ namespace TalesRunnerForm
                     {
                         const byte flag = 1;
                         int i = 0;
-                        int chars2 = chars;
+                        long chars2 = chars;
                         while ((chars2 & flag) == 0)
                         {
                             chars2 >>= 1;
@@ -796,7 +796,7 @@ namespace TalesRunnerForm
                 {
                     if (listChar.ContainsKey(pair.Value))
                     {
-                        listResult.Add(pair.Key, new[] { 0, listChar[pair.Value], 0 });
+                        listResult.Add(pair.Key, new long[] { 0, listChar[pair.Value], 0 });
                     }
                 }
                 if (pair.Key >= pos * 1000)

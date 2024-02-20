@@ -474,7 +474,7 @@ namespace TalesRunnerForm
             public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
             public byte Sex; // 装备性别 1男2女
             public short Occupation; // 装备占用位置 -1代表无占用
-            public int Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
+            public long Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
             public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
             public string Desc = "";
 
@@ -810,7 +810,7 @@ namespace TalesRunnerForm
             public byte Avatar; // 0为内装 1为外装
             public byte Char; // 合作角色编号超过255的情况需要考虑更换数据类型
             public int Id; // 收藏编号
-            public ushort ItemKind; // 道具图片编号
+            public uint ItemKind; // 道具图片编号
             public int ItemNum;
             public byte Level; // 收藏等级
             public string Name = string.Empty;
@@ -823,7 +823,7 @@ namespace TalesRunnerForm
             public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
             public byte Sex; // 装备性别 1男2女
             public short Occupation; // 装备占用位置 -1代表无占用
-            public int Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
+            public long Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
             public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
             public string Desc = ""; // 道具介绍
         }
@@ -960,6 +960,7 @@ namespace TalesRunnerForm
                 GC.Collect();
                 if (GetPicData())
                 {
+                    PathPkgs[0] = PathPkg;
                     SavePathPkgs();
                     return true;
                 }
@@ -1047,6 +1048,10 @@ namespace TalesRunnerForm
                 else if (strArray1[2].Equals("7=patch1.trdownload.in.th"))
                 {
                     serverVersion = 2;
+                }
+                else
+                {
+                    serverVersion = -1;
                 }
             }
         }
@@ -1222,7 +1227,14 @@ namespace TalesRunnerForm
             // 限制录入部位
             int[] limitPosition =
             {
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 106, 112, 117, 241, 242, 247, 813
+                // TODO 箱子的判断
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 106, 112, 117, 124, 127, 188,
+                186, // 鱼饵
+                241, // 荣誉、称号
+                242, // 项链
+                247, // 象征
+
+                813  // 宝石
             };
             int[] limitPosition2 =
             {
@@ -1256,20 +1268,43 @@ namespace TalesRunnerForm
 
             string[] titles =
             {
-                "clientiteminfo\\tblavataritemdesc", "clientiteminfo\\tblavataritemdescex",
+                "clientiteminfo\\tblavataritemdesc",
+                "clientiteminfo\\tblavataritemdescex",
                 "clientiteminfo\\enchantsystem\\essenenchantsystemitem",
-                "clientiteminfo\\enchantsystem\\essenenchantsystemstonemount", "tblluckybagresultitems_1",
-                "clientiteminfo\\essenitemcollectiondesc", "clientiteminfo\\tblavataritemdescattr",
-                "content\\alchemist\\essenalchemistmixcondition", "clientiteminfo\\tblavataritemsetdesc",
-                "clientiteminfo\\tblavataritemsetattr", "archives\\essenarchives_exchangelist",
-                "clientiteminfo\\essenitemcubereward", "clientiteminfo\\settingitemcubelist",
-                "content\\fishing\\essenfishing_decoy"
+                "clientiteminfo\\enchantsystem\\essenenchantsystemstonemount",
+                "tblluckybagresultitems_1",
+                //"clientiteminfo\\essenitemcollectiondesc", 
+                "clientiteminfo\\tblavataritemdescattr",
+                "content\\alchemist\\essenalchemistmixcondition",
+                "clientiteminfo\\tblavataritemsetdesc",
+                "clientiteminfo\\tblavataritemsetattr",
+                "archives\\essenarchives_exchangelist",
+                "clientiteminfo\\essenitemcubereward",
+                "clientiteminfo\\settingitemcubelist",
+                "content\\fishing\\essenfishing_decoy",
+                "collectionrenewal\\essenitem_collectionrenewal_itemlist",
+                "collectionrenewal\\essenitem_collectionrenewal_itemrank",
+                "content\\trading\\tradingitemrate_ver2"
             };
             Encoding[] encodings =
             {
-                Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.Unicode, Encoding.Unicode, Encoding.ASCII,
-                Encoding.UTF8, Encoding.ASCII, Encoding.ASCII, Encoding.ASCII, Encoding.ASCII, Encoding.Unicode,
-                Encoding.Unicode, Encoding.Unicode
+                Encoding.UTF8, 
+                Encoding.ASCII, 
+                Encoding.Unicode, 
+                Encoding.Unicode, 
+                //Encoding.Unicode, 
+                Encoding.ASCII,
+                Encoding.UTF8, 
+                Encoding.ASCII, 
+                Encoding.ASCII, 
+                Encoding.ASCII, 
+                Encoding.ASCII, 
+                Encoding.Unicode,
+                Encoding.Unicode, 
+                Encoding.Unicode,
+                Encoding.UTF8,
+                Encoding.UTF8,
+                Encoding.UTF8
             };
 
             SortedList<string, string[]> txtFileList = PkgUnpack.TxtText(fileInfo, titles, encodings);
@@ -1301,8 +1336,17 @@ namespace TalesRunnerForm
                 {
                     long offset = -1;
                     short pkgNum = -1;
+                    //try
+                    //{
+                    //    Convert.ToUInt32(str11[5]);
+                    //}
+                    //catch
+                    //{
+                    //    return;
+                    //}
                     string imageStr = GetItemImageName(Convert.ToByte(str11[3]), Convert.ToUInt16(str11[4]),
-                        Convert.ToUInt16(str11[5]), Convert.ToByte(str11[26]));
+      Convert.ToUInt32(str11[5]), Convert.ToByte(str11[26]));
+
                     if (listPic.ContainsKey(imageStr))
                     {
                         pkgNum = Convert.ToInt16(listPic[imageStr].Split(',')[0]);
@@ -1311,7 +1355,7 @@ namespace TalesRunnerForm
 
                     listNames.Add(Convert.ToInt32(str11[0]),
                         GetItemModelName(Convert.ToByte(str11[3]), Convert.ToUInt16(str11[4]),
-                            Convert.ToUInt16(str11[5])));
+                            Convert.ToUInt32(str11[5])));
 
                     list.Add(Convert.ToInt32(str11[0]), new ItemStatusMaking
                     {
@@ -1321,11 +1365,11 @@ namespace TalesRunnerForm
                         // Avatar = 0,
                         Position = Convert.ToInt32(str11[4]),
                         Position2 = Convert.ToInt32(str11[12]),
-                        ItemKind = Convert.ToUInt16(str11[5]),
+                        ItemKind = Convert.ToUInt32(str11[5]),
                         // Point = 0,
                         // ID = 0,
                         Char = Convert.ToByte(str11[3]),
-                        Level = Convert.ToByte(str11[26]),
+                        //Level = Convert.ToByte(str11[26]),
                         // SetNum = 0,
                         PkgNum = pkgNum,
                         PicOffset = offset,
@@ -1435,14 +1479,14 @@ namespace TalesRunnerForm
             // 返回角色占用和装备占用
             if (_charOc)
             {
-                SortedList<int, int[]> listOc = PkgUnpack.Occupation(fileInfo2, listNames, bw);
-                foreach (KeyValuePair<int, int[]> pair in listOc)
+                SortedList<int, long[]> listOc = PkgUnpack.Occupation(fileInfo2, listNames, bw);
+                foreach (KeyValuePair<int, long[]> pair in listOc)
                 {
                     if (list.ContainsKey(pair.Key))
                     {
                         list[pair.Key].Sex = Convert.ToByte(pair.Value[0]);
                         list[pair.Key].Occupation = Convert.ToInt16(pair.Value[1]);
-                        list[pair.Key].Chars = Convert.ToInt32(pair.Value[2]);
+                        list[pair.Key].Chars = Convert.ToInt64(pair.Value[2]);
                     }
                 }
 
@@ -1641,15 +1685,29 @@ namespace TalesRunnerForm
                 }
             }
 
-            // 收藏分数和收藏编号
-            str1 = txtFileList["clientiteminfo\\essenitemcollectiondesc"];
+            //收藏分数
+            str1 = txtFileList["collectionrenewal\\essenitem_collectionrenewal_itemrank"];
+            SortedList<byte, byte> levelPtPairs = new SortedList<byte, byte>();
             for (int index1 = 1; index1 < str1.Length; ++index1)
             {
                 string[] str11 = StringDivide(str1[index1]);
-                if (list.ContainsKey(Convert.ToInt32(str11[0])))
+
+                if ((!levelPtPairs.ContainsKey(Convert.ToByte(str11[0]))) && (Convert.ToInt32(str11[0]) < 100))
                 {
-                    list[Convert.ToInt32(str11[0])].Point = Convert.ToByte(str11[1]);
-                    list[Convert.ToInt32(str11[0])].Id = Convert.ToInt32(str11[2]);
+                    levelPtPairs.Add(Convert.ToByte(str11[0]), Convert.ToByte(str11[2]));
+                }
+            }
+
+            // 收藏等级和收藏编号
+            str1 = txtFileList["collectionrenewal\\essenitem_collectionrenewal_itemlist"];
+            for (int index1 = 1; index1 < str1.Length; ++index1)
+            {
+                string[] str11 = StringDivide(str1[index1]);
+                if (list.ContainsKey(Convert.ToInt32(str11[0])) && levelPtPairs.ContainsKey(Convert.ToByte(str11[1])))
+                {
+                    list[Convert.ToInt32(str11[0])].Level = Convert.ToByte(str11[1]);
+                    list[Convert.ToInt32(str11[0])].Point = levelPtPairs[Convert.ToByte(str11[1])];
+                    list[Convert.ToInt32(str11[0])].Id = Convert.ToInt32(str11[3]);
                 }
             }
 
@@ -2078,6 +2136,8 @@ namespace TalesRunnerForm
             #endregion
         }
 
+
+
         /// <summary>
         /// 获取道具对应的图片名
         /// </summary>
@@ -2086,7 +2146,7 @@ namespace TalesRunnerForm
         /// <param name="itemKind"></param>
         /// <param name="level"></param>
         /// <returns>图片名</returns>
-        private static string GetItemImageName(byte @char, ushort position, ushort itemKind, byte level)
+        private static string GetItemImageName(byte @char, ushort position, uint itemKind, byte level)
         {
             Imagepath.Length = 0;
             // if (Char > 50)
@@ -2128,7 +2188,7 @@ namespace TalesRunnerForm
             //        position[Position]);
             Imagepath.AppendFormat("{0:D3}", itemKind);
 
-            if (level == 6) // 不需要删除"_ef_my"直接读取SSS图片
+            if (level == 7) // 不需要删除"_ef_my"直接读取SSS图片
             {
                 Imagepath.Append("_ef_my");
             }
@@ -2144,7 +2204,7 @@ namespace TalesRunnerForm
         /// <param name="position"></param>
         /// <param name="itemKind"></param>
         /// <returns>模型名</returns>
-        private static string GetItemModelName(byte @char, ushort position, ushort itemKind)
+        private static string GetItemModelName(byte @char, ushort position, uint itemKind)
         {
             Modelpath.Length = 0;
             // if (Char > 50)
@@ -2377,7 +2437,7 @@ namespace TalesRunnerForm
                             Attr = attrList,
                             Sex = Convert.ToByte(strArray3[14]),
                             Occupation = Convert.ToInt16(strArray3[15]),
-                            Chars = Convert.ToInt32(strArray3[16]),
+                            Chars = Convert.ToInt64(strArray3[16]),
                             Slot = Convert.ToInt32(strArray3[17]),
                             Desc = strArray3[18]
                         });
@@ -2403,7 +2463,7 @@ namespace TalesRunnerForm
                             Attr = attrList,
                             Sex = Convert.ToByte(strArray3[14]),
                             Occupation = Convert.ToInt16(strArray3[15]),
-                            Chars = Convert.ToInt32(strArray3[16]),
+                            Chars = Convert.ToInt64(strArray3[16]),
                             Slot = Convert.ToInt32(strArray3[17])
 
                         });
@@ -2547,38 +2607,21 @@ namespace TalesRunnerForm
                     }
                     if (memberList1.Count > 1)
                     {
-                        bool flag_no100pro = false;
-                        for (int i = 0; i < weightList1.Count; i++)
+                        ItemBox.Add(new ItemBoxStatus
                         {
-                            if (weightList1[i] != 1)
-                            {
-                                flag_no100pro = true;
-                                break;
-                            }
-                        }
-
-                        if (flag_no100pro)
-                        {
-                            ItemBox.Add(new ItemBoxStatus
-                            {
-                                BoxNum = Convert.ToInt32(strArray3[0]),
-                                WeightTotalBasic = Convert.ToSingle(strArray3[1]),
-                                WeightTotalSilver = Convert.ToSingle(strArray3[2]),
-                                WeightTotalGold = Convert.ToSingle(strArray3[3]),
-                                SilverRate = Convert.ToSingle(strArray3[4]),
-                                Position = Convert.ToInt32(strArray3[5]),
-                                MemberBasic = memberList1,
-                                WeightBasic = weightList1,
-                                MemberSilver = memberList2,
-                                WeightSilver = weightList2,
-                                MemberGold = memberList3,
-                                WeightGold = weightList3
-                            });
-                        }
-                        else
-                        {
-                            ListBoxBan.Add(Convert.ToInt32(strArray3[0]));
-                        }
+                            BoxNum = Convert.ToInt32(strArray3[0]),
+                            WeightTotalBasic = Convert.ToSingle(strArray3[1]),
+                            WeightTotalSilver = Convert.ToSingle(strArray3[2]),
+                            WeightTotalGold = Convert.ToSingle(strArray3[3]),
+                            SilverRate = Convert.ToSingle(strArray3[4]),
+                            Position = Convert.ToInt32(strArray3[5]),
+                            MemberBasic = memberList1,
+                            WeightBasic = weightList1,
+                            MemberSilver = memberList2,
+                            WeightSilver = weightList2,
+                            MemberGold = memberList3,
+                            WeightGold = weightList3
+                        });
                     }
                 }
                 else
@@ -2646,7 +2689,8 @@ namespace TalesRunnerForm
             strings[12] = Item[tagItem].Desc;
             for (int i = 0; i < Characters; i++)
             {
-                if ((Item[tagItem].Chars & (1 << i)) != 0)
+                long temp = 1; 
+                if ((Item[tagItem].Chars & (temp << i)) != 0)
                 {
                     strings[11] = strings[11] + ItemStatus.GetChar(i + 1) + "\r\n";
                 }

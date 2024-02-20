@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.Layout;
@@ -238,8 +239,10 @@ namespace TalesRunnerForm
                 for (int i = 0; i < PerPageShow; i++)
                 {
                     int index = i;
+                    Calculation calculation = TrData.Divide;
+                    string rate = rateToString(_weightBasic[index],_weightTotalBasic);
                     GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]) : Resources.noImage;
-                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
+                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index] + ", " + rate);
                 }
             }
             else
@@ -247,8 +250,9 @@ namespace TalesRunnerForm
                 for (int i = 0; i < total; i++)
                 {
                     int index = i;
+                    string rate = rateToString(_weightBasic[index], _weightTotalBasic);
                     GetpictureBox(i).Image = _picOffsetTotal[index] >= 0 ? _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]) : Resources.noImage;
-                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
+                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index] + ", " + rate);
                 }
                 for (int i = total; i < PerPageShow; i++)
                 {
@@ -416,8 +420,9 @@ namespace TalesRunnerForm
                 for (int i = 0; i < PerPageShow; i++)
                 {
                     int index = _nowPageShow * PerPageShow + i;
+                    string rate = rateToString(_weightBasic[index], _weightTotalBasic);
                     GetpictureBox(i).Image = _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]);
-                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
+                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index] + ", " + rate);
                 }
             }
             else
@@ -425,8 +430,9 @@ namespace TalesRunnerForm
                 for (int i = 0; i < (total % PerPageShow); i++)
                 {
                     int index = _nowPageShow * PerPageShow + i;
+                    string rate = rateToString(_weightBasic[index], _weightTotalBasic);
                     GetpictureBox(i).Image = _showDds(_picOffsetTotal[index], _picPkgNumTotal[index]);
-                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index]);
+                    toolTip1.SetToolTip(GetpictureBox(i), _memberNameTotal[index] + ", " + rate);
                 }
                 for (int i = total % PerPageShow; i < PerPageShow; i++)
                 {
@@ -848,6 +854,20 @@ namespace TalesRunnerForm
             {
                 label33.Text = "出现错误 请重试";
             }
+        }
+
+        /// <summary>
+        /// 为了精准计算概率省的出来一堆小数
+        /// </summary>
+        /// <param name="f1"></param>
+        /// <param name="f2"></param>
+        private string rateToString(float f1, float f2)
+        {
+            Calculation calculation = TrData.Divide;
+            float f3 = calculation(f1, f2);
+            calculation = TrData.Multi;
+            float f4 = calculation(f3, 100);
+            return f4 + "%";
         }
     }
 }

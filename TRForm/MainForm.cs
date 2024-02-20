@@ -956,17 +956,17 @@ namespace TalesRunnerForm
         /// <param name="boxNum">右击的配装图片框序号</param>
         private void PictureBoxdddd_RightClick(int boxNum)
         {
-            _setInt = TrData.PictureBoxdddd_RightClick;
-            int tagItem = _setInt(boxNum);
-            if (tagItem >= 0)
-            {
-                StoneForm stoneForm = new StoneForm(tagItem);
-                stoneForm.ShowDialog();
-                if (stoneForm.IsDisposed)
-                {
-                    StatusShow();
-                }
-            }
+            //_setInt = TrData.PictureBoxdddd_RightClick;
+            //int tagItem = _setInt(boxNum);
+            //if (tagItem >= 0)
+            //{
+            //    StoneForm stoneForm = new StoneForm(tagItem);
+            //    stoneForm.ShowDialog();
+            //    if (stoneForm.IsDisposed)
+            //    {
+            //        StatusShow();
+            //    }
+            //}
         }
 
         /// <summary>

@@ -6,31 +6,53 @@
 
         internal static readonly byte[][] aesKeys =
         {
+            new byte[]
+            {
+                //韩服
+                0x3c, 0x5, 0x64, 0x7c, 0xc8, 0xa0, 0xa8, 0x69, 0xf, 0xc0,
+                0x14, 0x5b, 0xb3, 0x8e, 0x47, 0xf8, 0x51, 0xaa, 0xe3, 0xca,
+                0x77, 0xdc, 0xbe, 0x36, 0x80, 0x52, 0x1d, 0xb8, 0xb, 0xae,
+                0x78, 0xfa
+            },
             new byte[] {
-                
+                // 
                 0xFD, 0xD7, 0x15, 0xCB, 0xBE, 0xBF, 0xA5, 0xFF, 0xEF, 0x9E,
                 0xED, 0x97, 0xCE, 0x96, 0xD3, 0x0F, 0x4C, 0xDC, 0xA0, 0x1D,
                 0xAF, 0x5F, 0xCF, 0xA2, 0xD8, 0xB1, 0x58, 0x08, 0xB9, 0xB6,
                 0xC1, 0x0A
             },
             new byte[] {
-                // 港服、泰服
+                // 
                 0xdb, 0x27, 0x0b, 0xbb, 0x82, 0x88, 0xdf, 0xf3, 0x44, 0xee,
                 0xef, 0x93, 0x67, 0xd1, 0xb5, 0xc2, 0xb6, 0xda, 0x17, 0x59,
                 0x07, 0x75, 0x06, 0x8f, 0x32, 0x4a, 0x9f, 0x29, 0x49, 0x52,
                 0x32, 0xc2
             },
             new byte[] {
-                // 韩服
+                // 
                 0xc, 0xf6, 0xaf, 0xd5, 0x0, 0x48, 0xfe, 0x99, 0xe1, 0xab,
                 0xf9, 0xb6, 0x70, 0x68, 0xad, 0xcd, 0x28, 0x3, 0x8a, 0x6d,
                 0x16, 0x85, 0xe3, 0x7b, 0xeb, 0x9, 0xb, 0x48, 0x4f, 0xb1,
                 0x7e, 0x3
+            },
+            new byte[] {
+                // 港服
+                0xd7, 0x7b, 0xe2, 0xf8, 0x67, 0x26, 0xcf, 0x24, 0x49, 0x29,
+                0xb5, 0xcc, 0x2c, 0x18, 0x43, 0x6d, 0xe1, 0xbb, 0xe3, 0xf6,
+                0xdd, 0x60, 0x28, 0xb8, 0x3e, 0xa9, 0xf0, 0x3f, 0x8, 0xf0,
+                0x53, 0xed
             }
         };
         internal static readonly byte[][] xorKeys =
 {
+            new byte[]
+            {
+                // 韩服
+                0x41, 0x68, 0x1f, 0x16, 0x88, 0xa8, 0xa8, 0x7, 0xe, 0x5a,
+                0x7b, 0x9f, 0x17, 0x38, 0x10, 0x51
+            },
             new byte[] {
+                
                 0x20, 0x44, 0xB2, 0xA3, 0x63, 0xC7, 0x47, 0x88, 0x4D, 0x1E,
                 0x2F, 0x12, 0x90, 0x39, 0x3C, 0x8E
             },
@@ -39,9 +61,16 @@
                 0x4b, 0x82, 0xab, 0x3f, 0x55, 0xfd
             },
             new byte[] {
-                0x7c, 0x82, 0x37, 0xd5, 0x2c, 0xf8, 0x81, 0x9, 0x4d, 0x76, 
+                0x7c, 0x82, 0x37, 0xd5, 0x2c, 0xf8, 0x81, 0x9, 0x4d, 0x76,
                 0x5, 0xf5, 0xe5, 0x47, 0xe8, 0xdf
+            },
+            new byte[]
+            {
+                // 港服
+                0xb8, 0x1d, 0xb1, 0x7f, 0x9d, 0x1e, 0xb1, 0xc9, 0x7e, 0x19,
+                0xf4, 0x6f, 0xd6, 0x7c, 0x4c, 0xcc
             }
+
         };
         internal static readonly byte[] aesKey1 =
         {
@@ -61,8 +90,8 @@
 
         // 数组控制用常量
         // TODO 人物数的自动读取
-        internal const int Characters_kr = 30; // 30个常规角色
-        internal const int Characters_hk = 29; // 29个常规角色
+        internal const int Characters_kr = 35; // 35个常规角色
+        internal const int Characters_hk = 32; // 32个常规角色
         internal const int Positions = 14; // 14个常规部位
 
         internal static readonly string[] CharName =
@@ -95,8 +124,13 @@
             "凯恩",
             "缘迕",
             "血腥维拉",
-            "修内尔",
-            "露露亚"
+            "斯奥莱尔",
+            "露璐亚",
+            "淡延",
+            "赛莉亚",
+            "克洛伊",
+            "席德",
+            "赞萌露比"
         };
 
         internal static readonly int[] CharNum =
@@ -130,21 +164,27 @@
             83404, // 凯恩
             85507, // 缘迕
             91242, // 血腥维拉
-            94708, // 修内尔
-            96962  // 露露亚
+            94708, // 斯奥莱尔
+            96962, // 露璐亚
+            100570, //淡延
+            103534, //赛莉亚
+            109664, //克洛伊
+            113688, //席德
+            114378  //赞萌露比
         };
 
         internal static readonly string[] Level =
         {
-            // 长度7
+            // 长度8
             // 收藏等级
             "No",
-            "C",
-            "B",
-            "A",
-            "S",
-            "SS",
-            "SSS"
+            "普通LV1",
+            "普通LV2",
+            "稀有",
+            "独特",
+            "传说",
+            "威望",
+            "神话"
         };
 
         internal static readonly int[] Limit212 =
@@ -170,7 +210,7 @@
 
         internal static readonly string[] Character =
         {
-            // 长度50
+            // 长度58
             // 全角色通用
             "all_",
             // 普通角色
@@ -204,6 +244,11 @@
             "vrd_",
             "xn_",
             "rl_",
+            "do_",
+            "ce_",
+            "kh_",
+            "sd_",
+            "zm_",
             // 合作角色
             "k1_",
             "k2_",
@@ -287,7 +332,7 @@
 
         internal static readonly int[] CharacterPkg =
         {
-            // 长度31
+            // 长度36
             // TODO 角色自动读取，下拉框
             0, // 预留位，pkgUnpack的调用语句从1开始
             // 普通角色
@@ -320,7 +365,12 @@
             27, // 缘迕
             15, // 血腥维拉
             29, // 修内尔
-            30  // 露露亚
+            30,  // 露露亚
+            31, // 淡延
+            32, // 赛莉亚
+            33, // 克洛伊
+            34, // 席德
+            35  // 赞萌露比
         };
         #endregion
     }
