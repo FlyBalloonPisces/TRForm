@@ -28,7 +28,6 @@ namespace TalesRunnerFormCryptoClassLibrary
             }
 
             byte[] data = Encoding.UTF8.GetBytes(keytext);
-            //System.Buffer.BlockCopy(keytext.ToCharArray(), 0, data, 0, data.Length);
             List<byte> encryptData = new List<byte>();
 
             using (RijndaelManaged aes = new RijndaelManaged())
@@ -37,81 +36,29 @@ namespace TalesRunnerFormCryptoClassLibrary
                 aes.Padding = PaddingMode.None;
                 aes.Key = _defaultKey;
 
-                int length = data.Length;
+                if (keytext != "default")
+                {
+                    ICryptoTransform cTransform = aes.CreateEncryptor();
+                    byte[] outData = cTransform.TransformFinalBlock(data, 0, data.Length);
+                    encryptData.AddRange(outData);
+                    aes.Key = encryptData.ToArray();
+                    encryptData.Clear();
+                }
 
-                // Console.WriteLine("Length = " + length);
-
-                ICryptoTransform cTransform = aes.CreateEncryptor();
-                byte[] outData = cTransform.TransformFinalBlock(data, 0, data.Length);
-                encryptData.AddRange(outData);
-                // Array.Copy(out_data, decrypt_data, out_data.Length);
-
-                // Console.WriteLine("decrypt_data = " + System.Text.Encoding.UTF8.GetString (decrypt_data));
-
-                aes.Key = encryptData.ToArray();
-                encryptData.Clear();
 
                 byte[] data2 = new byte[16];
                 Array.Copy(aes.Key, 0, data2, 0, data2.Length);
-                cTransform = aes.CreateEncryptor();
-                byte[] outData2 = cTransform.TransformFinalBlock(data2, 0, data2.Length);
+                ICryptoTransform cTransform2 = aes.CreateEncryptor();
+                byte[] outData2 = cTransform2.TransformFinalBlock(data2, 0, data2.Length);
                 encryptData.AddRange(outData2);
                 byte[] xor = encryptData.ToArray(); 
+
+
                 crypto = new Crypto(aes.Key, xor);
                 _dict.TryAdd(keytext, crypto);
 
             }
-
-            //MemoryStream mStream = new MemoryStream();
-            //RijndaelManaged aes = new RijndaelManaged();
-            //byte[] plainBytes = Encoding.UTF8.GetBytes(keytext);
-
-            //aes.Key = _defaultKey;
-            //aes.Mode = CipherMode.ECB;
-            //aes.Padding = PaddingMode.None;
-
-            //if (keytext != "default")
-            //{
-            //    CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            //    try
-            //    {
-            //        cryptoStream.Write(plainBytes, 0, plainBytes.Length);
-            //        cryptoStream.FlushFinalBlock();
-            //        aes.Key = mStream.ToArray();
-            //    }
-            //    finally
-            //    {
-            //        cryptoStream.Close();
-            //        mStream.Close();
-            //        aes.Clear();
-            //    }
-            //}
-
-            //MemoryStream mStream2 = new MemoryStream();
-            //plainBytes = aes.Key;
-            //var xor = new byte[16];
-            //CryptoStream cryptoStream2 = new CryptoStream(mStream2, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            //try
-            //{
-            //    cryptoStream2.Write(plainBytes, 0, plainBytes.Length);
-            //    cryptoStream2.FlushFinalBlock();
-            //    xor = mStream2.ToArray();
-            //}
-            //finally
-            //{
-            //    cryptoStream2.Close();
-            //    mStream2.Close();
-            //    aes.Clear();
-            //}
-
-
-
             return true;
-        }
-
-        internal static bool TryGet(string keytext, out Crypto crypto)
-        {
-            return _dict.TryGetValue(keytext, out crypto);
         }
 
         internal class Crypto
@@ -136,39 +83,63 @@ namespace TalesRunnerFormCryptoClassLibrary
             }
 
 
-            //internal void Decrypt(ReadOnlySpan<byte> src, Span<byte> dest)
-            //{
-            //    int n = src.Length % 16;
-            //    int len = src.Length - n;
-            //    if (len > 0)
-            //        _aes.DecryptEcb(src[..len], dest[..len], PaddingMode.None);
+            internal byte[] Decrypt(byte[] data)
+            {
+                List<byte> decryptData = new List<byte>();
+                using (RijndaelManaged aes = new RijndaelManaged())
+                {
+                    aes.Mode = CipherMode.ECB;
+                    aes.Padding = PaddingMode.None;
+                    aes.Key = _aes;
 
-            //    if (n == 0)
-            //        return;
+                    int length = data.Length;
+                    int i = 0;
+                    if (length >= 16)
+                    {
+                        int groupNum = length / 16;
+                        ICryptoTransform cTransform = aes.CreateDecryptor();
+                        byte[] outData = cTransform.TransformFinalBlock(data, 0, groupNum * 16);
+                        decryptData.AddRange(outData);
+                        i = groupNum * 16;
+                    }
+                    while (i < length)
+                    {
+                        decryptData.Add(Convert.ToByte(data[i] ^ _xor[i % 16]));
+                        i++;
+                    }
+                    return decryptData.ToArray();
 
-            //    src = src[len..];
-            //    dest = dest[len..];
-            //    var vectorSrc = Unsafe.ReadUnaligned<Vector128<byte>>(ref MemoryMarshal.GetReference(src));
-            //    var vectorXor = Unsafe.ReadUnaligned<Vector128<byte>>(ref MemoryMarshal.GetArrayDataReference(_xor));
-            //    var vectorDest = vectorSrc ^ vectorXor;
-            //    Unsafe.WriteUnaligned(ref MemoryMarshal.GetReference(dest), vectorDest);
-            //}
+                }
+            }
 
-            //internal void Encrypt(ReadOnlySpan<byte> src, Span<byte> dest)
-            //{
-            //    int n = src.Length % 16;
-            //    int len = src.Length - n;
-            //    if (len > 0)
-            //        _aes.EncryptEcb(src[..len], dest[..len], PaddingMode.None);
+            internal byte[] Encrypt(byte[] data)
+            {
+                List<byte> encryptData = new List<byte>();
+                using (RijndaelManaged aes = new RijndaelManaged())
+                {
+                    aes.Mode = CipherMode.ECB;
+                    aes.Padding = PaddingMode.None;
+                    aes.Key = _aes;
 
-            //    src = src[len..];
-            //    dest = dest[len..];
-            //    var xor = _xor.AsSpan();
-            //    for (int i = 0; i < n; i++)
-            //    {
-            //        dest[i] = (byte)(src[i] ^ xor[i]);
-            //    }
-            //}
+                    int length = data.Length;
+                    int i = 0;
+                    if (length >= 16)
+                    {
+                        int groupNum = length / 16;
+                        ICryptoTransform cTransform = aes.CreateEncryptor();
+                        byte[] outData = cTransform.TransformFinalBlock(data, 0, groupNum * 16);
+                        encryptData.AddRange(outData);
+                        i = groupNum * 16;
+                    }
+                    while (i < length)
+                    {
+                        encryptData.Add(Convert.ToByte(data[i] ^ _xor[i % 16]));
+                        i++;
+                    }
+                    return encryptData.ToArray();
+
+                }
+            }
         }
     }
 }
