@@ -52,5 +52,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TRTextProcessingClassLibrary\TRTextProcessingClassLibrary.csproj">
+      <Project>{6b73e41f-ebe2-4762-b29d-d5db4548fd88}</Project>
+      <Name>TRTextProcessingClassLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

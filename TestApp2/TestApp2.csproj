@@ -60,9 +60,9 @@
       <Project>{eeec9176-862e-4374-887b-b411df01755e}</Project>
       <Name>TRCryptoClassLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TRTextProcessingClassLibrary\TRTextProcessingClassLibrary.csproj">
+    <ProjectReference Include="..\TRTextProcessingClassLibraryNet\TRTextProcessingClassLibraryNet.csproj">
       <Project>{3d326a3d-7e79-4d6b-83aa-b416eba51168}</Project>
-      <Name>TRTextProcessingClassLibrary</Name>
+      <Name>TRTextProcessingClassLibraryNet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

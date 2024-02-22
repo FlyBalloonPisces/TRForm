@@ -79,7 +79,10 @@ namespace TalesRunnerFormSunnyUI.Data
         private static bool TestScriptFiles(string folder)
         {
             string[] files = Directory.GetFiles(folder, "tr4.pkg");
-            if (files.Length >= 1)
+#if debug
+            Console.WriteLine("Number of tr4.pkg: " + files.Length);
+#endif
+            if (files.Length == 1)
             {
                 return true;
             }
@@ -111,7 +114,8 @@ namespace TalesRunnerFormSunnyUI.Data
         /// <returns></returns>
         private static bool TestCharFiles(string folder, CryptoClass crypto)
         {
-            SortedList<int, string> keyValuePairs = new SortedList<int, string>();
+            List<string> charPKGList = new List<string>();
+            string[] files = Directory.GetFiles(folder, "char*.pkg");
             //keyValuePairs = Unpack.TestChar(folder, StaticVars.keys2[index]);
             return false;
         }
