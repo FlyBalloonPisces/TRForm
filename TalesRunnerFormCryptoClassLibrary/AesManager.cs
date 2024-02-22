@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.XPath;
 
 namespace TalesRunnerFormCryptoClassLibrary
 {
@@ -24,50 +26,85 @@ namespace TalesRunnerFormCryptoClassLibrary
             {
                 return true;
             }
-            MemoryStream mStream = new MemoryStream();
-            RijndaelManaged aes = new RijndaelManaged();
-            byte[] plainBytes = Encoding.UTF8.GetBytes(keytext);
 
-            aes.Key = _defaultKey;
-            aes.Mode = CipherMode.ECB;
-            aes.Padding = PaddingMode.None;
+            byte[] data = Encoding.UTF8.GetBytes(keytext);
+            //System.Buffer.BlockCopy(keytext.ToCharArray(), 0, data, 0, data.Length);
+            List<byte> encryptData = new List<byte>();
 
-            if (keytext != "default")
+            using (RijndaelManaged aes = new RijndaelManaged())
             {
-                CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
-                try
-                {
-                    cryptoStream.Write(plainBytes, 0, plainBytes.Length);
-                    cryptoStream.FlushFinalBlock();
-                    aes.Key = mStream.ToArray();
-                }
-                finally
-                {
-                    cryptoStream.Close();
-                    mStream.Close();
-                    aes.Clear();
-                }
+                aes.Mode = CipherMode.ECB;
+                aes.Padding = PaddingMode.None;
+                aes.Key = _defaultKey;
+
+                int length = data.Length;
+
+                // Console.WriteLine("Length = " + length);
+
+                ICryptoTransform cTransform = aes.CreateEncryptor();
+                byte[] outData = cTransform.TransformFinalBlock(data, 0, data.Length);
+                encryptData.AddRange(outData);
+                // Array.Copy(out_data, decrypt_data, out_data.Length);
+
+                // Console.WriteLine("decrypt_data = " + System.Text.Encoding.UTF8.GetString (decrypt_data));
+
+                aes.Key = encryptData.ToArray();
+                encryptData.Clear();
+
+                byte[] data2 = new byte[16];
+                Array.Copy(aes.Key, 0, data2, 0, data2.Length);
+                cTransform = aes.CreateEncryptor();
+                byte[] outData2 = cTransform.TransformFinalBlock(data2, 0, data2.Length);
+                encryptData.AddRange(outData2);
+                byte[] xor = encryptData.ToArray(); 
+                crypto = new Crypto(aes.Key, xor);
+                _dict.TryAdd(keytext, crypto);
+
             }
 
-            MemoryStream mStream2 = new MemoryStream();
-            plainBytes = aes.Key;
-            var xor = new byte[16];
-            CryptoStream cryptoStream2 = new CryptoStream(mStream2, aes.CreateEncryptor(), CryptoStreamMode.Write);
-            try
-            {
-                cryptoStream2.Write(plainBytes, 0, plainBytes.Length);
-                cryptoStream2.FlushFinalBlock();
-                xor = mStream2.ToArray();
-            }
-            finally
-            {
-                cryptoStream2.Close();
-                mStream2.Close();
-                aes.Clear();
-            }
+            //MemoryStream mStream = new MemoryStream();
+            //RijndaelManaged aes = new RijndaelManaged();
+            //byte[] plainBytes = Encoding.UTF8.GetBytes(keytext);
 
-            crypto = new Crypto(aes.Key, xor);
-            _dict.TryAdd(keytext, crypto);
+            //aes.Key = _defaultKey;
+            //aes.Mode = CipherMode.ECB;
+            //aes.Padding = PaddingMode.None;
+
+            //if (keytext != "default")
+            //{
+            //    CryptoStream cryptoStream = new CryptoStream(mStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
+            //    try
+            //    {
+            //        cryptoStream.Write(plainBytes, 0, plainBytes.Length);
+            //        cryptoStream.FlushFinalBlock();
+            //        aes.Key = mStream.ToArray();
+            //    }
+            //    finally
+            //    {
+            //        cryptoStream.Close();
+            //        mStream.Close();
+            //        aes.Clear();
+            //    }
+            //}
+
+            //MemoryStream mStream2 = new MemoryStream();
+            //plainBytes = aes.Key;
+            //var xor = new byte[16];
+            //CryptoStream cryptoStream2 = new CryptoStream(mStream2, aes.CreateEncryptor(), CryptoStreamMode.Write);
+            //try
+            //{
+            //    cryptoStream2.Write(plainBytes, 0, plainBytes.Length);
+            //    cryptoStream2.FlushFinalBlock();
+            //    xor = mStream2.ToArray();
+            //}
+            //finally
+            //{
+            //    cryptoStream2.Close();
+            //    mStream2.Close();
+            //    aes.Clear();
+            //}
+
+
 
             return true;
         }

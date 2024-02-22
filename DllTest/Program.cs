@@ -5,8 +5,8 @@ void TRCryptoClassLibraryTest()
 {
     string str = "8913899DAED9410CA8C3ABB2D16102DD";
 
-    byte[] aes_key = TRCryptoClassLibrary.GetKeyClass.AesKey(str);
-    byte[] xor_key = TRCryptoClassLibrary.GetKeyClass.XorKey(str);
+    byte[] aes_key = GetKeyClass.AesKey(str);
+    byte[] xor_key = GetKeyClass.XorKey(str);
 
     for (int i = 0; i < aes_key.Length; i++)
     {
@@ -19,6 +19,7 @@ void TRCryptoClassLibraryTest()
     }
 }
 
+TRCryptoClassLibraryTest();
 // See https://aka.ms/new-console-template for more information
 Console.WriteLine("Hello, World!");
 

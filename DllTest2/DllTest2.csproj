@@ -51,9 +51,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TalesRunnerFormCryptoClassLibrary\TalesRunnerFormCryptoClassLibrary.csproj">
       <Project>{ac22c245-23f5-4686-8abb-7500762f582a}</Project>
       <Name>TalesRunnerFormCryptoClassLibrary</Name>

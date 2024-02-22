@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="TRCryptoClassLibrary">
-      <HintPath>..\TRCryptoClassLibrary\bin\Release\net7.0\TRCryptoClassLibrary.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\TRCryptoClassLibrary\TRCryptoClassLibrary.csproj" />
   </ItemGroup>
 
 </Project>
