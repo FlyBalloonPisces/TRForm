@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TalesRunnerFormCryptoClassL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DllTest2", "..\DllTest2\DllTest2.csproj", "{AC911C6F-A834-470F-AB27-A4F455CF7E3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalesRunnerFormCryptoClassLibrary", "..\TalesRunnerFormCryptoClassLibrary\TalesRunnerFormCryptoClassLibrary.csproj", "{AC22C245-23F5-4686-8ABB-7500762F582A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TalesRunnerFormCryptoClassLibraryStandard", "..\TalesRunnerFormCryptoClassLibraryStandard\TalesRunnerFormCryptoClassLibraryStandard.csproj", "{AC22C245-23F5-4686-8ABB-7500762F582A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TalesRunnerFormCryptoClassLibrary", "..\TalesRunnerFormCryptoClassLibrary\TalesRunnerFormCryptoClassLibrary.csproj", "{1580755A-BB04-423B-AC4E-6599189009BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -236,6 +238,18 @@ Global
 		{AC22C245-23F5-4686-8ABB-7500762F582A}.Release|x64.Build.0 = Release|Any CPU
 		{AC22C245-23F5-4686-8ABB-7500762F582A}.Release|x86.ActiveCfg = Release|Any CPU
 		{AC22C245-23F5-4686-8ABB-7500762F582A}.Release|x86.Build.0 = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|x64.Build.0 = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Debug|x86.Build.0 = Debug|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|x64.ActiveCfg = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|x64.Build.0 = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|x86.ActiveCfg = Release|Any CPU
+		{1580755A-BB04-423B-AC4E-6599189009BD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

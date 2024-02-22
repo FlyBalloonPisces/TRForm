@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TalesRunnerFormCryptoClassLibrary;
 
 
 namespace TalesRunnerFormSunnyUI.Data
@@ -57,15 +58,16 @@ namespace TalesRunnerFormSunnyUI.Data
                 return false;
             }
 
-            int index = -1;
-            index = TestScriptKeys(folder);
+            CryptoClass crypto = TestScriptKeys(folder);
 #if debug
-            Console.WriteLine("TestScriptKeys: " + index);
+            Console.WriteLine("TestScriptKeys: " + crypto.ToString());
 #endif
-            if (index < 0)
+            if (crypto.Equals(null))
             {
                 return false;
             }
+
+            flag = TestCharFiles(folder, crypto);
             return false;
         }
 
@@ -89,16 +91,17 @@ namespace TalesRunnerFormSunnyUI.Data
         /// </summary>
         /// <param name="folder"></param>
         /// <returns>key的index，-1代表需要自行输入key</returns>
-        private static int TestScriptKeys(string folder)
+        private static CryptoClass TestScriptKeys(string folder)
         {
             for (int i = 0; i < StaticVars.keys2.Length; i++)
             {
-                if(Unpack.TestKey(folder, StaticVars.keys2[i]))
+                CryptoClass crypto = new CryptoClass(StaticVars.keys2[i]);
+                if (crypto.TestKey(folder))
                 {
-                    return i;
+                    return crypto;
                 }
             }
-            return -1;
+            return null;
         }
 
         /// <summary>
@@ -106,8 +109,10 @@ namespace TalesRunnerFormSunnyUI.Data
         /// </summary>
         /// <param name="folder"></param>
         /// <returns></returns>
-        private static bool TestCharFiles(string folder)
+        private static bool TestCharFiles(string folder, CryptoClass crypto)
         {
+            SortedList<int, string> keyValuePairs = new SortedList<int, string>();
+            //keyValuePairs = Unpack.TestChar(folder, StaticVars.keys2[index]);
             return false;
         }
 
