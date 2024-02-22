@@ -1,4 +1,4 @@
-﻿namespace TalesRunnerFormCryptoClassLibraryNet
+﻿namespace TalesRunnerFormCryptoClassLibrary
 {
     public class GetKeyClass
     {
@@ -19,7 +19,7 @@
                 if (AesManager.TryAddOrGetKey(key, out crypto))
                 {
 
-                    byte[] aes_key = crypto.GetAes().Key;
+                    byte[] aes_key = crypto.GetAes();
                     return aes_key;
                 }
                 else
