@@ -210,6 +210,7 @@ namespace TalesRunnerFormCryptoClassLibrary
 
                     string ca3Name = temp[1].Trim();
                     string[] temp2 = ca3Name.Split(new char[] { '\\', '\\' }, System.StringSplitOptions.RemoveEmptyEntries);
+                    //https://learn.microsoft.com/zh-cn/dotnet/csharp/how-to/parse-strings-using-split#code-try-4
 #if debugged
                     for (int j = 0; j < temp2.Length; j++)
                     {
