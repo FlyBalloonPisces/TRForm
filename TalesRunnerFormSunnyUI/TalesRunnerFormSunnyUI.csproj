@@ -568,6 +568,10 @@
       <Project>{1580755a-bb04-423b-ac4e-6599189009bd}</Project>
       <Name>TalesRunnerFormCryptoClassLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TRTextProcessingClassLibrary\TRTextProcessingClassLibrary.csproj">
+      <Project>{6b73e41f-ebe2-4762-b29d-d5db4548fd88}</Project>
+      <Name>TRTextProcessingClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

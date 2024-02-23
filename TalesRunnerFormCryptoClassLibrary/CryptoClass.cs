@@ -188,7 +188,7 @@ namespace TalesRunnerFormCryptoClassLibrary
 
 
 
-        public SortedList<int, string> testCharacter(string folder, CryptoClass crypto)
+        public SortedList<int, string> GetCharacter(string folder, CryptoClass crypto)
         {
             string scriptFile = folder + "\\" + "tr4.pkg";
             FileInfo fileInfo = new FileInfo(scriptFile);

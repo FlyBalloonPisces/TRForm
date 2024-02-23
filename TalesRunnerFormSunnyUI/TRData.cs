@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TalesRunnerFormCryptoClassLibrary;
+using TRTextProcessingClassLibrary.Item;
 
 
 namespace TalesRunnerFormSunnyUI.Data
@@ -34,7 +35,7 @@ namespace TalesRunnerFormSunnyUI.Data
         public static void Init()
         {
 #if debug
-            string path = @"E:\TRKR";
+            string path = @"E:\TRHK";
             TestFiles(path);
 #endif
         }
@@ -67,7 +68,18 @@ namespace TalesRunnerFormSunnyUI.Data
                 return false;
             }
 
-            flag = TestCharFiles(folder, crypto);
+            SortedList<uint, TblAvatarItemDescClass> itemdescList = GetItemDesc1(folder, crypto);
+
+            uint[] charItemNumList = GetCharItemNums(folder, crypto, itemdescList);
+
+#if debug
+            for (int i = 0; i < charItemNumList.Length; i++)
+            {
+                Console.WriteLine("charItemNumList[" + i + "]: " + charItemNumList[i]);
+            }
+#endif
+
+            //flag = TestCharFiles(folder, crypto);
             return false;
         }
 
@@ -105,6 +117,37 @@ namespace TalesRunnerFormSunnyUI.Data
                 }
             }
             return null;
+        }
+
+        private static SortedList<uint, TblAvatarItemDescClass> GetItemDesc1(string folder, CryptoClass crypto)
+        {
+            string scriptFile = folder + "\\" + "tr4.pkg";
+            FileInfo fileInfo = new FileInfo(scriptFile);
+            SortedList<uint, TblAvatarItemDescClass> keyValuePairs = new SortedList<uint, TblAvatarItemDescClass>();
+            string[] itemdescList = crypto.GetTexts(fileInfo, "tblavataritemdesc.txt");
+            for (int i = TblAvatarItemDescClass.startIndex; i < itemdescList.Length; i++)
+            {
+                TblAvatarItemDescClass tblAvatarItemDesc = new TblAvatarItemDescClass(itemdescList[i]);
+                if (keyValuePairs.ContainsKey(tblAvatarItemDesc.fdItemNum))
+                {
+#if debug
+                    Console.WriteLine("TblAvatarItemDescClass Duplicate Num: ");
+#endif
+                    continue;
+                }
+                keyValuePairs.Add(tblAvatarItemDesc.fdItemNum, tblAvatarItemDesc);
+            }
+
+            return keyValuePairs;
+        }
+
+        private static uint[] GetCharItemNums(string folder, CryptoClass crypto, SortedList<uint, TblAvatarItemDescClass> itemdescList)
+        {
+            IEnumerable<uint> Query =
+                from item in itemdescList
+                where item.Value.fdPosition == 0 && item.Value.fdCharacter != 0
+                select item.Value.fdItemNum;
+            return Query.ToArray();
         }
 
         /// <summary>
