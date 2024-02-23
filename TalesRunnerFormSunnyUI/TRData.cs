@@ -35,7 +35,7 @@ namespace TalesRunnerFormSunnyUI.Data
         public static void Init()
         {
 #if debug
-            string path = @"E:\TRHK";
+            string path = @"E:\TRKR";
             TestFiles(path);
 #endif
         }
@@ -70,16 +70,30 @@ namespace TalesRunnerFormSunnyUI.Data
 
             SortedList<uint, TblAvatarItemDescClass> itemdescList = GetItemDesc1(folder, crypto);
 
-            uint[] charItemNumList = GetCharItemNums(folder, crypto, itemdescList);
+            uint[] charItemNumList = GetCharItemNums(itemdescList);
 
-#if debug
+            ushort[] charNumList = GetCharNums(itemdescList);
+
+#if debugged
             for (int i = 0; i < charItemNumList.Length; i++)
             {
                 Console.WriteLine("charItemNumList[" + i + "]: " + charItemNumList[i]);
             }
-#endif
 
-            //flag = TestCharFiles(folder, crypto);
+            for (int i = 0; i < charNumList.Length; i++)
+            {
+                Console.WriteLine("charNumList[" + i + "]: " + charNumList[i]);
+            }
+#endif
+            SortedList<string, string> folderList = new SortedList<string, string>();
+            folderList = GetAllFolders(folder, crypto);
+
+
+            flag = TestCharFiles(folder, crypto, folderList);
+
+#if debug
+            Console.WriteLine("TestCharFiles: " + flag);
+#endif
             return false;
         }
 
@@ -141,7 +155,7 @@ namespace TalesRunnerFormSunnyUI.Data
             return keyValuePairs;
         }
 
-        private static uint[] GetCharItemNums(string folder, CryptoClass crypto, SortedList<uint, TblAvatarItemDescClass> itemdescList)
+        private static uint[] GetCharItemNums(SortedList<uint, TblAvatarItemDescClass> itemdescList)
         {
             IEnumerable<uint> Query =
                 from item in itemdescList
@@ -150,17 +164,81 @@ namespace TalesRunnerFormSunnyUI.Data
             return Query.ToArray();
         }
 
+        private static ushort[] GetCharNums(SortedList<uint, TblAvatarItemDescClass> itemdescList)
+        {
+            IEnumerable<ushort> Query =
+                from item in itemdescList
+                where item.Value.fdPosition == 0 && item.Value.fdCharacter != 0
+                select item.Value.fdCharacter;
+            return Query.ToArray();
+        }
+
+        private static SortedList<string, string> GetAllFolders(string folder, CryptoClass crypto)
+        {
+            string[] files = Directory.GetFiles(folder, "*.pkg");
+            SortedList<string, string> folder_dict = new SortedList<string, string>();
+            SortedList<string, List<string>> folder_dict_list = new SortedList<string, List<string>>();
+            foreach (string file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+#if debugged
+                Console.WriteLine(file);
+#endif
+                foreach (var item in crypto.GetFolder(fileInfo))
+                {
+#if debugged
+                    Console.WriteLine(item.Key);
+#endif
+                    if (folder_dict_list.ContainsKey(item.Key))
+                    {
+                        folder_dict_list[item.Key].Add(item.Value);
+                    }
+                    else
+                    {
+                        List<string> list = new List<string>();
+                        list.Add(item.Value);
+                        folder_dict_list.Add(item.Key, list);
+                    }
+                }
+            }
+            foreach (var item in folder_dict_list)
+            {
+                string[] values = item.Value.ToArray();
+                string value = string.Empty;
+                for (int i = 0; i < values.Length; i++)
+                {
+                    value += values[i];
+                    if (i != values.Length - 1)
+                    {
+                        value += ",";
+                    }
+                }
+                folder_dict.Add(item.Key, value);
+            }
+
+            return folder_dict;
+        }
+
         /// <summary>
         /// 测试是否有所有需要的角色pkg
         /// </summary>
         /// <param name="folder"></param>
         /// <returns></returns>
-        private static bool TestCharFiles(string folder, CryptoClass crypto)
+        private static bool TestCharFiles(string folder, CryptoClass crypto, SortedList<string, string> folderList)
         {
-            List<string> charPKGList = new List<string>();
-            string[] files = Directory.GetFiles(folder, "char*.pkg");
-            //keyValuePairs = Unpack.TestChar(folder, StaticVars.keys2[index]);
-            return false;
+            string[] list = crypto.GetCharacterPkg(folder, folderList);
+            for (int i = 0; i < list.Length; i++)
+            {
+                string SearchParttern = list[i] + ".pkg";
+                if(Directory.GetFiles(folder, SearchParttern).Length != 1)
+                {
+#if debug
+                    Console.WriteLine(SearchParttern + " not exist.");
+#endif
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>

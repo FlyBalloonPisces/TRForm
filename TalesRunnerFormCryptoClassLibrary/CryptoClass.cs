@@ -188,13 +188,13 @@ namespace TalesRunnerFormCryptoClassLibrary
 
 
 
-        public SortedList<int, string> GetCharacter(string folder, CryptoClass crypto)
+        public string[] GetCharacterPkg(string folder, SortedList<string, string> folderList)
         {
             string scriptFile = folder + "\\" + "tr4.pkg";
             FileInfo fileInfo = new FileInfo(scriptFile);
-            SortedList<int, string> dict = new SortedList<int, string>();
+            List<string> charPKGList = new List<string>();
             //SortedList<string, string> folder_dict = this.testFolder(folder);
-            string[] startup = crypto.GetTexts(fileInfo, "startup.py");
+            string[] startup = GetTexts(fileInfo, "startup.py");
             for (int i = 0; i < startup.Length; i++)
             {
                 if (startup[i].StartsWith("obj.registerCharacterModel"))
@@ -209,7 +209,7 @@ namespace TalesRunnerFormCryptoClassLibrary
 #endif
 
                     string ca3Name = temp[1].Trim();
-                    string[] temp2 = ca3Name.Split(new char[] { '\\', '\\' });
+                    string[] temp2 = ca3Name.Split(new char[] { '\\', '\\' }, System.StringSplitOptions.RemoveEmptyEntries);
 #if debugged
                     for (int j = 0; j < temp2.Length; j++)
                     {
@@ -221,19 +221,19 @@ namespace TalesRunnerFormCryptoClassLibrary
                     Console.WriteLine(charFolderName);
 #endif
                     int charNum = int.Parse(temp2[1].Substring(9));
-                    //if (folder_dict.ContainsKey(charFolderName))
-                    //{
-                    //    if (!dict.ContainsKey(charNum))
-                    //    {
-                    //        dict.Add(charNum, folder_dict[charFolderName] + "," + ca3Name);
-                    //    }
-                    //}
+                    if (folderList.ContainsKey(charFolderName))
+                    {
+                        if (!charPKGList.Contains(folderList[charFolderName]))
+                        {
+                            charPKGList.Add(folderList[charFolderName]);
+                        }
+                    }
                 }
             }
-            return dict;
+            return charPKGList.ToArray();
         }
 
-        public SortedList<string, string> GetAllFolder(FileInfo fileInfo)
+        public SortedList<string, string> GetFolder(FileInfo fileInfo)
         {
             SortedList<string, string> folder_dict = new SortedList<string, string>();
             string pkg_path = fileInfo.FullName; // 获得pkg_path
@@ -284,7 +284,7 @@ namespace TalesRunnerFormCryptoClassLibrary
                 }
                 //Encoding.RegisterProvider(CodePagesEncodingProvider.Instance); //引入949编码需要
                 string file_title = Encoding.GetEncoding(949).GetString(decompressed_entry_title); //character/characterXX/xxx.pt1
-#if debug
+#if debugged
                 //http://www.exceloffice.net/archives/5750
                 Console.WriteLine("title = " + file_title);
 #endif
