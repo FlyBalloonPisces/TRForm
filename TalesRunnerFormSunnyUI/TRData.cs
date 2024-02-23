@@ -1,4 +1,6 @@
 ﻿#define debug
+#define kr
+//#define hk
 
 using System;
 using System.Collections.Generic;
@@ -34,8 +36,16 @@ namespace TalesRunnerFormSunnyUI.Data
         #region 初始化
         public static void Init()
         {
-#if debug
+#if kr
             string path = @"E:\TRKR";
+#endif
+
+#if hk
+
+            string path = @"E:\TRHK";
+#endif
+
+#if debug
             TestFiles(path);
 #endif
         }
@@ -94,6 +104,13 @@ namespace TalesRunnerFormSunnyUI.Data
 #if debug
             Console.WriteLine("TestCharFiles: " + flag);
 #endif
+
+            flag = TestImageFolders(folderList);
+
+#if debug
+            Console.WriteLine("TestImageFolders: " + flag);
+#endif
+
             return false;
         }
 
@@ -246,9 +263,30 @@ namespace TalesRunnerFormSunnyUI.Data
         /// </summary>
         /// <param name="folder"></param>
         /// <returns></returns>
-        private static bool TestNecessaryFolders(string folder)
+        private static bool TestImageFolders(SortedList<string, string> folderList)
         {
-            return false;
+            for (int i = 0; i < StaticVars.Position.Length; i++)
+            {
+                string folderName = StaticVars.NecessaryFolder[0] + "\\" + StaticVars.Position[i];
+                if (!folderList.ContainsKey(folderName))
+                {
+#if debug
+                    Console.WriteLine(folderName + " not exist.");
+#endif
+                    return false;
+                }
+            }
+
+            string folderName2 = StaticVars.NecessaryFolder[0] + "\\" + "etc";
+            if (!folderList.ContainsKey(folderName2))
+            {
+#if debug
+                Console.WriteLine(folderName2 + " not exist.");
+#endif
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

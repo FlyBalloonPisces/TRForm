@@ -86,8 +86,7 @@ namespace TalesRunnerFormSunnyUI.Data
 
         internal static readonly string[] NecessaryFolder =
         {
-            "guiex\\itemimage",
-            "script"
+            "guiex\\itemimage"
         };
 
         internal static readonly string[] NecessaryText =
