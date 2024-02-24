@@ -560,9 +560,15 @@ namespace TalesRunnerFormSunnyUI.Data
                 
             }
 
-#if debug
-            TestFiles(path);
-#endif
+
+            bool flag = false;
+            flag = TestFiles(path);
+            if (flag)
+            {
+                PathPkg = path;
+                LoadData();
+            }
+
         }
         #endregion
 
@@ -594,10 +600,22 @@ namespace TalesRunnerFormSunnyUI.Data
             }
 
             SortedList<uint, TblAvatarItemDescClass> itemdescList = GetItemDesc1(folder, crypto);
+            if (itemdescList.Count == 0)
+            {
+                return false;
+            }
 
             uint[] charItemNumList = GetCharItemNums(itemdescList);
+            if (charItemNumList.Length == 0)
+            {
+                return false;
+            }
 
             ushort[] charNumList = GetCharNums(itemdescList);
+            if (charNumList.Length == 0)
+            {
+                return false;
+            }
 
 #if debugged
             for (int i = 0; i < charItemNumList.Length; i++)
@@ -612,21 +630,31 @@ namespace TalesRunnerFormSunnyUI.Data
 #endif
             SortedList<string, string> folderList = new SortedList<string, string>();
             folderList = GetAllFolders(folder, crypto);
+            if (folderList.Count == 0)
+            {
+                return false;
+            }
 
 
             flag = TestCharFiles(folder, crypto, folderList);
-
+            if (!flag)
+            {
+                return false;
+            }
 #if debug
             Console.WriteLine("TestCharFiles: " + flag);
 #endif
 
             flag = TestImageFolders(folderList);
-
+            if (!flag)
+            {
+                return false;
+            }
 #if debug
             Console.WriteLine("TestImageFolders: " + flag);
 #endif
 
-            return false;
+            return true;
         }
 
         /// <summary>
@@ -808,8 +836,15 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载本地txt文件，如果无则生成
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadFiles(string folder)
+        public static void LoadData()
         {
+            string folder = PathPkg;
+            LoadItemAttr();
+            LoadItemData();
+            LoadItemOccupation();
+            LoadItemTranslation();
+            LoadItemSetData();
+            //GetItemData2();
             return;
         }
 
@@ -817,8 +852,9 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载道具情况，生成txt文本
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadItemData(string folder)
+        public static void LoadItemData()
         {
+            string folder = PathPkg;
             return;
         }
 
@@ -826,8 +862,9 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载套装情况，生成txt文本
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadItemSetData(string folder)
+        public static void LoadItemSetData()
         {
+            string folder = PathPkg;
             return;
         }
 
@@ -835,8 +872,9 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载属性
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadItemAttr(string folder)
+        public static void LoadItemAttr()
         {
+            string folder = PathPkg;
             return;
         }
 
@@ -844,8 +882,9 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载装备占用
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadItemOccupation(string folder)
+        public static void LoadItemOccupation()
         {
+            string folder = PathPkg;
             return;
         }
 
@@ -853,8 +892,9 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 加载道具翻译
         /// </summary>
         /// <param name="folder"></param>
-        public static void LoadItemTranslation(string folder)
+        public static void LoadItemTranslation()
         {
+            string folder = PathPkg;
             return;
         }
         #endregion
