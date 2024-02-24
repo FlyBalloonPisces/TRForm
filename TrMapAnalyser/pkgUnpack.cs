@@ -1,10 +1,13 @@
-﻿using System;
+﻿#define translate
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using zlib;
+using Microsoft.VisualBasic;
 
 namespace TRMapAnalyser
 {
@@ -58,7 +61,7 @@ namespace TRMapAnalyser
         private static byte[] Decrypt2(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            int keyNum = 1;
+            int keyNum = 0;
             byte[][] aesKeys =
             {
 new byte[]
@@ -246,6 +249,7 @@ new byte[]
                 string pkg_path = fileInfo.FullName; // 获得pkg_path
                                                      //string pkg_dir = fileInfo.FullName.Split('.')[0]; // 获取文件夹
                                                      //string pkg_dir = fileInfo.DirectoryName; // 获取文件夹
+                string pkg_dir = fileInfo.DirectoryName; // 获取文件夹
                 string pkg_name = fileInfo.Name.Split('.')[0]; // 获取文件名：tr1
                 FileStream fs = new FileStream(pkg_path, FileMode.Open, FileAccess.Read); // 打开文件
                 BinaryReader pkg = new BinaryReader(fs);
@@ -329,7 +333,7 @@ new byte[]
                         byte[] decrypted_file_data = decrypted_file_data_list.ToArray();
 
                         MemoryStream ms = new MemoryStream(decrypted_file_data);
-                        StreamReader sr = new StreamReader(ms, Encoding.GetEncoding(949));
+                        StreamReader sr = new StreamReader(ms, Encoding.Unicode);
 
                         List<string> stringList = new List<string>();
                         string line;
@@ -339,6 +343,17 @@ new byte[]
                         }
 
                         string[] readAllLines = stringList.ToArray();
+
+                        string file_path = pkg_dir + "\\" + pkg_name + "\\" + file_title; // 把目录和文件名合成一个路径
+                        string file_dir = Path.GetDirectoryName(file_path);
+                        if (!Directory.Exists(file_dir))
+                        {
+                            Directory.CreateDirectory(file_dir);
+                        }
+
+                        // 文档写入
+                        FileStream fs2 = new FileStream(file_path, FileMode.Create, FileAccess.Write);
+                        StreamWriter streamWriter = new StreamWriter(fs2);
 
 
                         //SortedDictionary<string, string> keyValuePairs = new SortedDictionary<string, string>();
@@ -358,6 +373,49 @@ new byte[]
                                 //    keyValuePairs.Add(attr, value);
                                 //}
                             }
+
+                            if (file_title.EndsWith("_beginner_info.txt"))
+                            {
+                                if(readAllLines[i].StartsWith("name = ") || readAllLines[i].StartsWith("shortname = "))
+                                {
+                                    readAllLines[i] += "(无限冲刺)";
+                                }
+                                if (readAllLines[i].StartsWith("<begin loadingment>"))
+                                {
+                                    readAllLines[i] += "\r\n【无限冲刺】";
+                                }
+                            }
+
+                            if (file_title.EndsWith("_re_league_info.txt"))
+                            {
+                                if (readAllLines[i].StartsWith("name = ") || readAllLines[i].StartsWith("shortname = "))
+                                {
+                                    readAllLines[i] += "(联赛)";
+                                }
+                                if (readAllLines[i].StartsWith("<begin loadingment>"))
+                                {
+                                    readAllLines[i] += "\r\n【联赛地图】";
+                                }
+                            }
+
+                            if (file_title.EndsWith("_anubis_run_info.txt"))
+                            {
+                                if (readAllLines[i].StartsWith("name = ") || readAllLines[i].StartsWith("shortname = "))
+                                {
+                                    readAllLines[i] += "(捉迷藏)";
+                                }
+                                //if (readAllLines[i].StartsWith("<begin loadingment>"))
+                                //{
+                                //    readAllLines[i] += "\r\n【联赛地图】";
+                                //}
+                            }
+
+                            if (!IsKorea(readAllLines[i]))
+                            {
+                                readAllLines[i] = Strings.StrConv(readAllLines[i], VbStrConv.SimplifiedChinese, 0);   //繁体转简体;
+                            }
+                            
+                            streamWriter.WriteLine(readAllLines[i]);
                         }
                         //keyValuePairs.Add("pkgname", pkg_name);
 
@@ -370,8 +428,13 @@ new byte[]
                         //}
 
                         //infoNum++;
-                    }
 
+                        streamWriter.Close();
+                        //BinaryWriter export_file = new BinaryWriter(fs2);
+                        //export_file.Write(decrypted_file_data);
+                        //export_file.Close();
+                    }
+                    
                     fs.Seek(next_entry, 0);
                     num += 1;
                     Console.WriteLine("Unpacking files " + num + " / " + file_num + ": " + pkg_name + "\\" + file_title);
@@ -678,6 +741,18 @@ new byte[]
             byte[] bytes = new byte[str.Length * sizeof(char)];
             System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
             return bytes;
+        }
+
+
+        /// <summary>
+        /// 判断输入字符串是否为包含韩文的函数
+        /// </summary>
+        /// <param name="message"></param>
+        private static bool IsKorea(string message)
+        {
+            System.Text.RegularExpressions.Regex rex =
+            new System.Text.RegularExpressions.Regex(@"[\uAC00-\uD7A3]+");
+            return rex.IsMatch(message);
         }
     }
 }

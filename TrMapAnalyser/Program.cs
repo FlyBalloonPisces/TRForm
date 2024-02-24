@@ -11,7 +11,7 @@ namespace TRMapAnalyser
     {
         static void Main(string[] args)
         {
-            String folder = @"E:\GlobalTR";
+            String folder = @"E:\Mango Runner";
             string[] files = Directory.GetFiles(folder, "map*.pkg");
             List<string> attrs = PkgUnpack.GetMapAttrs(files);
             attrs.Add("pkgname");

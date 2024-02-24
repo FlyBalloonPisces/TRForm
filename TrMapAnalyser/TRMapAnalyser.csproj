@@ -37,6 +37,7 @@
     <Reference Include="DevILNet">
       <HintPath>..\TRUnpack\Resources\DevILNet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
