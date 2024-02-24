@@ -84,6 +84,9 @@
             treeNode28,
             treeNode29,
             treeNode30});
+            System.Windows.Forms.TreeNode treeNode32 = new System.Windows.Forms.TreeNode("其他材料");
+            System.Windows.Forms.TreeNode treeNode33 = new System.Windows.Forms.TreeNode("材料", new System.Windows.Forms.TreeNode[] {
+            treeNode32});
             this.uiSplitContainer1 = new Sunny.UI.UISplitContainer();
             this.uiFlowLayoutPanel1 = new Sunny.UI.UIFlowLayoutPanel();
             this.uiNavBarEquip = new Sunny.UI.UINavBar();
@@ -301,13 +304,20 @@
             treeNode31.Name = "节点5000";
             treeNode31.Tag = "5000";
             treeNode31.Text = "其他";
+            treeNode32.Name = "节点9099";
+            treeNode32.Tag = "9099";
+            treeNode32.Text = "其他材料";
+            treeNode33.Name = "节点9000";
+            treeNode33.Tag = "9000";
+            treeNode33.Text = "材料";
             this.uiNavBarEquip.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode2,
             treeNode9,
             treeNode14,
             treeNode24,
             treeNode26,
-            treeNode31});
+            treeNode31,
+            treeNode33});
             this.uiNavBarEquip.NodeSize = new System.Drawing.Size(100, 45);
             this.uiNavBarEquip.Size = new System.Drawing.Size(723, 50);
             this.uiNavBarEquip.TabIndex = 12;

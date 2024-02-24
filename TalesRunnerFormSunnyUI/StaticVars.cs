@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sunny.UI.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -67,7 +68,7 @@ namespace TalesRunnerFormSunnyUI.Data
         internal static readonly string[] Position =
         {
             // 长度15
-            "character",
+            "character", //0
             "head",
             "topbody",
             "downbody",
@@ -81,7 +82,68 @@ namespace TalesRunnerFormSunnyUI.Data
             "expansion",
             "accwrist",
             "accbooster",
-            "acctail"
+            "acctail" //14
+        };
+
+        internal static readonly string[] PositionName =
+{
+            // 长度
+            "角色", //0
+            "发型",
+            "上衣",
+            "下衣",
+            "鞋子",
+            "头饰",
+            "面饰",
+            "手饰",
+            "背饰",
+            "颈饰",
+            "宠物",
+            "特殊",
+            "手腕",
+            "推进器",
+            "尾巴",//14
+            "套装",
+            "变身",
+            "合作角色",
+            "项链",
+            "称号",
+            "象征",
+            "动作",
+            "道具",
+            "游戏",
+            "活动",
+            "材料"
+        };
+
+        internal static readonly int[] PositionNum2 =
+        {
+            1001,
+            2001,
+            2002,
+            2003,
+            2004,
+            3001,
+            3002,
+            3004,
+            3005,
+            3003,
+            4001,
+            1003,
+            3008,
+            3009,
+            3010,//14
+            9999,
+            1002,
+            1004,
+            3007,
+            5006,
+            5010,
+            1005,
+            1006,
+            5002,
+            5009,
+            9099
         };
 
         internal static readonly string[] NecessaryFolder =
@@ -120,7 +182,7 @@ namespace TalesRunnerFormSunnyUI.Data
         };
 
         internal static readonly string[] LocalText =
-{
+        {
             "itemdata",
             "itemdata2",
             "itemsetdata",
@@ -128,6 +190,45 @@ namespace TalesRunnerFormSunnyUI.Data
             "itemoccupation",
             "itemtranslation"
         };
+        #endregion
+
+        #region 属性区域
+        internal static readonly string[] CardPack =
+        {
+            "套装所属",
+            "四人同心",
+            "亨利城的训练",
+            "阿里巴巴",
+            "彼得潘",
+            "数学王系列",
+            "地狱火之路",
+            "冰河世纪",
+            "甜蜜的饼干树林",
+            "魔笛",
+            "青蛙王子",
+            "被遗忘的天使神殿"
+        };
+
+        internal static readonly string[] PetSeries =
+        {
+            "A型",
+            "B型",
+            "O型",
+            "AB型",
+            "GirlsDay",
+            "GirlFriend",
+            "SEVENTEEN",
+            "BTS",
+            "Astro",
+            "神秘公寓",
+            "天使",
+            "恶魔",
+            "塔罗牌",
+            "超级跑跑角色",
+            "国际象棋"
+        };
+
+
         #endregion
 
 

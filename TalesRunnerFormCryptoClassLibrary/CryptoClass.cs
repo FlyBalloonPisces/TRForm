@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using zlib;
 
@@ -802,6 +803,70 @@ namespace TalesRunnerFormCryptoClassLibrary
             return listResult;
         }
 
+        public byte[] PicFind(string str, long picOffset, short pkgNum)
+        {
+            string pkgPath = str + "\\tr" + pkgNum + ".pkg"; // 获得pkg_path
+            FileStream fs = new FileStream(pkgPath, FileMode.Open, FileAccess.Read); // 打开文件
+            using (BinaryReader pkg = new BinaryReader(fs))
+            {
+                byte[] fileHeader = pkg.ReadBytes(12); // 阅读文件前12字
+                fileHeader = Decrypt(fileHeader); // 解码
+                if (Encoding.UTF8.GetString(fileHeader) != "ACAC35E5-4B7")
+                {
+                    // _ = (int)MessageBox.Show("读取装备图片失败!", "错误");
+                    // Environment.Exit(0);
+                    // Console.WriteLine("Not a valid .pkg file or decryption key has changed");
+                    return null;
+                }
+                //file_header = null;
+                fs.Seek(picOffset, SeekOrigin.Begin); // 从头开始，偏移0x14，读取
+                int entrySize = BitConverter.ToInt32(pkg.ReadBytes(4), 0); // 读取文件，反序读取4个字节
+                                                                           // Console.WriteLine("file_dir = " + entry_size);
+                byte[] entryData = pkg.ReadBytes(entrySize); // 读取文件
+                byte[] decompressedEntryData = DeCompressBytes(entryData); // 解压缩文件数据
+                //entry_data = null;
+                int partNum =
+                    BitConverter.ToInt32(decompressedEntryData.Skip(0x410).Take(4)
+                        .ToArray(), 0); // 获得单元数量
+                long offset = BitConverter.ToInt32(decompressedEntryData.Skip(0x414).Take(4)
+                    .ToArray(), 0); // 获取偏移量
+                //decompressed_entry_data = null;
+                fs.Seek(offset, SeekOrigin.Begin);
+                List<byte> decryptedFileDataList = new List<byte>();
+                for (int i = 0; i < partNum; i++)
+                {
+                    fs.Seek(0x8, SeekOrigin.Current);
+                    int fileSize =
+                        BitConverter.ToInt32(pkg.ReadBytes(4), 0); // encrypted file data size
+                    fs.Seek(0x4, SeekOrigin.Current);
+                    int encryptType = BitConverter.ToInt32(pkg.ReadBytes(4), 0);
+                    byte[] fileData = pkg.ReadBytes(fileSize); // encrypted file data
+                    if ((encryptType & 1) == 1)
+                    {
+                        fileData = DeCompressBytes(fileData);
+                    }
+
+                    if ((encryptType & 2) == 2)
+                    {
+                        fileData = Decrypt2(fileData);
+                    }
+
+                    decryptedFileDataList.AddRange(fileData);
+                    //file_data = null;
+                }
+                // byte[] decrypted_file_data = decrypted_file_data_list.ToArray();
+                // decrypted_file_data_list.Clear();
+                // MemoryStream ms = new MemoryStream(decrypted_file_data);
+                // decrypted_file_data = null; 
+
+                //pkg.Close();
+                // return ms;
+
+                return decryptedFileDataList.ToArray();
+
+            }
+        }
+
         /// <summary>
         /// 报告指定的 System.Byte[] 在此实例中的匹配项的索引枚举。
         /// </summary>
@@ -875,7 +940,6 @@ namespace TalesRunnerFormCryptoClassLibrary
             new System.Text.RegularExpressions.Regex(@"^\d+$");
             return rex.IsMatch(message);
         }
-
 
     }
 }
