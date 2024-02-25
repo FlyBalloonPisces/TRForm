@@ -513,6 +513,12 @@ namespace TRCryptoClassLibrary
 
             // 各角色公共服饰 TODO 改长度
             SortedList<string, short>[] listOc = new SortedList<string, short>[charList.Count];
+
+#if debug
+            SortedList<string, short> listOc1 = new SortedList<string, short>();
+            List<string> listOcError = new List<string>();
+#endif
+
             //SortedList<string, short> listOcAll = new SortedList<string, short>();
             // 各角色专属服饰
             SortedList<string, short> listChar = new SortedList<string, short>();
@@ -634,11 +640,22 @@ namespace TRCryptoClassLibrary
                                                     long p = index + 3;
                                                     for (int i = 0; i < 4; i++)
                                                     {
-                                                        dataOccupy[i] += decryptedFileData[p + i];
+                                                        dataOccupy[i] |= decryptedFileData[p + i];
                                                     }
                                                 }
                                                 string dataOccupy1 = Convert.ToString(dataOccupy[3], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[2], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[1], 2).PadLeft(8, '0') + Convert.ToString(dataOccupy[0], 2).PadLeft(8, '0');
                                                 //data_occupy1.Reverse();
+#if debugged
+                                                if (fileName.EndsWith("mm_topbody_2973.pt1"))
+                                                {
+                                                    Console.WriteLine("mm_topbody_2973.pt1: " + dataOccupy1);
+                                                }
+                                                //if (fileName.EndsWith("xn_accback_2007.pt1"))
+                                                //{
+                                                //    Console.WriteLine("xn_accback_2007.pt1: " + dataOccupy1);
+                                                //}
+#endif
+
                                                 listOcBinary.Add(fileName, dataOccupy1);
 
                                                 //FileStream fs2 = new FileStream(Form1.path + "Character" + ch + "_" + Form2.character[ch] + "occupy.txt", FileMode.Create, FileAccess.Write);
@@ -768,13 +785,58 @@ namespace TRCryptoClassLibrary
                                 occupation += Convert.ToInt16(Convert.ToInt32(pair.Value.Substring(31 - (positionBinary[i] - 1), 1)) * twoX);
                             }
                         }
+
+                        string positionName = pair.Key.Split('_')[1];
+                        short positionSelf = 0;
+
+                        for (int index = 0; index < positionNames.Length; index++)
+                        {
+                            if (positionNames[index].Equals(positionName))
+                            {
+                                positionSelf = (short)(1 << index);
+                                occupation |= positionSelf;
+                            }
+                        }
+
                         
+
+                        
+#if debugged
+                        if (pair.Key.EndsWith("all_topbody_2973.pt1"))
+                        {
+                            Console.WriteLine("all_topbody_2973.pt1: " + occupation);
+                        }
+                        //if (pair.Key.EndsWith("all_accback_2006.pt1"))
+                        //{
+                        //    Console.WriteLine("all_accback_2007.pt1: " + occupation);
+                        //}
+#endif
+
+
                         //_ = (int)MessageBox.Show("Name:" + pair.Key + ",Value:" + pair.Value + ",Oc:" + occupation, "debug");
                         if (Convert.ToInt32(pair.Key.Split('_')[2].Split('.')[0]) >= 1000)
                         {
                             // 公共部件编号1001起步，个人部件编号1起步
                             // 如果是公共部件，则转化为公共名称all开头，便于比较
                             listOc[indexInList].Add(pair.Key.Replace(charShortName, charAllShortName), occupation);
+#if debug
+                            if(listOc1.ContainsKey(pair.Key.Replace(charShortName, charAllShortName)))
+                            {
+                                if (listOc1[pair.Key.Replace(charShortName, charAllShortName)] != occupation)
+                                {
+                                    if(!listOcError.Contains(pair.Key.Replace(charShortName, charAllShortName)))
+                                    {
+                                        listOcError.Add(pair.Key.Replace(charShortName, charAllShortName));
+                                        Console.WriteLine("Oc Not Match: " + pair.Key.Replace(charShortName, charAllShortName));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                listOc1.Add(pair.Key.Replace(charShortName, charAllShortName), occupation);
+                            }
+#endif
+
                         }
                         else
                         {
@@ -799,6 +861,16 @@ namespace TRCryptoClassLibrary
 
             }
 
+#if debug
+            FileStream fs4 = new FileStream(folder + "\\_test\\" + "occupyError.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter export_file4 = new StreamWriter(fs4);
+            foreach (string str in listOcError)
+            {
+                export_file4.Write(str);
+                export_file4.WriteLine();
+            }
+            export_file4.Close();
+#endif
 
             // TODO 考虑单写，搞清数量等
             // 直接返回装备字符串+占用二进制+角色，不再使用角色
