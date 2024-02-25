@@ -24,15 +24,18 @@ namespace TalesRunnerFormSunnyUI.Data
     public static class TRData
     {
         #region 变量区域
+        // TODO: 属性随着配装模块变化
         private static int _topSpd; // 配装最高速度数值
         private static int _acce; // 配装加速度数值
         private static int _pow; // 配装力数值
         private static int _ctrl; // 配装控制数值
         private static int _lv; // 配装等级数值
 
+        // TODO: 配装模块
         // 配装用变量
         //private static readonly int[] P1 = new int[StaticVars.Positions]; // 存放的是索引
         //private static readonly int[] P2 = new int[StaticVars.Positions]; // 存放的是索引
+        //private static readonly int[] P3 = new int[4]; // 存放的是索引
         //private static readonly string[] P1_stone = new string[Positions]; // 存放的是宝石
         //private static readonly string[] P2_stone = new string[Positions]; // 存放的是宝石
 
@@ -43,14 +46,16 @@ namespace TalesRunnerFormSunnyUI.Data
 
         private static readonly SortedList<int, AttrInfo> ItemAttrInfo = new SortedList<int, AttrInfo>();
 
-        static SortedList<int, uint> CharNum = new SortedList<int, uint>(); //存放所有角色道具编号
-        static SortedList<int, string> CharName = new SortedList<int, string>(); //存放所有角色名称，后期不使用专门表格存储
+        // TODO: CharNum, CharName, CharFileName, CharacterNum角色相关常量暂未生成，Position已生成
+        static SortedList<int, uint> CharNum = new SortedList<int, uint>(); // 存放所有角色道具编号
+        static SortedList<int, string> CharName = new SortedList<int, string>(); // 暂未写好，存放所有角色名称，后期不使用专门表格存储
         static SortedList<int, string> CharFileName = new SortedList<int, string>(); //存放所有角色的文件名前缀，0是all_
         static int CharacterNum; //常规角色的数量
         static SortedList<int, string> Position = new SortedList<int, string>(); //存放各个部位的名称，0是角色
 
         static CryptoClass crypto;
 
+        // TODO: 游戏目录设置
         private static string PathPkg = ""; // 游戏目录
         public static string[] PathPkgs = new string[4]; // 游戏目录
         public static string[] KeyVersions = new string[4]; // 对应的key编号
@@ -75,7 +80,7 @@ namespace TalesRunnerFormSunnyUI.Data
             // 非装备用
             public uint ItemNum;
             public string Name = string.Empty;
-            public string NameCh = "(noname)";
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
 
             public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
             public long PicOffset = -1;
@@ -233,7 +238,7 @@ namespace TalesRunnerFormSunnyUI.Data
             public int SetNum;
             public byte Count;
             public string Name = string.Empty;
-            public string NameCh = "(noname)";
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
 
             /// <summary>
             /// 进行特定语言下装备名称的返回
@@ -248,7 +253,7 @@ namespace TalesRunnerFormSunnyUI.Data
 
             public string GetAvatar()
             {
-                return Avatar == 0 ? "AvatarOff" : "AvatarOn";
+                return Avatar == 0 ? "AvatarOff" : "AvatarOn";// TODO:将各类字符串单独化
             }
         }
 
@@ -298,7 +303,7 @@ namespace TalesRunnerFormSunnyUI.Data
             public int ItemNum;
             public byte Level; // 收藏等级
             public string Name = string.Empty;
-            public string NameCh = "(noname)";
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
 
             public byte Point;
 
@@ -376,13 +381,13 @@ namespace TalesRunnerFormSunnyUI.Data
                 }
                 else
                 { 
-                    return "其他"; // TODO
+                    return "其他"; // TODO:将各类字符串单独化
                 }
             }
 
             public string GetAvatar()
             {
-                return Avatar == 0 ? "AvatarOff" : "AvatarOn";
+                return Avatar == 0 ? "AvatarOff" : "AvatarOn";// TODO:将各类字符串单独化
             }
         }
 
@@ -497,7 +502,7 @@ namespace TalesRunnerFormSunnyUI.Data
             public int SetNum;
             public byte Count;
             public string Name = string.Empty;
-            public string NameCh = "(noname)";
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
         }
 
         /// <summary>
@@ -515,7 +520,7 @@ namespace TalesRunnerFormSunnyUI.Data
             public int ItemNum;
             public byte Level; // 收藏等级
             public string Name = string.Empty;
-            public string NameCh = "(noname)";
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
             public byte Point;
             public int Position;
             public int Position2; // 根据页签设置装备位置
@@ -654,6 +659,7 @@ namespace TalesRunnerFormSunnyUI.Data
             Console.WriteLine("TestImageFolders: " + flag);
 #endif
 
+            // TODO: 生成原StaticVars内的部分列表，便于读取
             return true;
         }
 
@@ -854,6 +860,7 @@ namespace TalesRunnerFormSunnyUI.Data
         /// <param name="folder"></param>
         public static void LoadItemData()
         {
+            // TODO: 加载生成或者读取txt
             string folder = PathPkg;
             return;
         }

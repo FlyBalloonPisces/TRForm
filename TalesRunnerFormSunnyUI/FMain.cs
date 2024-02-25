@@ -1,4 +1,6 @@
-﻿using Sunny.UI;
+﻿//#define logic
+
+using Sunny.UI;
 using TalesRunnerFormSunnyUI.About;
 using TalesRunnerFormSunnyUI.Equip;
 using TalesRunnerFormSunnyUI.List;
@@ -43,12 +45,16 @@ namespace TalesRunnerFormSunnyUI
             fMyRoom.Show();
 
             test();
+#if logic
             TRData.Init();
+#endif
         }
 
         private void uiNavBar1_MenuItemClick(string itemText, int menuIndex, int pageIndex)
         {
+            this.ShowProcessForm();
             SelectPage(pageIndex);
+            this.HideProcessForm();
         }
 
         private void test()
