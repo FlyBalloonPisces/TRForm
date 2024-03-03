@@ -14,6 +14,7 @@ namespace TalesRunnerFormSunnyUI.Data
         /// 第二种解包方式的密钥
         /// </summary>
         internal static readonly string[] keys2 = {
+            "default", // 默认无文本加密
             "8913899DAED9410CA8C3ABB2D16102DD" ,
             "D55EA427E57F4914A68FF2466B8366C4",
             "FF4080A5FED649978D94A0031EFFCE3D",

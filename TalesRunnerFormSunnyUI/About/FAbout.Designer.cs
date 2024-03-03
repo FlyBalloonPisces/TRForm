@@ -178,6 +178,7 @@
             this.uiSymbolButtonReboot4.TabIndex = 3;
             this.uiSymbolButtonReboot4.Text = "以此重启";
             this.uiSymbolButtonReboot4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonReboot4.Click += new System.EventHandler(this.uiSymbolButtonReboot4_Click);
             // 
             // uiTextBoxKey4
             // 
@@ -207,6 +208,7 @@
             this.uiSymbolButtonDir4.TabIndex = 1;
             this.uiSymbolButtonDir4.Text = "选择文件夹";
             this.uiSymbolButtonDir4.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonDir4.Click += new System.EventHandler(this.uiSymbolButtonDir4_Click);
             // 
             // uiTextBoxDir4
             // 
@@ -267,6 +269,7 @@
             this.uiSymbolButtonReboot3.TabIndex = 3;
             this.uiSymbolButtonReboot3.Text = "以此重启";
             this.uiSymbolButtonReboot3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonReboot3.Click += new System.EventHandler(this.uiSymbolButtonReboot3_Click);
             // 
             // uiTextBoxKey3
             // 
@@ -296,6 +299,7 @@
             this.uiSymbolButtonDir3.TabIndex = 1;
             this.uiSymbolButtonDir3.Text = "选择文件夹";
             this.uiSymbolButtonDir3.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonDir3.Click += new System.EventHandler(this.uiSymbolButtonDir3_Click);
             // 
             // uiTextBoxDir3
             // 
@@ -356,6 +360,7 @@
             this.uiSymbolButtonReboot2.TabIndex = 3;
             this.uiSymbolButtonReboot2.Text = "以此重启";
             this.uiSymbolButtonReboot2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonReboot2.Click += new System.EventHandler(this.uiSymbolButtonReboot2_Click);
             // 
             // uiTextBoxKey2
             // 
@@ -385,6 +390,7 @@
             this.uiSymbolButtonDir2.TabIndex = 1;
             this.uiSymbolButtonDir2.Text = "选择文件夹";
             this.uiSymbolButtonDir2.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonDir2.Click += new System.EventHandler(this.uiSymbolButtonDir2_Click);
             // 
             // uiTextBoxDir2
             // 
@@ -432,6 +438,7 @@
             this.uiSymbolButtonRefresh1.TabIndex = 4;
             this.uiSymbolButtonRefresh1.Text = "更新数据";
             this.uiSymbolButtonRefresh1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonRefresh1.Click += new System.EventHandler(this.uiSymbolButtonRefresh1_Click);
             // 
             // uiSymbolButtonReboot1
             // 
@@ -445,6 +452,7 @@
             this.uiSymbolButtonReboot1.TabIndex = 3;
             this.uiSymbolButtonReboot1.Text = "以此重启";
             this.uiSymbolButtonReboot1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonReboot1.Click += new System.EventHandler(this.uiSymbolButtonReboot1_Click);
             // 
             // uiTextBoxKey1
             // 
@@ -474,6 +482,7 @@
             this.uiSymbolButtonDir1.TabIndex = 1;
             this.uiSymbolButtonDir1.Text = "选择文件夹";
             this.uiSymbolButtonDir1.TipsFont = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.uiSymbolButtonDir1.Click += new System.EventHandler(this.uiSymbolButtonDir1_Click);
             // 
             // uiTextBoxDir1
             // 

@@ -17,6 +17,7 @@ using System.Windows.Forms.Design;
 using TalesRunnerFormCryptoClassLibrary;
 using TalesRunnerFormSunnyUI.Properties;
 using TRTextProcessingClassLibrary.Item;
+using System.Windows.Forms;
 
 
 namespace TalesRunnerFormSunnyUI.Data
@@ -57,8 +58,10 @@ namespace TalesRunnerFormSunnyUI.Data
 
         // TODO: 游戏目录设置
         private static string PathPkg = ""; // 游戏目录
-        public static string[] PathPkgs = new string[4]; // 游戏目录
-        public static string[] KeyVersions = new string[4]; // 对应的key编号
+        public static readonly string Path = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        private static ServerInfo ActiveServer;
+        public static ServerInfo[] Servers = new ServerInfo[4]; // 游戏目录
+        //public static int[] KeyVersions = new int[4]; // 对应的key编号
         #endregion
 
         #region 数据结构
@@ -393,6 +396,71 @@ namespace TalesRunnerFormSunnyUI.Data
 
         #endregion
 
+        #region 加载用道具数据结构
+
+        /// <summary>
+        /// 道具箱子信息
+        /// </summary>
+        private class ItemBoxStatusMaking
+        {
+            //public List<int> WeightBasic = new List<int>(); // 箱子可以开到的道具的权重
+            //public List<int> MemberBasic = new List<int>(); // 箱子可以开到的道具
+            public SortedList<int, float> MemWeiBasic = new SortedList<int, float>(); // 基本 道具，权重
+            public SortedList<int, float> MemWeiSilver = new SortedList<int, float>(); // 魔方银色 道具，权重
+            public SortedList<int, float> MemWeiGold = new SortedList<int, float>(); // 魔方金色 道具，权重
+            public int BoxNum;
+            public float WeightTotalBasic; // 基本 总权重
+            public float WeightTotalSilver; // 魔方银色 总权重
+            public float WeightTotalGold; // 魔方金色 总权重
+            public int Position; // 道具位置编号
+            public float SilverRate; // 魔方银色概率
+        }
+
+        /// <summary>
+        /// 道具套装信息
+        /// </summary>
+        private class ItemSetStatusMaking
+        {
+            public readonly List<SetAttr> Attr = new List<SetAttr>();
+            public List<int> Member = new List<int>(); // 保存同套装道具编号
+            public byte Avatar;
+            public int SetNum;
+            public byte Count;
+            public string Name = string.Empty;
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
+        }
+
+        /// <summary>
+        /// 道具信息
+        /// </summary>
+        private class ItemStatusMaking
+        {
+            public bool Demand; // 是否需要写入，是否有箱子能够开到该道具
+            public bool Complete; // 生成时是否生成完整的信息，false则只保留编号名称和图片偏移
+            public List<Attr> Attr = new List<Attr>();
+            public byte Avatar; // 0为内装 1为外装
+            public byte Char; // 合作角色编号超过255的情况需要考虑更换数据类型
+            public int Id; // 收藏编号
+            public uint ItemKind; // 道具图片编号
+            public int ItemNum;
+            public byte Level; // 收藏等级
+            public string Name = string.Empty;
+            public string NameCh = "(noname)";// TODO:将各类字符串单独化
+            public byte Point;
+            public int Position;
+            public int Position2; // 根据页签设置装备位置
+            public int SetNum;
+            public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
+            public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
+            public byte Sex; // 装备性别 1男2女
+            public short Occupation; // 装备占用位置 -1代表无占用
+            public long Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
+            public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
+            public string Desc = ""; // 道具介绍
+        }
+
+        #endregion
+
         #region DevIL
 
         /// <summary>
@@ -471,83 +539,87 @@ namespace TalesRunnerFormSunnyUI.Data
 
         #endregion
 
-        #region 加载用道具数据结构
-
-        /// <summary>
-        /// 道具箱子信息
-        /// </summary>
-        private class ItemBoxStatusMaking
+        #region 服务器结构
+        public class ServerInfo
         {
-            //public List<int> WeightBasic = new List<int>(); // 箱子可以开到的道具的权重
-            //public List<int> MemberBasic = new List<int>(); // 箱子可以开到的道具
-            public SortedList<int, float> MemWeiBasic = new SortedList<int, float>(); // 基本 道具，权重
-            public SortedList<int, float> MemWeiSilver = new SortedList<int, float>(); // 魔方银色 道具，权重
-            public SortedList<int, float> MemWeiGold = new SortedList<int, float>(); // 魔方金色 道具，权重
-            public int BoxNum;
-            public float WeightTotalBasic; // 基本 总权重
-            public float WeightTotalSilver; // 魔方银色 总权重
-            public float WeightTotalGold; // 魔方金色 总权重
-            public int Position; // 道具位置编号
-            public float SilverRate; // 魔方银色概率
-        }
+            public int ServerNum = 0;
+            public string Path = string.Empty;
+            public string Key = string.Empty;
+            public int KeyNum;
 
-        /// <summary>
-        /// 道具套装信息
-        /// </summary>
-        private class ItemSetStatusMaking
-        {
-            public readonly List<SetAttr> Attr = new List<SetAttr>();
-            public List<int> Member = new List<int>(); // 保存同套装道具编号
-            public byte Avatar;
-            public int SetNum;
-            public byte Count;
-            public string Name = string.Empty;
-            public string NameCh = "(noname)";// TODO:将各类字符串单独化
-        }
+            public ServerInfo()
+            {
+                ServerNum = 0;
+                Path = string.Empty;
+                Key = string.Empty;
+                KeyNum = -1;
+            }
 
-        /// <summary>
-        /// 道具信息
-        /// </summary>
-        private class ItemStatusMaking
-        {
-            public bool Demand; // 是否需要写入，是否有箱子能够开到该道具
-            public bool Complete; // 生成时是否生成完整的信息，false则只保留编号名称和图片偏移
-            public List<Attr> Attr = new List<Attr>();
-            public byte Avatar; // 0为内装 1为外装
-            public byte Char; // 合作角色编号超过255的情况需要考虑更换数据类型
-            public int Id; // 收藏编号
-            public uint ItemKind; // 道具图片编号
-            public int ItemNum;
-            public byte Level; // 收藏等级
-            public string Name = string.Empty;
-            public string NameCh = "(noname)";// TODO:将各类字符串单独化
-            public byte Point;
-            public int Position;
-            public int Position2; // 根据页签设置装备位置
-            public int SetNum;
-            public short PkgNum = -1; // 图片文件所在pkg -1代表无图片
-            public long PicOffset = -1; // 图片文件流偏移 -1代表无图片
-            public byte Sex; // 装备性别 1男2女
-            public short Occupation; // 装备占用位置 -1代表无占用
-            public long Chars = -1; // 可以使用该装备的角色 -1代表全部可以使用
-            public int Slot; // 宝石槽相关 每4个2进制位代表1个槽
-            public string Desc = ""; // 道具介绍
-        }
+            public ServerInfo(string str)
+            {
+                string[] strArray = str.Split(',');
+                ServerNum = Convert.ToInt32(strArray[0]);
+                Path = strArray[1];
+                Key = strArray[2];
+                KeyNum = Convert.ToInt32(strArray[3]);
+            }
 
+            public ServerInfo(int serverNum, string path, int keyNum)
+            {
+                ServerNum = serverNum;
+                Path = path;
+                KeyNum = keyNum;
+            }
+
+            public ServerInfo(int serverNum, string path, string key)
+            {
+                ServerNum = serverNum;
+                Path = path;
+                Key = key;
+            }
+
+            public string GetKey()
+            {
+                if (KeyNum >= 0)
+                {
+                    return StaticVars.keys2[KeyNum];
+                }
+                else
+                {
+                    return Key;
+                }
+            }
+
+            override public string ToString()
+            {
+                return ServerNum + "," + Path + "," + Key + "," + KeyNum;
+            }
+        }
         #endregion
 
-
         #region 初始化
-        public static void Init()
+        public static void Init(int serNum, string key, string path)
         {
+            LoadActiveServerInfo();
+
 #if kr
-            string path = @"E:\TRKR";
+            path = @"E:\TRKR";
 #endif
 
 #if hk
 
-            string path = @"E:\TRHK";
+            path = @"E:\TRHK";
 #endif
+            int keyNum = -1;
+            ServerInfo serverInfo;
+            if (int.TryParse(key, out keyNum))
+            {
+                serverInfo = new ServerInfo(serNum, path, keyNum);
+            }
+            else
+            {
+                serverInfo = new ServerInfo(serNum, path, key);
+            }
 
             // 把基础情况先行写入
             CharNum.Add(0, 0);
@@ -567,7 +639,15 @@ namespace TalesRunnerFormSunnyUI.Data
 
 
             bool flag = false;
-            flag = TestFiles(path);
+            if (ActiveServer == null)
+            {
+                flag = TestFiles(path, serverInfo);
+            }
+            else
+            {
+                flag = true;
+            }
+            
             if (flag)
             {
                 PathPkg = path;
@@ -579,11 +659,70 @@ namespace TalesRunnerFormSunnyUI.Data
 
         #region 文件夹读取区域
         /// <summary>
+        /// 通过注册表寻找游戏路径（需要管理员权限）
+        /// 未找到的情况下调用手动指定
+        /// </summary>
+        /// <returns>是否寻找到游戏路径</returns>
+        public static void LoadActiveServerInfo()
+        {
+            string path = Path + "gamepath.txt";
+            if (!File.Exists(path))
+            {
+                SaveServer();
+            }
+
+            string[] readAllLines = File.ReadAllLines(path, Encoding.UTF8);
+            int serverVersion = Convert.ToInt32(readAllLines[0]);
+            for (int i = 1; i < readAllLines.Length; i++)
+            {
+                ServerInfo serverInfo = new ServerInfo(readAllLines[i]);
+                Servers[serverInfo.ServerNum] = serverInfo;
+            }
+        }
+
+        /// <summary>
+        /// 手动指定游戏目录
+        /// </summary>
+        /// <returns>游戏目录是否有效</returns>
+        private static bool ManualPath()
+        {
+            // TODO: 手动指定目录
+            return false;
+        }
+
+        /// <summary>
+        /// 保存服务器文本
+        /// </summary>
+        private static void SaveServer()
+        {
+            // 第一行，启动的版本
+            // 序号，key序号，路径
+            FileStream fs = new FileStream(Path + "gamepath.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter exportFile = new StreamWriter(fs);
+            if(ActiveServer == null)
+            {
+                exportFile.Write(-1);
+            }
+            else
+            {
+                exportFile.Write(ActiveServer.ServerNum);
+            }
+            exportFile.WriteLine();
+
+            for (int i = 0; i < Servers.Length; i++)
+            {
+                exportFile.Write(Servers[i].ToString());
+                exportFile.WriteLine();
+            }
+            exportFile.Close();
+        }
+
+        /// <summary>
         /// 测试路径是否有游戏内容
         /// </summary>
         /// <param name="folder">文件夹路径</param>
         /// <returns></returns>
-        public static bool TestFiles(string folder)
+        public static bool TestFiles(string folder, ServerInfo serverInfo)
         {
             bool flag = false;
             flag = TestScriptFiles(folder);
@@ -697,6 +836,35 @@ namespace TalesRunnerFormSunnyUI.Data
                 }
             }
             return null;
+        }
+
+        public static bool TestScriptKey(ServerInfo serverInfo)
+        {
+            string folder = serverInfo.Path;
+
+            CryptoClass crypto = new CryptoClass(serverInfo.Key);
+            if (crypto.TestKey(folder))
+            {
+                Servers[serverInfo.ServerNum] = serverInfo;
+                return true;
+            }
+            return false;
+        }
+
+        public static bool TestScriptKeys(ServerInfo serverInfo)
+        {
+            string folder = serverInfo.Path;
+            for (int i = 0; i < StaticVars.keys2.Length; i++)
+            {
+                CryptoClass crypto = new CryptoClass(StaticVars.keys2[i]);
+                if (crypto.TestKey(folder))
+                {
+                    serverInfo.KeyNum = i;
+                    Servers[serverInfo.ServerNum] = serverInfo;
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static SortedList<uint, TblAvatarItemDescClass> GetItemDesc1(string folder, CryptoClass crypto)
