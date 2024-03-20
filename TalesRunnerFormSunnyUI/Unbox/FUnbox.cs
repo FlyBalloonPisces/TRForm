@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TalesRunnerFormSunnyUI.Data;
 
 namespace TalesRunnerFormSunnyUI
 {
@@ -16,6 +17,8 @@ namespace TalesRunnerFormSunnyUI
         public FUnbox()
         {
             InitializeComponent();
+
+            TRForm.RegisterFUnbox(this);
         }
     }
 }

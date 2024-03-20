@@ -32,6 +32,7 @@ namespace TalesRunnerFormSunnyUI.Data
         private static int _ctrl; // 配装控制数值
         private static int _lv; // 配装等级数值
 
+
         // TODO: 配装模块
         // 配装用变量
         //private static readonly int[] P1 = new int[StaticVars.Positions]; // 存放的是索引
@@ -1074,6 +1075,17 @@ namespace TalesRunnerFormSunnyUI.Data
         }
         #endregion
 
+        #region 数据
+        internal static void StatStatusBasicChanged(int value1, int value2, int value3, int value4)
+        {
+            _topSpd = value1;
+            _acce = value2;
+            _pow = value3;
+            _ctrl = value4;
+            TRForm.StatStatusBasicChanged(_topSpd, _acce, _pow, _ctrl);
+        }
+        #endregion
+
 
         #region 数值计算
         /// <summary>
@@ -1129,5 +1141,9 @@ namespace TalesRunnerFormSunnyUI.Data
         }
         #endregion
 
+
+        #region NotImplementZone
+
+        #endregion
     }
 }

@@ -17,6 +17,8 @@ namespace TalesRunnerFormSunnyUI.About
         public FAbout()
         {
             InitializeComponent();
+
+            TRForm.RegisterFAbout(this);
         }
 
         private void uiSymbolButtonReboot1_Click(object sender, EventArgs e)

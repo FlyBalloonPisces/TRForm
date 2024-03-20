@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TalesRunnerFormSunnyUI;
+using TalesRunnerFormSunnyUI.Data;
 
 namespace TalesRunnerFormSunnyUI.MyRoom
 {
@@ -21,6 +22,8 @@ namespace TalesRunnerFormSunnyUI.MyRoom
             InitializeComponent();
             uiButton1.Text = "属性\r\n系统";
             SyncAttrValue();
+
+            TRForm.RegisterFMyRoom(this);
         }
 
         public FMyRoom(FMain parent)
@@ -28,6 +31,8 @@ namespace TalesRunnerFormSunnyUI.MyRoom
             InitializeComponent();
             uiButton1.Text = "属性\r\n系统";
             SyncAttrValue();
+
+            TRForm.RegisterFMyRoom(this);
 
             this.parent = parent;
         }
@@ -46,6 +51,16 @@ namespace TalesRunnerFormSunnyUI.MyRoom
             uiProcessBarAcc.Value = 12;
             uiProcessBarPow.Value = 12; 
             uiProcessBarCtrl.Value = 12;
+
+            SyncAttrValue();
+        }
+
+        public void SetAttrValue(int value1, int value2, int value3, int value4)
+        {
+            uiProcessBarMaxSpd.Value = value1;
+            uiProcessBarAcc.Value = value2;
+            uiProcessBarPow.Value = value3;
+            uiProcessBarCtrl.Value = value4;
 
             SyncAttrValue();
         }

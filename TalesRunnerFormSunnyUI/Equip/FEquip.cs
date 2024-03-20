@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TalesRunnerFormSunnyUI;
+using TalesRunnerFormSunnyUI.Data;
 
 namespace TalesRunnerFormSunnyUI.Equip
 {
@@ -18,6 +19,8 @@ namespace TalesRunnerFormSunnyUI.Equip
         public FEquip()
         {
             InitializeComponent();
+
+            TRForm.RegisterFEquip(this);
         }
 
         public override void Init()

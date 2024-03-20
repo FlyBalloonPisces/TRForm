@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="StaticVars.cs" />
     <Compile Include="TRData.cs" />
+    <Compile Include="TRForm.cs" />
     <Compile Include="UIFlowItem.cs">
       <SubType>UserControl</SubType>
     </Compile>

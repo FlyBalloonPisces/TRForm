@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TalesRunnerFormSunnyUI.Data;
 
 namespace TalesRunnerFormSunnyUI.Exchange
 {
@@ -16,6 +17,8 @@ namespace TalesRunnerFormSunnyUI.Exchange
         public FExchange()
         {
             InitializeComponent();
+
+            TRForm.RegisterFExchange(this);
         }
     }
 }

@@ -8,6 +8,7 @@ using TalesRunnerFormSunnyUI.Data;
 using TalesRunnerFormSunnyUI.Exchange;
 using TalesRunnerFormSunnyUI.MyRoom;
 using TalesRunnerFormSunnyUI.Stat;
+using System;
 
 namespace TalesRunnerFormSunnyUI
 {
@@ -16,6 +17,12 @@ namespace TalesRunnerFormSunnyUI
         public FMain()
         {
             InitializeComponent();
+
+            FMyRoom fMyRoom = new FMyRoom(this);
+            fMyRoom.TopLevel = false;
+            fMyRoom.Name = "fMyRoom";
+            uiSplitContainer1.Panel1.Controls.Add(fMyRoom);
+            fMyRoom.Show();
 
             uiNavBar1.TabControl = this.uiTabControl1;
 
@@ -38,11 +45,16 @@ namespace TalesRunnerFormSunnyUI
             //显示默认界面
             uiNavBar1.SelectedIndex = 5;
 
-            FMyRoom fMyRoom = new FMyRoom(this);
-            fMyRoom.TopLevel = false;
-            fMyRoom.Name = "fMyRoom";
-            uiSplitContainer1.Panel1.Controls.Add(fMyRoom);
-            fMyRoom.Show();
+            timer1.Start();
+
+            uiPanel2.Text = "小工具版本：0.0.0.1";
+            uiPanel4.Text = "服务器版本：0.0.0.2";
+            
+
+
+
+            TRForm.RegisterFMain(this);
+            //TRForm.RegisterFMyRoom(fMyRoom);
 
             test();
 #if logic
@@ -66,6 +78,11 @@ namespace TalesRunnerFormSunnyUI
         public void JumpPage(int menuIndex)
         {
             uiNavBar1.SelectedIndex = menuIndex;
+        }
+
+        private void timer1_Tick(object sender, System.EventArgs e)
+        {
+            uiPanel3.Text = DateTime.Now.DateTimeString();
         }
     }
 }

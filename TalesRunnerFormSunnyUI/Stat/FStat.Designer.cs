@@ -237,7 +237,7 @@
             this.uiIntegerUpDown34.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiIntegerUpDown34.Location = new System.Drawing.Point(553, 32);
             this.uiIntegerUpDown34.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown34.Maximum = 20;
+            this.uiIntegerUpDown34.Maximum = 6;
             this.uiIntegerUpDown34.Minimum = 1;
             this.uiIntegerUpDown34.MinimumSize = new System.Drawing.Size(100, 0);
             this.uiIntegerUpDown34.Name = "uiIntegerUpDown34";
@@ -247,7 +247,7 @@
             this.uiIntegerUpDown34.TabIndex = 5;
             this.uiIntegerUpDown34.Text = "uiIntegerUpDown34";
             this.uiIntegerUpDown34.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiIntegerUpDown34.Value = 1;
+            this.uiIntegerUpDown34.Value = 3;
             this.uiIntegerUpDown34.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown34_ValueChanged);
             // 
             // uiIntegerUpDown33
@@ -257,7 +257,7 @@
             this.uiIntegerUpDown33.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiIntegerUpDown33.Location = new System.Drawing.Point(445, 32);
             this.uiIntegerUpDown33.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown33.Maximum = 20;
+            this.uiIntegerUpDown33.Maximum = 6;
             this.uiIntegerUpDown33.Minimum = 1;
             this.uiIntegerUpDown33.MinimumSize = new System.Drawing.Size(100, 0);
             this.uiIntegerUpDown33.Name = "uiIntegerUpDown33";
@@ -267,7 +267,7 @@
             this.uiIntegerUpDown33.TabIndex = 4;
             this.uiIntegerUpDown33.Text = "uiIntegerUpDown33";
             this.uiIntegerUpDown33.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiIntegerUpDown33.Value = 1;
+            this.uiIntegerUpDown33.Value = 3;
             this.uiIntegerUpDown33.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown33_ValueChanged);
             // 
             // uiIntegerUpDown32
@@ -279,7 +279,7 @@
             this.uiIntegerUpDown32.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiIntegerUpDown32.Location = new System.Drawing.Point(337, 32);
             this.uiIntegerUpDown32.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown32.Maximum = 20;
+            this.uiIntegerUpDown32.Maximum = 6;
             this.uiIntegerUpDown32.Minimum = 1;
             this.uiIntegerUpDown32.MinimumSize = new System.Drawing.Size(100, 0);
             this.uiIntegerUpDown32.Name = "uiIntegerUpDown32";
@@ -289,7 +289,7 @@
             this.uiIntegerUpDown32.TabIndex = 3;
             this.uiIntegerUpDown32.Text = "uiIntegerUpDown32";
             this.uiIntegerUpDown32.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiIntegerUpDown32.Value = 1;
+            this.uiIntegerUpDown32.Value = 3;
             this.uiIntegerUpDown32.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown32_ValueChanged);
             // 
             // uiIntegerUpDown31
@@ -301,7 +301,7 @@
             this.uiIntegerUpDown31.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.uiIntegerUpDown31.Location = new System.Drawing.Point(229, 32);
             this.uiIntegerUpDown31.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiIntegerUpDown31.Maximum = 20;
+            this.uiIntegerUpDown31.Maximum = 6;
             this.uiIntegerUpDown31.Minimum = 1;
             this.uiIntegerUpDown31.MinimumSize = new System.Drawing.Size(100, 0);
             this.uiIntegerUpDown31.Name = "uiIntegerUpDown31";
@@ -311,7 +311,7 @@
             this.uiIntegerUpDown31.TabIndex = 2;
             this.uiIntegerUpDown31.Text = "uiIntegerUpDown31";
             this.uiIntegerUpDown31.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.uiIntegerUpDown31.Value = 1;
+            this.uiIntegerUpDown31.Value = 3;
             this.uiIntegerUpDown31.ValueChanged += new Sunny.UI.UIIntegerUpDown.OnValueChanged(this.uiIntegerUpDown31_ValueChanged);
             // 
             // uiGroupBox2
