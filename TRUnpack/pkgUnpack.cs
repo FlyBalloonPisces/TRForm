@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using zlib;
 
 namespace TRUnpack
 {
-    internal static class PkgUnpack
+    public static class PkgUnpack
     {
         private static byte[] Decrypt(byte[] data)
         {
@@ -60,7 +61,7 @@ namespace TRUnpack
         private static byte[] Decrypt2(byte[] data)
         {
             List<byte> decryptData = new List<byte>();
-            int keyNum = 0;
+            int keyNum = 1;
             byte[][] aesKeys =
             {
 new byte[]
