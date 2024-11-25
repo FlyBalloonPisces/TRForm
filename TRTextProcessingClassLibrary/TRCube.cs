@@ -18,6 +18,8 @@ namespace TRTextProcessingClassLibrary
         public float WeightTotalGold { get; set; } // 魔方金色 总权重
         public float SilverRate { get; set; } // 魔方银色概率
 
+        public bool Openable { get; set; } //是否可以开启
+
         public TRCube() :base()
         {
             WeightSilver = new List<float>();
@@ -30,7 +32,7 @@ namespace TRTextProcessingClassLibrary
             SilverRate = 0;
         }
 
-        public TRCube(uint itemNum, string name, string nameCh, byte level, ushort pkgNum, long picOffset, uint position, uint itemKind, bool showDetailImage, string desc, List<float> weightBasic, List<int> memberBasic, List<float> weightSilver, List<int> memberSilver, List<float> weightGold, List<int> memberGold) : base(itemNum, name, nameCh, level, pkgNum, picOffset, position, itemKind, showDetailImage, desc, weightBasic, memberBasic)
+        public TRCube(uint itemNum, string name, string nameCh, byte level, ushort pkgNum, long picOffset, uint position, uint itemKind, bool showDetailImage, string desc, List<float> weightBasic, List<int> memberBasic, List<float> weightSilver, List<int> memberSilver, List<float> weightGold, List<int> memberGold, bool openable) : base(itemNum, name, nameCh, level, pkgNum, picOffset, position, itemKind, showDetailImage, desc, weightBasic, memberBasic, openable)
         {
             WeightSilver = weightSilver;
             MemberSilver = memberSilver;
@@ -50,6 +52,8 @@ namespace TRTextProcessingClassLibrary
                 weightTotalTemp = Calculation.Plus(weightTotalTemp, item);
             }
             WeightTotalGold = weightTotalTemp;
+
+            Openable = openable;
         }
     }
 }
