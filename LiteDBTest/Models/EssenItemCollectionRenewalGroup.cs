@@ -38,7 +38,7 @@ namespace LiteDBTest.Collection
         public EssenItemCollectionRenewalGroup(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdGroup = ushort.Parse(texts[0]);
             this.fdType = ushort.Parse(texts[1]);

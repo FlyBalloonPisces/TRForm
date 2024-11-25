@@ -47,7 +47,7 @@ namespace LiteDBTest.Alchemist.Old
         public TblAlchemistRecipeMixCondition(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdNum = ushort.Parse(texts[0]);
             this.fdRecipeNum = ushort.Parse(texts[1]);

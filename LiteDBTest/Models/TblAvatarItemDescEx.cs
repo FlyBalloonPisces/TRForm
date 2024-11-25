@@ -60,7 +60,7 @@ namespace LiteDBTest.Item
         public TblAvatarItemDescEx(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdNum = uint.Parse(texts[0]);
             this.fdVirtualItemDescNum = uint.Parse(texts[1]);

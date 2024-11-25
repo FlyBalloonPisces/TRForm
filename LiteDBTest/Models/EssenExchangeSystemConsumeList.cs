@@ -38,7 +38,7 @@ namespace LiteDBTest.Exchange
         public EssenExchangeSystemConsumeList(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdExchangeID = uint.Parse(texts[0]);
             this.fdConsumeType = ushort.Parse(texts[1]);

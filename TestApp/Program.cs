@@ -37,7 +37,7 @@ foreach (var item in dict)
 exportFile.Close();
 
 //获得角色名称，道具编号，角色编号
-SortedList<uint, TblAvatarItemDescClass> avatarItemDescList = testClass.testItemChar(path);
+SortedList<uint, TblAvatarItemDesc> avatarItemDescList = testClass.testItemChar(path);
 exportFile = File.AppendText(path + "\\_test\\" + "testItemChar.txt");
 foreach (var item in avatarItemDescList)
 {

@@ -35,7 +35,7 @@ namespace LiteDBTest.Alchemist.Old
         public TblAlchemistRecipe(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdRecipeNum = ushort.Parse(texts[0]);
             this.fdRecipeCardItemDescNum = uint.Parse(texts[1]);

@@ -41,7 +41,7 @@ namespace LiteDBTest.LuckyBag
         public EssenItemCubeReward(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdResultGroup = ushort.Parse(texts[0]);
             this.fdItemNum = uint.Parse(texts[1]);

@@ -154,7 +154,7 @@ namespace TestApp
             {
                 if (startup[i].StartsWith("obj.registerCharacterModel"))
                 {
-                    string[] temp = TRTextProcessingClassLibrary.Tool.StringDivideClass.StringDivide(startup[i]);
+                    string[] temp = TRTextProcessingClassLibrary.Tool.StringDivide.DoDivide(startup[i]);
 #if debugged
                     Console.WriteLine(startup[i]);
                     for (int j = 0; j < temp.Length; j++)
@@ -208,9 +208,9 @@ namespace TestApp
                 }
             }
 
-            for (int i = TRTextProcessingClassLibrary.Item.TblAvatarItemDescClass.startIndex; i < itemdesc.Length; i++)
+            for (int i = TRTextProcessingClassLibrary.Item.TblAvatarItemDesc.startIndex; i < itemdesc.Length; i++)
             {
-                TRTextProcessingClassLibrary.Item.TblAvatarItemDescClass tblAvatarItemDesc = new TRTextProcessingClassLibrary.Item.TblAvatarItemDescClass(itemdesc[i]);
+                TRTextProcessingClassLibrary.Item.TblAvatarItemDesc tblAvatarItemDesc = new TRTextProcessingClassLibrary.Item.TblAvatarItemDesc(itemdesc[i]);
                 StringBuilder fileNameBuilder = new StringBuilder(byte.MaxValue);
                 if (tblAvatarItemDesc.fdPosition <= positionNames.Length && tblAvatarItemDesc.fdPosition > 0)
                 {
@@ -270,17 +270,17 @@ namespace TestApp
             return result_list;
         }
 
-        public SortedList<uint, TblAvatarItemDescClass> testItemChar(string folder)
+        public SortedList<uint, TblAvatarItemDesc> testItemChar(string folder)
         {
 
             TRCryptoClassLibrary.CryptClass crypto = new TRCryptoClassLibrary.CryptClass(aesKey, xorKey, aesKey2, xorKey2);
             string scriptFile = folder + "\\" + "tr4.pkg";
             FileInfo fileInfo = new FileInfo(scriptFile);
-            SortedList<uint, TblAvatarItemDescClass> dict = new SortedList<uint, TblAvatarItemDescClass>();
+            SortedList<uint, TblAvatarItemDesc> dict = new SortedList<uint, TblAvatarItemDesc>();
             string[] texts = crypto.GetTexts(fileInfo, "tblavataritemdesc.txt");
-            for (int i = TblAvatarItemDescClass.startIndex; i < texts.Length; i++)
+            for (int i = TblAvatarItemDesc.startIndex; i < texts.Length; i++)
             {
-                TblAvatarItemDescClass tblAvatarItemDesc = new TblAvatarItemDescClass(texts[i]);
+                TblAvatarItemDesc tblAvatarItemDesc = new TblAvatarItemDesc(texts[i]);
                 if (tblAvatarItemDesc.fdCharacter != 0 && tblAvatarItemDesc.fdPosition == 0)
                 dict.Add(tblAvatarItemDesc.fdItemNum, tblAvatarItemDesc);
             }

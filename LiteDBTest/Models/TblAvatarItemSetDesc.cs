@@ -48,7 +48,7 @@ namespace LiteDBTest.Set
         public TblAvatarItemSetDesc(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.groupIdx = uint.Parse(texts[0]);
             this.memberIdx = uint.Parse(texts[1]);

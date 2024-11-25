@@ -47,7 +47,7 @@ namespace LiteDBTest.Stat
         public EssenStatSystemNodeInfo(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdCatType = uint.Parse(texts[0]);
             this.fdIsMain = bool.Parse(texts[1]);

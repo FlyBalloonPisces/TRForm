@@ -148,7 +148,7 @@ namespace LiteDBTest.Item
         public TblAvatarItemDesc(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             // 录入数据
             this.fdItemNum = uint.Parse(texts[0]); //道具编号

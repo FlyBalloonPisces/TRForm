@@ -32,7 +32,7 @@ namespace LiteDBTest
         public EssenArchivesExchangeList(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdArtifactsNum = uint.Parse(texts[0]);
             this.fdRewardItemNum = uint.Parse(texts[1]);

@@ -200,7 +200,7 @@ namespace TalesRunnerFormCryptoClassLibrary
             {
                 if (startup[i].StartsWith("obj.registerCharacterModel"))
                 {
-                    string[] temp = TRTextProcessingClassLibrary.Tool.StringDivideClass.StringDivide(startup[i]);
+                    string[] temp = TRTextProcessingClassLibrary.Tool.StringDivide.DoDivide(startup[i]);
 #if debugged
                     Console.WriteLine(startup[i]);
                     for (int j = 0; j < temp.Length; j++)

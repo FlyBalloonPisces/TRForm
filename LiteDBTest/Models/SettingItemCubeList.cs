@@ -70,7 +70,7 @@ namespace LiteDBTest.LuckyBag
         public SettingItemCubeList(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdCubeItem = uint.Parse(texts[0]);
             this.fdBronzeCubeCount = ushort.Parse(texts[1]);

@@ -45,7 +45,7 @@ namespace LiteDBTest.Alchemist
         public EssenAlchemistMixCondition(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdItemNum = uint.Parse(texts[0]);
             this.fdClass = ushort.Parse(texts[1]);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TRTextProcessingClassLibrary.Tool;
+using TRTextProcessingClassLibrary.Tools;
 
 namespace TRTextProcessingClassLibrary
 {
@@ -40,14 +40,14 @@ namespace TRTextProcessingClassLibrary
             float weightTotalTemp = 0;
             foreach (var item in weightSilver)
             {
-                weightTotalTemp = CalculationClass.Plus(weightTotalTemp, item);
+                weightTotalTemp = Calculation.Plus(weightTotalTemp, item);
             }
             WeightTotalSilver = weightTotalTemp;
 
             weightTotalTemp = 0;
             foreach (var item in weightGold)
             {
-                weightTotalTemp = CalculationClass.Plus(weightTotalTemp, item);
+                weightTotalTemp = Calculation.Plus(weightTotalTemp, item);
             }
             WeightTotalGold = weightTotalTemp;
         }

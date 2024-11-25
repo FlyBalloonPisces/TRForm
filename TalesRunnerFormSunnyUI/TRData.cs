@@ -744,7 +744,7 @@ namespace TalesRunnerFormSunnyUI.Data
                 return false;
             }
 
-            SortedList<uint, TblAvatarItemDescClass> itemdescList = GetItemDesc1(folder, crypto);
+            SortedList<uint, TblAvatarItemDesc> itemdescList = GetItemDesc1(folder, crypto);
             if (itemdescList.Count == 0)
             {
                 return false;
@@ -868,15 +868,15 @@ namespace TalesRunnerFormSunnyUI.Data
             return false;
         }
 
-        private static SortedList<uint, TblAvatarItemDescClass> GetItemDesc1(string folder, CryptoClass crypto)
+        private static SortedList<uint, TblAvatarItemDesc> GetItemDesc1(string folder, CryptoClass crypto)
         {
             string scriptFile = folder + "\\" + "tr4.pkg";
             FileInfo fileInfo = new FileInfo(scriptFile);
-            SortedList<uint, TblAvatarItemDescClass> keyValuePairs = new SortedList<uint, TblAvatarItemDescClass>();
+            SortedList<uint, TblAvatarItemDesc> keyValuePairs = new SortedList<uint, TblAvatarItemDesc>();
             string[] itemdescList = crypto.GetTexts(fileInfo, "tblavataritemdesc.txt");
-            for (int i = TblAvatarItemDescClass.startIndex; i < itemdescList.Length; i++)
+            for (int i = TblAvatarItemDesc.startIndex; i < itemdescList.Length; i++)
             {
-                TblAvatarItemDescClass tblAvatarItemDesc = new TblAvatarItemDescClass(itemdescList[i]);
+                TblAvatarItemDesc tblAvatarItemDesc = new TblAvatarItemDesc(itemdescList[i]);
                 if (keyValuePairs.ContainsKey(tblAvatarItemDesc.fdItemNum))
                 {
 #if debug
@@ -890,7 +890,7 @@ namespace TalesRunnerFormSunnyUI.Data
             return keyValuePairs;
         }
 
-        private static uint[] GetCharItemNums(SortedList<uint, TblAvatarItemDescClass> itemdescList)
+        private static uint[] GetCharItemNums(SortedList<uint, TblAvatarItemDesc> itemdescList)
         {
             IEnumerable<uint> Query =
                 from item in itemdescList
@@ -899,7 +899,7 @@ namespace TalesRunnerFormSunnyUI.Data
             return Query.ToArray();
         }
 
-        private static ushort[] GetCharNums(SortedList<uint, TblAvatarItemDescClass> itemdescList)
+        private static ushort[] GetCharNums(SortedList<uint, TblAvatarItemDesc> itemdescList)
         {
             IEnumerable<ushort> Query =
                 from item in itemdescList

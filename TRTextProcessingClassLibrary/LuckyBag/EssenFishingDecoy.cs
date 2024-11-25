@@ -1,0 +1,37 @@
+﻿using TRTextProcessingClassLibrary.Tools;
+
+namespace TRTextProcessingClassLibrary.LuckyBag
+{
+    public class EssenFishingDecoy
+    {
+        //"content\\fishing\\essenfishing_decoy",
+        //fdDecoyNum,fdFishNum
+        public uint fdDecoyNum { get; set; } //鱼饵道具编号
+        public uint fdFishNum { get; set; } //渔获道具编号
+
+        public static int startIndex { get; } = 1;//开始读取数据的行
+
+        public static string fileName { get; } = "essenfishing_decoy";
+
+        public EssenFishingDecoy()
+        {
+            fdDecoyNum = 0;
+            fdFishNum = 0;
+        }
+
+        public EssenFishingDecoy(uint fdDecoyNum, uint fdFishNum)
+        {
+            this.fdDecoyNum = fdDecoyNum;
+            this.fdFishNum = fdFishNum;
+        }
+
+        public EssenFishingDecoy(string text)
+        {
+            // 分割文本
+            string[] texts = StringDivide.DoDivide(text);
+
+            this.fdDecoyNum = uint.Parse(texts[0]);
+            this.fdFishNum = uint.Parse(texts[1]);
+        }
+    }
+}

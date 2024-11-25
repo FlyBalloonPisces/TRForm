@@ -44,7 +44,7 @@ namespace LiteDBTest.Exchange
         public EssenExchangeSystemInfo(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdExchangeID = uint.Parse(texts[0]);
             this.fdSystemNum = ushort.Parse(texts[1]);

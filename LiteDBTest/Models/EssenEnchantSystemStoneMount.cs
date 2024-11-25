@@ -35,7 +35,7 @@ namespace LiteDBTest.Enchant
         public EssenEnchantSystemStoneMount(string text)
         {
             // 分割文本
-            string[] texts = StringDivide.StringDivide(text);
+            string[] texts = StringDivide.DoDivide(text);
 
             this.fdItemNum = uint.Parse(texts[0]);
             this.fdAttr = ushort.Parse(texts[1]);
